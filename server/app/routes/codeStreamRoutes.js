@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-require('../../../db/models');
+require('../../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
 var CodeCast = mongoose.model('CodeCast'); 
 
@@ -10,9 +10,9 @@ router.post('/', function(req, res) {
 		text: req.body.text,
 		time: req.body.time
 	})
-	.then(function(snippet{
+	.then(function(snippet){
 		res.json(snippet);
-	}))
+	})
 })
 
 router.get('/', function(req, res){
@@ -22,3 +22,4 @@ router.get('/', function(req, res){
 	})
 })
 
+module.exports = router;
