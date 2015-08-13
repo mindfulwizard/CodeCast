@@ -2,7 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 require('../../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
-var CodeCast = mongoose.model('CodeCast'); 
+//var CodeCast = mongoose.model('CodeCast'); 
 
 
 router.post('/', function(req, res) {

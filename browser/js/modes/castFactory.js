@@ -1,7 +1,7 @@
 app.factory('castFactory', function($http){
 	return {
 		sendText: function(text, time){
-			return $http.post('/textStream', {text: text, time: time})
+			return $http.post('api/live', {text: text, time: time})
 			.then(function(res){
 				return res.data;
 			})
