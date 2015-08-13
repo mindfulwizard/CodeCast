@@ -1,3 +1,5 @@
+'use strict';
+var mongoose = require('mongoose');
 
 var codeCast = new mongoose.Schema({
     codeStream: {

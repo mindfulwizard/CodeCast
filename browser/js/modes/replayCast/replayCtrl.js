@@ -14,7 +14,7 @@ app.controller('replayCtrl', function($scope,$interval, castFactory) {
     }
     
     $scope.getFullCast = function(){
-        liveFactory.getCast()
+        castFactory.getCast()
         .then(function(sliceList){
             sortSlice(sliceList);
             })
