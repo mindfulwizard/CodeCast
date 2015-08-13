@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 
-var codeSlice = new mongoose.Schema({
+var CodeSlice = new mongoose.Schema({
     text: {
         type: String
     },
@@ -15,4 +15,4 @@ var codeSlice = new mongoose.Schema({
 
 
 
-mongoose.model('CodeSlice', codeSlice);
+mongoose.model('CodeSlice', CodeSlice);

@@ -11,6 +11,7 @@ router.post('/', function(req, res) {
 		time: req.body.time
 	})
 	.then(function(snippet){
+		console.log("SNIPPET: ", snippet)
 		res.json(snippet);
 	})
 })

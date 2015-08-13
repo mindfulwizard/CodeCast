@@ -1,23 +1,22 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory) {
-   // $scope.textSnip = "";
-   // $scope.getText = function(text){
-   //      liveFactory.sendText(text);
-   // }
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q) {
    var keystroke = false;
+
+   var timerPromise;
 
    $scope.startRecording = function() {
    		if(!keystroke) {
-   			$interval(function(){
-   				castFactory.sendText($scope.textSnip, new Date());
-   				keystroke = true;
+				keystroke = true;
+            timerPromise = $interval(function(){
+               //console.log($scope.textSnip)
+               castFactory.sendText($scope.textSnip, new Date());
    			}, 500);
    		}
    }
 
+   // promise = $scope.startRecording();
+
    $scope.endInterval = function() {
-   		$interval.cancel(function() {
-   			
-   		});
+   		$interval.cancel(timerPromise);
    }
 
    
