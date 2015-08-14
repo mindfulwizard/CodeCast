@@ -1,5 +1,5 @@
 <section id="live">
-   <textarea ng-model="textSnip" type="text" size="100px" ng-keyup="startRecording()" id="inputBox"></textarea>
+   <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="textSnip" type="text" size="20px" ng-keyup="startRecording()" id="inputBox"></textarea>
    <button ng-click="endInterval()">End interval</button>
    <button ng-click=" getResultCode()">Check your code result</button>
    <div id="sandBoxResult">{{ output }}</div>

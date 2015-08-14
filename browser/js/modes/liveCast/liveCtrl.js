@@ -1,5 +1,19 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope) {
 
+
+   $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        mode: 'javascript',
+        smartIndent: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        keyMap: 'sublime',
+        height: 10 px
+
+
+    };
+
    $scope.output = 'waiting for results'
 
    $scope.$on('console', function(event, data) {
@@ -15,7 +29,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
          if(!keystroke) {
             keystroke = true;
             timerPromise = $interval(function(){
-               // console.log($scope.textSnip)
+               console.log($scope.textSnip)
                castFactory.sendText($scope.textSnip, new Date());
             }, 500);
          }
