@@ -1,5 +1,7 @@
-app.controller('replayCtrl', function($scope,$interval, castFactory) {
-  
+app.controller('replayCtrl', function($scope, $interval, castFactory, $stateParams) {
+    $scope.replayId = $stateParams.replayId;
+    $scope.replayText;
+
     function sortSlices(sliceList){
         return sliceList.sort(function(a,b){
             if (a.time < b.time) return -1;
@@ -8,15 +10,20 @@ app.controller('replayCtrl', function($scope,$interval, castFactory) {
          })
     } 
     
+    var sliceIndex = 0;
+
     function renderFullCast(sortedSlices){
-        for (var i; sortedSlices.length > i; i++) 
-            $interval(console.log(sortedSlices[i]), 500);
+        $interval(function(){
+            $scope.replayText = sortedSlices[sliceIndex].text;   
+            sliceIndex++;
+        }, 500, sortedSlices.length)
+        sliceIndex = 0;
     }
     
     $scope.getFullCast = function(){
-        castFactory.getCast()
+        return castFactory.getCast($scope.replayId)
         .then(function(sliceList){
-            sortSlice(sliceList);
+            return sortSlices(sliceList);
             })
         .then(function(sorted){
             renderFullCast(sorted);

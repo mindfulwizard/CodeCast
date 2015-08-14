@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 
-var codeCast = new mongoose.Schema({
+var codeReplay = new mongoose.Schema({
     author: {
         type: Number
     }
@@ -9,4 +9,4 @@ var codeCast = new mongoose.Schema({
 
 
 
-mongoose.model('CodeCast', codeCast);
+mongoose.model('CodeReplay', codeReplay);
