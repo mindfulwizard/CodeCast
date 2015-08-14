@@ -1,0 +1,12 @@
+<section id="replay">
+	<div>
+		<span>Video list</span>
+	</div>	
+	<div>
+   		<ul>
+   			<li ng-repeat="replay in replays">
+   				<a ui-sref="replayState({replayId: replay._id})">{{replay._id}}</a>
+   			</li>
+   		</ul>
+	</div>
+</section>

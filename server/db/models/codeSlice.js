@@ -8,8 +8,8 @@ var CodeSlice = new mongoose.Schema({
     time: {
         type: Date
     },
-    associatedCast: {
-    	type: Number
+    replayId: {
+    	type: String
     }
 });
 
