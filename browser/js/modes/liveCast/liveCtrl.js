@@ -8,10 +8,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
         smartIndent: true,
         autoCloseBrackets: true,
         matchBrackets: true,
-        keyMap: 'sublime',
-        height: 10 px
-
-
+        keyMap: 'sublime'
     };
 
    $scope.output = 'waiting for results'
@@ -93,13 +90,9 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
              };
       }(window.console));
 
-            var script   = document.createElement("script");
-            script.type  = "text/javascript";
-            // if(console.error()){
-            //    console.log('hi')
-            //    // console.log(console.error());
-            // }
-            script.text  =  $scope.textSnip;
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.text =  $scope.textSnip;
             document.body.appendChild(script);
          }
 
