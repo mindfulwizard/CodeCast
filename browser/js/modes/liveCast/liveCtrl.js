@@ -1,4 +1,4 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope) {
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory) {
 
 
    $scope.editorOptions = {
@@ -40,12 +40,17 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
    }
 
+   $scope.startSharing = function () {
+      socketFactory.emit('instructor writing', {my: 'data'})
+      console.log('works on front end')
+   }
+
    $scope.endInterval = function() {
          $interval.cancel(timerPromise);
    }
 
 
-       $scope.getResultCode = function submitCode(){
+   $scope.getResultCode = function (){
 
          window.console=(function(origConsole){
          // $scope.output = 'nothing yet';
