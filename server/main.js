@@ -22,15 +22,8 @@ var startServer = function () {
     io.on('connection', function(socket){
         console.log('a user connected')
         socket.on('instructor writing', function (data) {
-            console.log('gets it back to the back end bitches')
+            socket.broadcast.emit('change the textSnip', data)
         })
-
-
-
-
-
-
-
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });

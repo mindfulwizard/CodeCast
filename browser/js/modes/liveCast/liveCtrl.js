@@ -1,6 +1,11 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory) {
 
 
+  socketFactory.on('change the textSnip', function (obj) {
+
+    $scope.textSnip = obj.data
+  })
+
    $scope.editorOptions = {
         lineWrapping : true,
         lineNumbers: true,
@@ -14,7 +19,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
    $scope.output = 'waiting for results'
 
    $scope.$on('console', function(event, data) {
-         $scope.output = data.join(' ');
+         $scope.output = '\n' + data
    })  
    
 
@@ -41,8 +46,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
    }
 
    $scope.startSharing = function () {
-      socketFactory.emit('instructor writing', {my: 'data'})
-      console.log('works on front end')
+      socketFactory.emit('instructor writing', {data: $scope.textSnip})
    }
 
    $scope.endInterval = function() {
@@ -69,7 +73,11 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
                    logArray.logs.push(Array.prototype.slice.call(arguments));
                    origConsole.log && origConsole.log.apply(origConsole,arguments);
                    // $scope.output += logArray.logs[0];
-                   $rootScope.$broadcast('console', logArray.logs[0])
+                   var results = [];
+                   logArray.logs.forEach(function (element) {
+                    results.push(element)
+                      $rootScope.$broadcast('console', results);
+                   })
                  
                  },
                  warn: function(){
