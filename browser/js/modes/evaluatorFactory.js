@@ -52,6 +52,7 @@ app.factory('evaluatorFactory', function($http) {
             script.type = "text/javascript";
             script.text = textSnip;
             document.body.appendChild(script);
-        }
+        },
+        replayText: null
     }
 })

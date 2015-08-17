@@ -1,25 +1,9 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory) {
     $scope.replayId = $stateParams.replayId;
-    $scope.replayText;
     $scope.noEditing = true;
     $scope.paused = false;
-
-    $scope.editorOptions = {
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: 'javascript',
-        smartIndent: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        keyMap: 'sublime'
-    };
-
-    $scope.output = 'waiting for results'
-
-    $scope.$on('console', function(event, data) {
-        $scope.output = '\n' + data
-    })
-
+    $scope.forked = false;
+    $scope.replayText;
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -59,12 +43,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
             })
     }
 
-
-    $scope.getResultCode = function() {
-        evaluatorFactory.evalCode($scope.replayText, $rootScope);
-    }
-
-    var pauseReplay = function() {
+     var pauseReplay = function() {
         $scope.paused = true;
         $scope.noEditing = false;
         $interval.cancel(renderPromise);
@@ -84,4 +63,15 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
             pauseReplay();
         }
     }
+
+     $scope.makeFork = function() {
+        pauseReplay();
+        $scope.forked = true;
+        evaluatorFactory.replayText = sortedSlices[sliceIndex-1].text;
+    }
 });
+
+
+
+
+
