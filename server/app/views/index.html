@@ -5,6 +5,7 @@
     <title>Fullstack Academy Generated Application</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/codemirror/lib/codemirror.css">
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
@@ -12,7 +13,18 @@
     <script src="/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
-</head>
+    <script type="text/javascript" src="/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="/codemirror/mode/javascript/javascript.js"></script>
+    <script type="text/javascript" src="/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script type="text/javascript" src="/codemirror/addon/edit/closebrackets.js"></script>
+    <script type="text/javascript" src="/codemirror/addon/edit/matchbrackets.js"></script>
+    <script type="text/javascript" src="/codemirror/keymap/sublime.js"></script>
+    <script src="/socket.io-client/socket.io.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script> var socket = io('http://localhost') </script>
+    <script src="/angular-socket-io/socket.min.js"></script>
+
+    </head>
 <body ng-app="CodeCast">
     <navbar></navbar>
     <div id="main" ui-view></div>

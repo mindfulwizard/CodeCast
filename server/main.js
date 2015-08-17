@@ -7,14 +7,27 @@ var startDb = require('./db');
 
 // Create a node server instance! cOoL!
 var server = require('http').createServer();
+var io;
 
 var createApplication = function () {
     var app = require('./app');
     server.on('request', app); // Attach the Express application.
-    require('./io')(server);   // Attach socket.io.
+    io = require('./io')(server);   // Attach socket.io.
 };
 
+
 var startServer = function () {
+
+
+    io.on('connection', function(socket){
+        console.log('a user connected')
+        socket.on('instructor writing', function (data) {
+            socket.broadcast.emit('change the textSnip', data)
+        })
+        socket.on('disconnect', function(){
+            console.log('user disconnected');
+        });
+    });
 
     var PORT = process.env.PORT || 1337;
 

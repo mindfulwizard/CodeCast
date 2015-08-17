@@ -3,7 +3,7 @@ app.factory('castFactory', function($http){
 		sendText: function(text, time, replayId){
 			return $http.post('/api/live', {text: text, time: time, replayId: replayId})
 			.then(function(res){
-				console.log("res.data: ", res.data);
+				// console.log("res.data: ", res.data);
 				return res.data;
 			})
 		},

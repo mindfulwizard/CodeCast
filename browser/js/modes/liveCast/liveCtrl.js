@@ -1,9 +1,25 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope) {
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory) {
+
+
+  socketFactory.on('change the textSnip', function (obj) {
+
+    $scope.textSnip = obj.data
+  })
+
+   $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        mode: 'javascript',
+        smartIndent: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        keyMap: 'sublime'
+    };
 
    $scope.output = 'waiting for results'
 
    $scope.$on('console', function(event, data) {
-         $scope.output = data.join(' ');
+         $scope.output = '\n' + data
    })  
    
 
@@ -12,6 +28,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
    var replayId;
 
    $scope.startRecording = function() {
+    // console.log('startRecording')
 
    		if(!keystroke) {
 				keystroke = true;
@@ -19,7 +36,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
             castFactory.createReplay()
             .then(function(replayId) {
             timerPromise = $interval(function(){
-               console.log($scope.textSnip)
+               // console.log($scope.textSnip)
                castFactory.sendText($scope.textSnip, new Date(), replayId);
    			}, 500);
                
@@ -29,12 +46,17 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
    }
 
+   $scope.startSharing = function () {
+    // console.log('start sharing')
+      socketFactory.emit('instructor writing', {data: $scope.textSnip})
+   }
+
    $scope.endInterval = function() {
          $interval.cancel(timerPromise);
    }
 
 
-       $scope.getResultCode = function submitCode(){
+   $scope.getResultCode = function (){
 
          window.console=(function(origConsole){
          // $scope.output = 'nothing yet';
@@ -53,7 +75,11 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
                    logArray.logs.push(Array.prototype.slice.call(arguments));
                    origConsole.log && origConsole.log.apply(origConsole,arguments);
                    // $scope.output += logArray.logs[0];
-                   $rootScope.$broadcast('console', logArray.logs[0])
+                   var results = [];
+                   logArray.logs.forEach(function (element) {
+                    results.push(element)
+                      $rootScope.$broadcast('console', results);
+                   })
                  
                  },
                  warn: function(){
@@ -79,13 +105,9 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
              };
       }(window.console));
 
-            var script   = document.createElement("script");
-            script.type  = "text/javascript";
-            // if(console.error()){
-            //    console.log('hi')
-            //    // console.log(console.error());
-            // }
-            script.text  =  $scope.textSnip;
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.text =  $scope.textSnip;
             document.body.appendChild(script);
          }
 
