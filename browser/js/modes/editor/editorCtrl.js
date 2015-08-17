@@ -1,4 +1,6 @@
 app.controller('editorCtrl', function($scope, evaluatorFactory, $rootScope){
+	$scope.replayText = evaluatorFactory.replayText;
+	$scope.output;
 
 	$scope.editorOptions = {
         lineWrapping: true,

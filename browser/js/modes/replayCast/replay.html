@@ -1,10 +1,9 @@
-<section id="replay">
-   <editor></editor>
-   <editor ng-show="forked"></editor>
-</section>
-
-<!-- <div>
-  <environment ng-model="code"></environment>
-
-  <environment ng-show="forked" replayable="false" copy-from="code"></environment>
-</div> -->
+<div>
+  <section id="replay">
+    <button ng-click="getFullCast()">Start Video</button>
+      <editor codeData="replayText"></editor>
+    <button ng-click="pauseContinue()">Pause/Continue</button>
+    <button ng-click="makeFork()">Fork</button>
+     <editor codeData="forkedText" ng-show="forked"></editor>
+  </section>
+<div>
