@@ -28,6 +28,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
    var replayId;
 
    $scope.startRecording = function() {
+    // console.log('startRecording')
 
    		if(!keystroke) {
 				keystroke = true;
@@ -35,7 +36,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
             castFactory.createReplay()
             .then(function(replayId) {
             timerPromise = $interval(function(){
-               console.log($scope.textSnip)
+               // console.log($scope.textSnip)
                castFactory.sendText($scope.textSnip, new Date(), replayId);
    			}, 500);
                
@@ -46,6 +47,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
    }
 
    $scope.startSharing = function () {
+    // console.log('start sharing')
       socketFactory.emit('instructor writing', {data: $scope.textSnip})
    }
 
