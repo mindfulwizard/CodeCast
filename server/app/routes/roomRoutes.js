@@ -8,6 +8,7 @@ var User = mongoose.model('User');
 router.post('/', function(req, res) {
 	var newRoom = new Room();
 
+	// console.log(req.body);
 	//instructor ID ?
 	Room.create({
 		name: req.body.name,

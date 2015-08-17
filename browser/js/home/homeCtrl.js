@@ -3,10 +3,12 @@ app.controller('homeCtrl', function($scope, $rootScope, $state, socketFactory, r
 	roomFactory.getAllRooms()
 		.then(function(rooms) {
 			$scope.rooms = rooms;
+		});
+	$scope.joinRoom = function(id) {
+		// how to get the id of the room??
+		socketFactory.emit('join', id)
+		$state.go('liveState', {
+			roomId: id
 		})
-	// socket.on('give room to front-end', function(obj) {
-	// 	$scope.rooms = obj;
-	// 	console.log("rooms on the scope", $scope.rooms);
-	// })
-	// $state.go('home');
+	}
 });

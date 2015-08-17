@@ -11,9 +11,14 @@ app.controller('roomCtrl', function($scope, $rootScope, $state, socketFactory, r
     // })
     // $state.go('home');
 
-    roomFactory.makeRoom($scope.roomName)
-        .then(function() {
-            console.log('room on the front end created');
-        })
+    $scope.createRoom = function() {
+        roomFactory.makeRoom($scope.roomName)
+            .then(function() {
+                console.log('room on the front end created');
+            })
+            .then(function() {
+                $state.go('home');
+            })
+    }
 
 });

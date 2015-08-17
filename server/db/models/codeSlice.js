@@ -17,11 +17,11 @@ var CodeSlice = new mongoose.Schema({
 	}
 });
 
-CodeSlice.pre('save', function(next) {
-	if (!this.isNew) next();
-	// emit a socket event
-	io.to(this.room).emit('CodeSlice:create', this)
-})
+// CodeSlice.pre('save', function(next) {
+// 	// if (!this.isNew) next();
+// 	// emit a socket event
+// 	io.to(this.room).emit('CodeSlice:create', this)
+// })
 
 
 
