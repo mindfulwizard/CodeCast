@@ -1,9 +1,20 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams) {
 
 
+  socketFactory.on('connect', function(data) {
+    // socketFactory.on('codeHistory', function(data) {
+    //   $scope.textSnip = data;
+    // })
+    socketFactory.on('change the textSnip', function(obj) {
+      $scope.textSnip = obj.data[obj.data.length - 1];
+    })
+  })
+
+  //listener for when codehistory changes on joining a room
+  //everytime the instruction types, change the textsnip
   socketFactory.on('change the textSnip', function(obj) {
 
-    $scope.textSnip = obj.data
+    $scope.textSnip = obj.data[obj.data.length - 1]
   })
 
   $scope.editorOptions = {
