@@ -10,36 +10,19 @@ module.exports = function(server) {
 	io = socketio(server);
 
 
-	function Room(name) {
-		this.name = name;
-		this.id = uuid.v1().toString();
-	}
-
-	function createRoom(name) {
-		var newRoom = new Room(name)
-		rooms[newRoom.id] = newRoom.name;
-		console.log(rooms);
-	}
-
-
-	// client.on('ready', function(f) {
-	// 	createRoom();
-
-
-	// });
 
 	io.on('connection', function(socket) {
 
-		socket.on('createRoom', function(obj) {
-			createRoom(obj.name);
-			socket.emit('give room to front-end', rooms);
-		})
 
 
-		console.log('a user connected')
-		socket.on('instructor writing', function(data) {
-			socket.broadcast.emit('change the textSnip', data)
-		})
+		socket.on('join', function(angularStateParams) {
+			socket.join(angularStateParams.roomId);
+		});
+
+		socket.on('leave', function(angularStateParams) {
+			socket.leave(angularStateParams.roomId);
+		});
+
 		socket.on('disconnect', function() {
 			console.log('user disconnected');
 		});
