@@ -10,6 +10,10 @@ var CodeSlice = new mongoose.Schema({
     },
     replayId: {
     	type: String
+    },
+    evaluated: {
+    	type: Boolean,
+        default: false
     }
 });
 
