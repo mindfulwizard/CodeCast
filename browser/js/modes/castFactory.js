@@ -1,6 +1,5 @@
 app.factory('castFactory', function($http, socketFactory){
 	return {
-
 			// changed this function to sockets
 		// sendText: function(text, time, replayId){
 		// 	return $http.post('/api/live', {text: text, time: time, replayId: replayId})
@@ -9,7 +8,6 @@ app.factory('castFactory', function($http, socketFactory){
 		// 		return res.data;
 		// 	})
 		// },
-
 
 		// on keydown, create socket event to create new snippet
 		sendText: function (text, time, replayId, roomId) {
@@ -38,6 +36,12 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 		addEvalClick: function(time, replayId){
 			return $http.put('/api/replay/' + replayId, {time: time, replayId: replayId})
+			.then(function(res){
+				return res.data;
+			})
+		},
+		saveUserFork: function(forkedText, replayId){
+			return $http.post('/api/forks/'+ replayId, {text: forkedText, replayId: replayId})
 			.then(function(res){
 				return res.data;
 			})

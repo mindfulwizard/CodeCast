@@ -1,25 +1,10 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory) {
     $scope.replayId = $stateParams.replayId;
-    $scope.replayText;
-    $scope.noEditing = true;
     $scope.paused = false;
-
-    $scope.editorOptions = {
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: 'javascript',
-        smartIndent: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        keyMap: 'sublime'
-    };
-
-    $scope.output = 'waiting for results'
-
-    $scope.$on('console', function(event, data) {
-        $scope.output = '\n' + data
-    })
-
+    $scope.forked = false;
+    //$scope.replayText;
+    $scope.videoObj = {text: null};
+    $scope.forkedText = {text: null};
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -36,9 +21,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     function renderFullCast(sortedSlices, index) {
         sliceIndex = index || 0;
         renderPromise = $interval(function() {
-            $scope.replayText = sortedSlices[sliceIndex].text;
+            $scope.videoObj.text = sortedSlices[sliceIndex].text;
             if(sortedSlices[sliceIndex].evaluated) {
-                $scope.getResultCode();
+                evaluatorFactory.evalCode($scope.videoObj.text, $scope);
             }
 
             sliceIndex++;
@@ -59,21 +44,16 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
             })
     }
 
-
-    $scope.getResultCode = function() {
-        evaluatorFactory.evalCode($scope.replayText, $rootScope);
-    }
-
-    var pauseReplay = function() {
+     var pauseReplay = function() {
         $scope.paused = true;
-        $scope.noEditing = false;
+        // console.log(evaluatorFactory.readOnly);
         $interval.cancel(renderPromise);
         renderPromise = undefined;
     }
 
     var continueReplay = function() {
         $scope.paused = false;
-        $scope.noEditing = true;
+        // console.log(evaluatorFactory.readOnly);
         renderFullCast(sortedSlices, sliceIndex - 1)
     }
 
@@ -84,4 +64,24 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
             pauseReplay();
         }
     }
+
+     $scope.makeFork = function() {
+        pauseReplay();
+        $scope.forked = true;
+        $scope.forkedText.text = $scope.videoObj.text;
+        setTimeout(function () {
+            $scope.$apply();
+        }, 0);
+      }
+
+      $scope.saveFork = function(){
+        castFactory.saveUserFork($scope.forkedText.text, $scope.replayId);
+      }
+
+
 });
+
+
+
+
+

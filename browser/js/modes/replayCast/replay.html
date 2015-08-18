@@ -1,17 +1,8 @@
 <section id="replay">
-   <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-readonly="noEditing" type="text" size="200px" ng-model="replayText">{{replayText}}</textarea>
    <button ng-click="getFullCast()">Start Video</button>
-
-
-   <button ng-click="getResultCode()">Check your code result</button>
-
-   <div>
-  <!--  <button ng-click="pauseReplay()">Pause</button>
-   <button ng-click="continueReplay()">Continue</button> -->
-	<button ng-click="pauseContinue()">Pause/Continue</button>
-
-   </div>
-
-   <button>Fork</button>
-   <div id="sandBoxResult">{{ output }}</div>
+     <editor replay-text="videoObj"></editor>
+   <button ng-click="pauseContinue()">Pause/Continue</button>
+   <button ng-click="makeFork()">Fork</button>
+     <editor replay-text="forkedText" ng-if="forked"></editor>
+    <button ng-show="forked" ng-click="saveFork()">Save Fork</button>
 </section>

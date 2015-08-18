@@ -28,7 +28,7 @@ module.exports = function(server) {
 
 					// update codeHistory
 					codeHistory[snippetObj.room] = snippetObj.text;
-
+					console.log('Snippet OBJ', snippetObj);
 					// once new snippet created, emit to the specific room
 					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
 

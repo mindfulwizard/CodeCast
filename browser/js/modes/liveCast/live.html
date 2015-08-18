@@ -1,20 +1,11 @@
+
+
 <section id="live">
-
 	<div ng-keydown="startRecording()">
-	<!-- <div ng-keyup="startSharing()"> -->
-   <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="textSnip" type="text" size="20px" id="inputBox"></textarea>
-	<!-- </div> -->
-</div>
+   		<editor name="live" replay-text="replayObj"></editor>
+	</div>
    <button ng-click="endInterval()">End interval</button>
-
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
-
-   <button ng-click="getResultCode()">Check your code result</button>
-   <div id="sandBoxResult">{{ output }}</div>
 </section>
-
-
-
-
 
 

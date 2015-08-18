@@ -1,6 +1,6 @@
 app.factory('evaluatorFactory', function($http) {
     return {
-        evalCode: function(textSnip, $rootScope) {
+        evalCode: function(textSnip, $scope) {
             window.console = (function(origConsole) {
                 // $scope.output = 'nothing yet';
                 // console.log('the output')
@@ -16,12 +16,12 @@ app.factory('evaluatorFactory', function($http) {
                 return {
                     log: function() {
                         logArray.logs.push(Array.prototype.slice.call(arguments));
-                        origConsole.log && origConsole.log.apply(origConsole, arguments);
+                        //origConsole.log && origConsole.log.apply(origConsole, arguments);
                         // $scope.output += logArray.logs[0];
                         var results = [];
                         logArray.logs.forEach(function(element) {
                             results.push(element)
-                            $rootScope.$broadcast('console', results);
+                            $scope.$broadcast('console', results);
                         })
 
                     },
@@ -52,6 +52,7 @@ app.factory('evaluatorFactory', function($http) {
             script.type = "text/javascript";
             script.text = textSnip;
             document.body.appendChild(script);
-        }
+        },
+        liveEvals: []
     }
 })
