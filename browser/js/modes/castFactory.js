@@ -10,6 +10,8 @@ app.factory('castFactory', function($http, socketFactory){
 		// 	})
 		// },
 
+
+		// on keydown, create socket event to create new snippet
 		sendText: function (text, time, replayId, roomId) {
 			socketFactory.emit('updatedText', {text: text, time: time, replayId: replayId, room: roomId})
 		},

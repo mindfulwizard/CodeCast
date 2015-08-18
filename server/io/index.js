@@ -14,64 +14,33 @@ module.exports = function(server) {
 	if (io) return io;
 	io = socketio(server);
 
+	// keep track of codeHistory of each room
 	var codeHistory = {};
 
 	io.on('connection', function(socket) {
 
+		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function (obj) {
 			CodeSlice.create(obj)
 			.then(function(snippetObj) {
-				if (!codeHistory[snippetObj.room]) {
-				codeHistory[snippetObj.room] = '';
-				}
-				console.log('snippet', obj)
-				codeHistory[snippetObj.room] = snippetObj.text;
-				console.log('codeHistory[snippetObj.room]',codeHistory[snippetObj.room])
+
 				var roomToSendTo = snippetObj.room
-				console.log('roomToSendTo', roomToSendTo)
+	
+				// update codeHistory
+				codeHistory[snippetObj.room] = snippetObj.text;
+				
 				// once new snippet created, emit to the specific room
-				socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text)
+				socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
+
 			})
 		})
 
 		socket.on('join', function (roomId) {
-			console.log('codeHistory', codeHistory)
-			socket.emit('get code history', codeHistory[roomId])
-			socket.join(roomId)
+			
+			socket.emit('get code history', codeHistory[roomId]);
+			socket.join(roomId);
 		})
 
-
-
-
-
-
-
-
-
-
-
-
-		// //when user joins a room , emit history
-		// // console.log('user connected');
-		// socket.on('join', function(angularStateParamsId) {
-
-
-		// 	console.log('codeHistory[...]', codeHistory[angularStateParamsId])
-
-		// 	socket.join(angularStateParamsId)
-
-		// 	if (!codeHistory[angularStateParamsId]) {
-		// 		codeHistory[angularStateParamsId] = '';
-		// 	}
-		// 		// socket.emit('codeHistory', codeHistory[angularStateParamsId]);
-		// });
-
-		// // socket.on('instructor writing', function(obj) {
-
-		// // 	codeHistory[obj.roomId] = obj.data;
-		// // 	var roomToSendTo = obj.roomId
-		// // 	socket.broadcast.to(roomToSendTo).emit('change the textSnip', codeHistory[obj.roomId]);
-		// // })
 
 		socket.on('leave', function(angularStateParams) {
 			socket.leave(angularStateParams.roomId);

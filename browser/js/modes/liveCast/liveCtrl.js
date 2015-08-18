@@ -2,26 +2,13 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
 
     socketFactory.emit('join', $stateParams.roomId)
-    socket.on('get code history', function (history) {
+    socketFactory.on('get code history', function (history) {
+      // if (history === $stateParams.roomId)
       console.log('history',history)
       $scope.textSnip = history;
-      $scope.$apply()
       console.log('$scope', $scope)
     })
-  // $scope.textSnip = codeHistory;
-
-  socketFactory.on('connect', function(data) {
-
-
-
-  //   // socketFactory.on('codeHistory', function(data) {
-  //   //   $scope.textSnip = data;
-  //   // })
-    // socketFactory.on('codeHistory', function(str) {
-    //   $scope.textSnip = str;
-    //   console.log('codehistory', str)
-    // })
-  })
+  
 
   // //listener for when codehistory changes on joining a room
   // //everytime the instruction types, change the textsnip
@@ -56,16 +43,6 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
     // if (!keystroke) {
     //   keystroke = true;
-
-        // modified to sockets
-      // castFactory.createReplay()
-      //   .then(function(replayId) {
-      //     timerPromise = $interval(function() {
-      //       // console.log($scope.textSnip)
-      //       castFactory.sendText($scope.textSnip, new Date(), replayId);
-      //     }, 500);
-
-      //   })
 
         castFactory.createReplay()
         .then(function(replayId) {
