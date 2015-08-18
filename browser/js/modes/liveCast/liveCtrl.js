@@ -1,23 +1,27 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams) {
 
 
-  socketFactory.on('connect', function(data) {
-    socketFactory.emit('join', $stateParams.id)
+  // $scope.textSnip = codeHistory;
 
-    // socketFactory.on('codeHistory', function(data) {
-    //   $scope.textSnip = data;
-    // })
-    socketFactory.on('codeHistory', function(str) {
-      $scope.textSnip = str;
-    })
-  })
+  // socketFactory.on('connect', function(data) {
 
-  //listener for when codehistory changes on joining a room
-  //everytime the instruction types, change the textsnip
-  socketFactory.on('change the textSnip', function(obj) {
+  //   socketFactory.emit('join', $stateParams.roomId)
 
-    $scope.textSnip = obj.data;
-  })
+  // //   // socketFactory.on('codeHistory', function(data) {
+  // //   //   $scope.textSnip = data;
+  // //   // })
+  //   // socketFactory.on('codeHistory', function(str) {
+  //   //   $scope.textSnip = str;
+  //   //   console.log('codehistory', str)
+  //   // })
+  // })
+
+  // // //listener for when codehistory changes on joining a room
+  // // //everytime the instruction types, change the textsnip
+  // socketFactory.on('change the textSnip', function(str) {
+
+  //   $scope.textSnip = str;
+  // })
 
   $scope.editorOptions = {
     lineWrapping: true,
@@ -46,13 +50,19 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     if (!keystroke) {
       keystroke = true;
 
-      castFactory.createReplay()
-        .then(function(replayId) {
-          timerPromise = $interval(function() {
-            // console.log($scope.textSnip)
-            castFactory.sendText($scope.textSnip, new Date(), replayId);
-          }, 500);
+        // modified to sockets
+      // castFactory.createReplay()
+      //   .then(function(replayId) {
+      //     timerPromise = $interval(function() {
+      //       // console.log($scope.textSnip)
+      //       castFactory.sendText($scope.textSnip, new Date(), replayId);
+      //     }, 500);
 
+      //   })
+
+        castFactory.createReplay()
+        .then(function(replayId) {
+            castFactory.sendText($scope.textSnip, new Date(), replayId);
         })
 
     }

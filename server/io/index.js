@@ -2,6 +2,11 @@
 var socketio = require('socket.io');
 // var uuid = require('node-uuid');
 var io = null;
+var mongoose = require('mongoose');
+require('../db/models');
+var CodeSlice = mongoose.model('CodeSlice');
+var CodeReplay = mongoose.model('CodeReplay');
+
 
 module.exports = function(server) {
 	var rooms = {};
@@ -12,26 +17,47 @@ module.exports = function(server) {
 	var codeHistory = {};
 
 	io.on('connection', function(socket) {
-		//when user joins a room , emit history
-		console.log('user connected');
-		socket.on('join', function(angularStateParamsId) {
-			console.log('angularStateParams', angularStateParamsId)
-			socket.join(angularStateParamsId)
-			if (!codeHistory[angularStateParamsId]) {
-				codeHistory[angularStateParamsId] = '';
-			}
-			socket.emit('codeHistory', codeHistory[angularStateParamsId]);
-			console.log(codeHistory[angularStateParamsId]);
-			console.log(typeof(codeHistory[angularStateParamsId]));
-		});
 
-		socket.on('instructor writing', function(obj) {
-
-			codeHistory[obj.roomId] = obj.data;
-			console.log('obj', obj)
-			var roomToSendTo = obj.roomId
-			socket.broadcast.to(roomToSendTo).emit('change the textSnip', obj);
+		socket.on('updatedText', function (obj) {
+			CodeSlice.create(obj)
+			.then(function(snippet) {
+				console.log('snippet',snippet)
+			res.json(snippet);
 		})
+		})
+
+
+
+
+
+
+
+
+
+
+
+
+		//when user joins a room , emit history
+		// console.log('user connected');
+		// socket.on('join', function(angularStateParamsId) {
+
+
+		// 	console.log('codeHistory[...]', codeHistory[angularStateParamsId])
+
+		// 	socket.join(angularStateParamsId)
+
+		// 	if (!codeHistory[angularStateParamsId]) {
+		// 		codeHistory[angularStateParamsId] = '';
+		// 	}
+		// 		// socket.emit('codeHistory', codeHistory[angularStateParamsId]);
+		// });
+
+		// // socket.on('instructor writing', function(obj) {
+
+		// // 	codeHistory[obj.roomId] = obj.data;
+		// // 	var roomToSendTo = obj.roomId
+		// // 	socket.broadcast.to(roomToSendTo).emit('change the textSnip', codeHistory[obj.roomId]);
+		// // })
 
 		socket.on('leave', function(angularStateParams) {
 			socket.leave(angularStateParams.roomId);
@@ -41,6 +67,8 @@ module.exports = function(server) {
 			console.log('user disconnected');
 		});
 	});
+
+
 
 	return io;
 

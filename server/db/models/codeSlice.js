@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var socket = require('../../io')
+// var socket = require('../../io')
 var CodeSlice = new mongoose.Schema({
 	text: {
 		type: String

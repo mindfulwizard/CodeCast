@@ -1,11 +1,17 @@
-app.factory('castFactory', function($http){
+app.factory('castFactory', function($http, socketFactory){
 	return {
-		sendText: function(text, time, replayId){
-			return $http.post('/api/live', {text: text, time: time, replayId: replayId})
-			.then(function(res){
-				// console.log("res.data: ", res.data);
-				return res.data;
-			})
+
+			// changed this function to sockets
+		// sendText: function(text, time, replayId){
+		// 	return $http.post('/api/live', {text: text, time: time, replayId: replayId})
+		// 	.then(function(res){
+		// 		// console.log("res.data: ", res.data);
+		// 		return res.data;
+		// 	})
+		// },
+
+		sendText: function (text, time, replayId) {
+			socketFactory.emit('updatedText', {text: text, time: time, replayId: replayId})
 		},
 
 		createReplay: function(){
