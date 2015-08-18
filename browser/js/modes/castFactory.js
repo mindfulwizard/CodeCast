@@ -35,6 +35,12 @@ app.factory('castFactory', function($http, socketFactory){
 			.then(function(res){
 				return res.data;
 			})
+		},
+		addEvalClick: function(time, replayId){
+			return $http.put('/api/replay/' + replayId, {time: time, replayId: replayId})
+			.then(function(res){
+				return res.data;
+			})
 		}
 	}
 })

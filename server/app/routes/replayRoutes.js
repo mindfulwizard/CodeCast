@@ -18,4 +18,18 @@ router.get('/:id', function(req, res){
 	})
 })
 
+router.put('/:id', function(req, res){
+	CodeSlice.findOne({replayId: req.params.id, time: {$gte: req.body.time}}).exec()
+	.then(function(codeSlice){
+		codeSlice.evaluated = true;
+		return codeSlice.save()
+	})
+	.then(function(updated){
+		res.json(updated);
+	})
+	.then(null, function(err){
+		console.log("Error ", err);
+	})
+})
+
 module.exports = router;
