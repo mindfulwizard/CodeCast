@@ -1,8 +1,6 @@
 app.controller('editorCtrl', function($scope, evaluatorFactory){
 	$scope.output;
 
-    console.log('replayText ', $scope.replayText);
-
 	$scope.editorOptions = {
         lineWrapping: true,
         lineNumbers: true,
@@ -13,6 +11,8 @@ app.controller('editorCtrl', function($scope, evaluatorFactory){
         keyMap: 'sublime',
         // readOnly: false
     };
+
+    //$scope.editorOptions.setOption("readOnly", true);
 
     $scope.output = 'waiting for results'
 

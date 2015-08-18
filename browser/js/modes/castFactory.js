@@ -33,6 +33,12 @@ app.factory('castFactory', function($http){
 			.then(function(res){
 				return res.data;
 			})
+		},
+		saveUserFork: function(forkedText, replayId){
+			return $http.post('/api/forks/'+ replayId, {text: forkedText, replayId: replayId})
+			.then(function(res){
+				return res.data;
+			})
 		}
 	}
 })

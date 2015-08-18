@@ -4,6 +4,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     $scope.forked = false;
     //$scope.replayText;
     $scope.videoObj = {text: null};
+    $scope.forkedText = {text: null};
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -67,9 +68,15 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
      $scope.makeFork = function() {
         pauseReplay();
         $scope.forked = true;
-        //evaluatorFactory.replayText = sortedSlices[sliceIndex-1].text;
-        evaluatorFactory.replayText = $scope.replayObj.text;
-    }
+        $scope.forkedText.text = $scope.videoObj.text;
+        setTimeout(function () {
+            $scope.$apply();
+        }, 0);
+      }
+
+      $scope.saveFork = function(){
+        castFactory.saveUserFork($scope.forkedText.text, $scope.replayId);
+      }
 
 
 });

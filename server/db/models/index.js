@@ -4,3 +4,4 @@
 require('./user');
 require('./codeSlice');
 require('./codeReplay');
+require('./fork');
