@@ -20,30 +20,33 @@ module.exports = function(server) {
 	io.on('connection', function(socket) {
 
 		// on key press, create new snippet and update codeHistory
-		socket.on('updatedText', function (obj) {
+		socket.on('updatedText', function(obj) {
 			CodeSlice.create(obj)
-			.then(function(snippetObj) {
+				.then(function(snippetObj) {
 
-				var roomToSendTo = snippetObj.room
-	
-				// update codeHistory
-				codeHistory[snippetObj.room] = snippetObj.text;
-				
-				// once new snippet created, emit to the specific room
-				socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
+					var roomToSendTo = snippetObj.room.toString();
 
-			})
+					// update codeHistory
+					codeHistory[snippetObj.room] = snippetObj.text;
+
+					// once new snippet created, emit to the specific room
+					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
+
+				})
+			// console.log(socket, "SOCKET");
 		})
 
-		socket.on('join', function (roomId) {
-			
+		socket.on('join', function(roomId) {
+			console.log("USER HAS ARRIVED");
 			socket.emit('get code history', codeHistory[roomId]);
+			io.to(roomId).emit('get code history', codeHistory[roomId]);
 			socket.join(roomId);
 		})
 
 
-		socket.on('leave', function(angularStateParams) {
-			socket.leave(angularStateParams.roomId);
+		socket.on('leave', function(roomId) {
+			console.log("USER HAS LEFT");
+			socket.leave(roomId);
 		});
 
 		socket.on('disconnect', function() {
