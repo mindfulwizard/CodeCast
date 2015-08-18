@@ -1,6 +1,6 @@
 'use strict';
 var socketio = require('socket.io');
-var uuid = require('node-uuid');
+// var uuid = require('node-uuid');
 var io = null;
 
 module.exports = function(server) {
@@ -18,15 +18,16 @@ module.exports = function(server) {
 			console.log('angularStateParams', angularStateParamsId)
 			socket.join(angularStateParamsId)
 			if (!codeHistory[angularStateParamsId]) {
-				codeHistory[angularStateParamsId] = [];
+				codeHistory[angularStateParamsId] = '';
 			}
 			socket.emit('codeHistory', codeHistory[angularStateParamsId]);
 			console.log(codeHistory[angularStateParamsId]);
+			console.log(typeof(codeHistory[angularStateParamsId]));
 		});
 
 		socket.on('instructor writing', function(obj) {
 
-			codeHistory[obj.roomId].push(obj.data);
+			codeHistory[obj.roomId] = obj.data;
 			console.log('obj', obj)
 			var roomToSendTo = obj.roomId
 			socket.broadcast.to(roomToSendTo).emit('change the textSnip', obj);

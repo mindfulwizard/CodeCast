@@ -2,11 +2,13 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
 
   socketFactory.on('connect', function(data) {
+    socketFactory.emit('join', $stateParams.id)
+
     // socketFactory.on('codeHistory', function(data) {
     //   $scope.textSnip = data;
     // })
-    socketFactory.on('change the textSnip', function(obj) {
-      $scope.textSnip = obj.data[obj.data.length - 1];
+    socketFactory.on('codeHistory', function(str) {
+      $scope.textSnip = str;
     })
   })
 
@@ -14,7 +16,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   //everytime the instruction types, change the textsnip
   socketFactory.on('change the textSnip', function(obj) {
 
-    $scope.textSnip = obj.data[obj.data.length - 1]
+    $scope.textSnip = obj.data;
   })
 
   $scope.editorOptions = {
