@@ -2,6 +2,9 @@
     <fullstack-logo></fullstack-logo>
     <rando-greeting></rando-greeting>
     <a ui-sref="liveState"><button>Live Page</button></a>
-  <button>Go to Room 1</button>
-  <button>Go to Room 2</button>
+<a ui-sref='roomState'><button>Create new Room</button></a>
+
+<div id='rooms'>
+	<a ng-repeat='room in rooms' ng-click='joinRoom(room._id)'>{{ room.name }} </a>
+</div>
 </section>

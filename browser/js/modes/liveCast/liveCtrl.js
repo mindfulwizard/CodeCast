@@ -1,10 +1,23 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, socketFactory, evaluatorFactory) {
-    $scope.replayObj = {text: null};
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory) {
+    $scope.replayObj = {
+        text: null
+    };
 
-    socketFactory.on('change the replayText', function(obj) {
-        $scope.replayObj.text = obj.data;
+    socketFactory.emit('join', $stateParams.roomId)
+    socketFactory.on('get code history', function(history) {
+        // if (history === $stateParams.roomId)
+        //console.log('history', history)
+        $scope.replayObj.text = history;
+        //console.log('$scope', $scope)
     })
 
+
+    // //listener for when codehistory changes on joining a room
+    // //everytime the instruction types, change the textsnip
+    socketFactory.on('change the textSnip', function(str) {
+        //console.log('str', str)
+        $scope.replayObj.text = str;
+    })
 
     var keystroke = false;
     var timerPromise;
@@ -21,25 +34,22 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, socketFactor
                     timerPromise = $interval(function() {
                         castFactory.sendText($scope.replayObj.text, new Date(), replayId);
                     }, 500);
-
                 })
-
         }
-
     }
+
 
     $scope.startSharing = function() {
         // console.log('start sharing')
         socketFactory.emit('instructor writing', {
-            data: $scope.replayObj.text
+            data: $scope.replayObj.text,
+            roomId: $stateParams.roomId
         })
     }
 
     $scope.endInterval = function() {
         $interval.cancel(timerPromise);
-        $scope.evals.forEach(function(time){
-            castFactory.addEvalClick(time, $scope.replayId);   
-        })
     }
+
 
 });
