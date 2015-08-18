@@ -3,7 +3,8 @@ app.directive('editor', function() {
 		templateUrl: 'js/modes/editor/editor.html',
 		restrict: 'E',
 		scope: {
-			replayText: '=codeData'
+			replayText: '=', 
+			name: '@'
 		},
 		controller: 'editorCtrl'
 	}

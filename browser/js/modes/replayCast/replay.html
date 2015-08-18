@@ -1,9 +1,7 @@
-<div>
-  <section id="replay">
-    <button ng-click="getFullCast()">Start Video</button>
-      <editor codeData="replayText"></editor>
-    <button ng-click="pauseContinue()">Pause/Continue</button>
-    <button ng-click="makeFork()">Fork</button>
-     <editor codeData="forkedText" ng-show="forked"></editor>
-  </section>
-<div>
+<section id="replay">
+   <button ng-click="getFullCast()">Start Video</button>
+     <editor replay-text="videoObj"></editor>
+   <button ng-click="pauseContinue()">Pause/Continue</button>
+   <button ng-click="makeFork()">Fork</button>
+     <editor eval="getResultCode()" ng-show="forked"></editor>
+</section>

@@ -1,6 +1,7 @@
-app.controller('editorCtrl', function($scope, evaluatorFactory, $rootScope){
-	$scope.replayText = evaluatorFactory.replayText;
+app.controller('editorCtrl', function($scope, evaluatorFactory){
 	$scope.output;
+
+    console.log('replayText ', $scope.replayText);
 
 	$scope.editorOptions = {
         lineWrapping: true,
@@ -9,7 +10,8 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, $rootScope){
         smartIndent: true,
         autoCloseBrackets: true,
         matchBrackets: true,
-        keyMap: 'sublime'
+        keyMap: 'sublime',
+        // readOnly: false
     };
 
     $scope.output = 'waiting for results'
@@ -19,8 +21,10 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, $rootScope){
     })
 
     $scope.getResultCode = function() {
-        evaluatorFactory.evalCode(evaluatorFactory.replayText, $rootScope);
+        evaluatorFactory.evalCode($scope.replayText.text, $scope);
+
+        if($scope.name === 'live') {
+            evaluatorFactory.liveEvals.push(new Date());
+        }
     }
-
-
 })

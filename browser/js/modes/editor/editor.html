@@ -1,5 +1,9 @@
 <div> 
-  <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-readonly="noEditing" type="text" size="200px" ng-model="replayText" id="originalBox">{{replayText}}</textarea>
+<!-- 	{{replayText.noEditing}} -->
+  <textarea ui-codemirror ui-codemirror-opts="editorOptions" type="text" size="200px" ng-model="replayText.text" id="originalBox">{{replayText.text}}</textarea>
    <button ng-click="getResultCode()">Check your code result</button>
-   <div id="sandBoxResult">{{ output }}</div>
+   <div id="sandBoxResult">{{output}}</div>
  </div> 
+
+
+<!-- ng-readonly="replayText.noEditing" -->
