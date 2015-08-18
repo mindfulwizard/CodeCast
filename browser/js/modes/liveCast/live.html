@@ -1,8 +1,8 @@
 <section id="live">
 
-	<div ng-keyup="startRecording(); startSharing()">
+	<div ng-keydown="startRecording()">
 	<!-- <div ng-keyup="startSharing()"> -->
-   <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="textSnip" type="text" size="20px"  ng-keypress="" id="inputBox"></textarea>
+   <textarea ui-codemirror ui-codemirror-opts="editorOptions" ng-model="textSnip" type="text" size="20px" id="inputBox"></textarea>
 	<!-- </div> -->
 </div>
    <button ng-click="endInterval()">End interval</button>

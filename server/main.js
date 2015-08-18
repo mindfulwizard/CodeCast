@@ -9,35 +9,24 @@ var startDb = require('./db');
 var server = require('http').createServer();
 var io;
 
-var createApplication = function () {
+var createApplication = function() {
     var app = require('./app');
     server.on('request', app); // Attach the Express application.
-    io = require('./io')(server);   // Attach socket.io.
+    io = require('./io')(server); // Attach socket.io.
 };
 
 
-var startServer = function () {
-
-
-    io.on('connection', function(socket){
-        console.log('a user connected')
-        socket.on('instructor writing', function (data) {
-            socket.broadcast.emit('change the textSnip', data)
-        })
-        socket.on('disconnect', function(){
-            console.log('user disconnected');
-        });
-    });
+var startServer = function() {
 
     var PORT = process.env.PORT || 1337;
 
-    server.listen(PORT, function () {
+    server.listen(PORT, function() {
         console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
     });
 
 };
 
-startDb.then(createApplication).then(startServer).catch(function (err) {
+startDb.then(createApplication).then(startServer).catch(function(err) {
     console.error('Initialization error:', chalk.red(err.message));
     console.error('Process terminating . . .');
     process.kill(1);
