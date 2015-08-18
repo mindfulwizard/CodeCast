@@ -10,8 +10,8 @@ app.factory('castFactory', function($http, socketFactory){
 		// 	})
 		// },
 
-		sendText: function (text, time, replayId) {
-			socketFactory.emit('updatedText', {text: text, time: time, replayId: replayId})
+		sendText: function (text, time, replayId, roomId) {
+			socketFactory.emit('updatedText', {text: text, time: time, replayId: replayId, room: roomId})
 		},
 
 		createReplay: function(){

@@ -6,7 +6,7 @@ app.controller('homeCtrl', function($scope, $rootScope, $state, socketFactory, r
 		});
 	$scope.joinRoom = function(id) {
 		// how to get the id of the room??
-		socketFactory.emit('join', id)
+		// socketFactory.emit('join', id)
 		$state.go('liveState', {
 			roomId: id
 		})

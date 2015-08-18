@@ -20,10 +20,24 @@ module.exports = function(server) {
 
 		socket.on('updatedText', function (obj) {
 			CodeSlice.create(obj)
-			.then(function(snippet) {
-				console.log('snippet',snippet)
-			res.json(snippet);
+			.then(function(snippetObj) {
+				if (!codeHistory[snippetObj.room]) {
+				codeHistory[snippetObj.room] = '';
+				}
+				console.log('snippet', obj)
+				codeHistory[snippetObj.room] = snippetObj.text;
+				console.log('codeHistory[snippetObj.room]',codeHistory[snippetObj.room])
+				var roomToSendTo = snippetObj.room
+				console.log('roomToSendTo', roomToSendTo)
+				// once new snippet created, emit to the specific room
+				socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text)
+			})
 		})
+
+		socket.on('join', function (roomId) {
+			console.log('codeHistory', codeHistory)
+			socket.emit('get code history', codeHistory[roomId])
+			socket.join(roomId)
 		})
 
 
@@ -37,8 +51,8 @@ module.exports = function(server) {
 
 
 
-		//when user joins a room , emit history
-		// console.log('user connected');
+		// //when user joins a room , emit history
+		// // console.log('user connected');
 		// socket.on('join', function(angularStateParamsId) {
 
 

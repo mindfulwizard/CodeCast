@@ -1,27 +1,34 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams) {
 
 
+    socketFactory.emit('join', $stateParams.roomId)
+    socket.on('get code history', function (history) {
+      console.log('history',history)
+      $scope.textSnip = history;
+      $scope.$apply()
+      console.log('$scope', $scope)
+    })
   // $scope.textSnip = codeHistory;
 
-  // socketFactory.on('connect', function(data) {
+  socketFactory.on('connect', function(data) {
 
-  //   socketFactory.emit('join', $stateParams.roomId)
 
-  // //   // socketFactory.on('codeHistory', function(data) {
-  // //   //   $scope.textSnip = data;
-  // //   // })
-  //   // socketFactory.on('codeHistory', function(str) {
-  //   //   $scope.textSnip = str;
-  //   //   console.log('codehistory', str)
+
+  //   // socketFactory.on('codeHistory', function(data) {
+  //   //   $scope.textSnip = data;
   //   // })
-  // })
+    // socketFactory.on('codeHistory', function(str) {
+    //   $scope.textSnip = str;
+    //   console.log('codehistory', str)
+    // })
+  })
 
-  // // //listener for when codehistory changes on joining a room
-  // // //everytime the instruction types, change the textsnip
-  // socketFactory.on('change the textSnip', function(str) {
-
-  //   $scope.textSnip = str;
-  // })
+  // //listener for when codehistory changes on joining a room
+  // //everytime the instruction types, change the textsnip
+  socketFactory.on('change the textSnip', function(str) {
+    console.log('str', str)
+    $scope.textSnip = str;
+  })
 
   $scope.editorOptions = {
     lineWrapping: true,
@@ -47,8 +54,8 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   $scope.startRecording = function() {
     // console.log('startRecording')
 
-    if (!keystroke) {
-      keystroke = true;
+    // if (!keystroke) {
+    //   keystroke = true;
 
         // modified to sockets
       // castFactory.createReplay()
@@ -62,10 +69,10 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
         castFactory.createReplay()
         .then(function(replayId) {
-            castFactory.sendText($scope.textSnip, new Date(), replayId);
+            castFactory.sendText($scope.textSnip, new Date(), replayId, $stateParams.roomId);
         })
 
-    }
+    // }
 
   }
 
