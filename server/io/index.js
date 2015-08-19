@@ -5,7 +5,6 @@ var io = null;
 var mongoose = require('mongoose');
 require('../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
-var CodeReplay = mongoose.model('CodeReplay');
 
 
 module.exports = function(server) {
@@ -21,6 +20,7 @@ module.exports = function(server) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
+			console.log('obj sent fro front end', obj)
 			CodeSlice.create(obj)
 				.then(function(snippetObj) {
 

@@ -12,8 +12,8 @@ app.config(function($stateProvider) {
 		// 	}
 		// }
 		onExit: function(socketFactory, $stateParams) {
-			console.log("stateparams", $stateParams.roomId)
-			console.log(socketFactory, "factory")
+			// console.log("stateparams", $stateParams.roomId)
+			// console.log(socketFactory, "factory")
 			socketFactory.emit('leave', $stateParams.roomId);
 		}
 	})

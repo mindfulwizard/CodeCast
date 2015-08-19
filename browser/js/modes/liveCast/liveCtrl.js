@@ -1,4 +1,6 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory) {
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state) {
+
+  $scope.currentlyRecording = false;
 
   socketFactory.emit('join', $stateParams.roomId)
   socketFactory.on('get code history', function(history) {
@@ -21,24 +23,36 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   var keystroke = false;
   var timerPromise;
-  $scope.replayId;
   $scope.evals = evaluatorFactory.liveEvals;
 
 
-  $scope.startRecording = function() {
-    // console.log('startRecording')
+
+  $scope.startLecture = function () {
+    if(!$scope.currentlyRecording){
+      castFactory.startLecture($stateParams.roomId)
+      $scope.currentlyRecording = true;
+      console.log('hit the start lecture')
+    }
+  } 
+
+  $scope.constantRecording = function() {
 
     // if (!keystroke) {
     //   keystroke = true;
-    castFactory.createReplay()
-      .then(function(replayId) {
-        castFactory.sendText($scope.replayObj.text, new Date(), replayId, $stateParams.roomId);
-      })
-
+    if($scope.currentlyRecording){
+        castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId);
+    }    
     // }
 
   }
 
+  $scope.deleteRoom = function () {
+    $scope.currentlyRecording = false;
+    castFactory.endLecture($stateParams.roomId)
+    .then(function () {
+      $state.go('home')
+    })
+  }
 
   // $scope.startSharing = function() {
   //   // console.log('start sharing')
@@ -47,10 +61,5 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   //     roomId: $stateParams.roomId
   //   })
   // }
-
-  $scope.endInterval = function() {
-    $interval.cancel(timerPromise);
-  }
-
 
 });
