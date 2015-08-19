@@ -26,6 +26,13 @@ router.get('/', function(req, res) {
 		});
 });
 
+router.get('/lectures', function(req, res) {
+	Room.find({lectureEnded: true}).exec()
+		.then(function(rooms) {
+			res.json(rooms);
+		});
+});
+
 router.get('/:id', function(req, res) {
 	Room.findById(req.params.id).exec()
 		.then(function(room) {
@@ -38,6 +45,7 @@ router.put('/:id', function (req, res) {
 	.then(function (room) {
 		res.json(room);
 	});
+
 })
 
 module.exports = router;

@@ -41,7 +41,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     // if (!keystroke) {
     //   keystroke = true;
     if($scope.currentlyRecording){
-        castFactory.sendText($scope.replayObj.text, new Date(), $scope.replayId, $stateParams.roomId);
+        castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId);
     }    
     // }
 

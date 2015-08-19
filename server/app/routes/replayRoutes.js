@@ -10,8 +10,8 @@ router.get('/', function(req, res){
 	})
 })
 
-router.get('/:id', function(req, res){
-	CodeSlice.find({replayId: req.params.id})
+router.get('/:roomId', function(req, res){
+	CodeSlice.find({room: req.params.roomId})
 	.then(function(codeSlices){
 		res.json(codeSlices);
 	})
