@@ -26,16 +26,14 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
 
   $scope.startRecording = function() {
-    // console.log('startRecording')
-
-    // if (!keystroke) {
-    //   keystroke = true;
+    if (!keystroke) {
+      keystroke = true;
     castFactory.createReplay()
       .then(function(replayId) {
         castFactory.sendText($scope.replayObj.text, new Date(), replayId, $stateParams.roomId);
       })
 
-    // }
+    }
 
   }
 

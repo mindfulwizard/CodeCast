@@ -14,9 +14,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
 
     var sliceIndex;
     var renderPromise;
-    var sortedSlices;
 
     function renderFullCast(sortedSlices, index) {
+       // console.log("slices in render fullcast,  ", sortedSlices)
         sliceIndex = index || 0;
         renderPromise = $interval(function() {
             $scope.videoObj.text = sortedSlices[sliceIndex].text;
@@ -34,11 +34,12 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     $scope.getFullCast = function() {
         return castFactory.getCast($scope.replayId)
             .then(function(sliceList) {
+              //  console.log("sliceLIst", sliceList)
                 return sortSlices(sliceList);
             })
             .then(function(sorted) {
-                sortedSlices = sorted;
-                renderFullCast(sortedSlices, sliceIndex);
+                //console.log('slices in getFullCast, ', sorted)
+                renderFullCast(sorted, sliceIndex);
             })
     }
 
@@ -59,7 +60,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         if ($scope.paused) {
             continueReplay();
         } else {
-            pauseReplay();
+            $scope.pauseReplay();
         }
     }
 
