@@ -2,6 +2,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     $scope.replayId = $stateParams.replayId;
     $scope.paused = false;
     $scope.forked = false;
+    $scope.hasBeenForked = false;
+    $scope.forks = [];
+    $scope.showForks = false;
     //$scope.replayText;
     $scope.videoObj = {text: null};
     $scope.forkedText = {text: null};
@@ -67,6 +70,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
 
      $scope.makeFork = function() {
         pauseReplay();
+        $scope.hasBeenForked = true;
         $scope.forked = true;
         $scope.forkedText.text = $scope.videoObj.text;
         setTimeout(function () {
@@ -75,9 +79,29 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
       }
 
       $scope.saveFork = function(){
-        castFactory.saveUserFork($scope.forkedText.text, $scope.replayId);
+        var name = window.prompt("What would you like to name your fork?", "My Fork")
+        castFactory.saveUserFork(name, $scope.forkedText.text, $scope.replayId);
       }
 
+    $scope.hideFork = function(){
+        $scope.forked = false;
+      }
+
+     $scope.getForks = function(){
+       castFactory.getUserForks($scope.replayId)
+       .then(function(forks){
+        $scope.forked = false;
+            $scope.showForks = true;
+            $scope.forks = forks;
+       })
+      
+    }
+
+    $scope.bringUpFork = function(forkText){
+        $scope.showForks = false;
+        $scope.forked = true;
+        $scope.forkedText.text = forkText
+    }
 
 });
 

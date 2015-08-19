@@ -3,6 +3,11 @@
      <editor replay-text="videoObj"></editor>
    <button ng-click="pauseContinue()">Pause/Continue</button>
    <button ng-click="makeFork()">Fork</button>
+   <button ng-show="hasBeenForked" ng-click="getForks()">Show Forks</button>
      <editor replay-text="forkedText" ng-if="forked"></editor>
     <button ng-show="forked" ng-click="saveFork()">Save Fork</button>
+    <button ng-show="forked" ng-click="hideFork()">Hide Fork</button>
+    <ul ng-show="showForks">
+    	<li ng-click="bringUpFork(fork.text)" ng-repeat="fork in forks"><a>{{fork.name}}</a></li>
+    </ul>
 </section>
