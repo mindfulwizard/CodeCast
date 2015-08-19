@@ -2,7 +2,6 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 require('../../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
-var CodeReplay = mongoose.model('CodeReplay'); 
 
 router.get('/', function(req, res){
 	CodeReplay.find({})

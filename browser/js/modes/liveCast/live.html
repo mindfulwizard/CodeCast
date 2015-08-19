@@ -1,11 +1,11 @@
 
 
 <section id="live">
-	<div ng-keydown="startRecording()">
+	<div ng-keyup="startLecture()" ng-keydown="constantRecording()">
    		<editor name="live" replay-text="replayObj"></editor>
 	</div>
-   <button ng-click="endInterval()">End interval</button>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
+   	<a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
 </section>
 
 

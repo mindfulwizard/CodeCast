@@ -8,9 +8,6 @@ var CodeSlice = new mongoose.Schema({
 	time: {
 		type: Date
 	},
-	replayId: {
-		type: String
-	},
 	room: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Room'
