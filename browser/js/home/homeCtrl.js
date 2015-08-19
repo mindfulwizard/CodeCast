@@ -10,4 +10,16 @@ app.controller('homeCtrl', function($scope, $rootScope, $state, socketFactory, r
 			roomId: id
 		})
 	}
+	roomFactory.getAllLectures()
+		.then(function(lectures) {
+			$scope.lectures = lectures;
+		});
+
+	$scope.watchLecture = function(id) {
+		// socketFactory.emit('join', id)
+		$state.go('replayState', {
+			roomId: id
+		})
+	}
+
 });

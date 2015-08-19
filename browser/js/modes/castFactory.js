@@ -10,30 +10,46 @@ app.factory('castFactory', function($http, socketFactory){
 		// },
 
 		// on keydown, create socket event to create new snippet
-		sendText: function (text, time, replayId, roomId) {
-			socketFactory.emit('updatedText', {text: text, time: time, replayId: replayId, room: roomId})
+		sendText: function (text, time, roomId) {
+			socketFactory.emit('updatedText', {text: text, time: time, room: roomId})
+
 		},
 
-		createReplay: function(){
-			return $http.get('/api/live/newReplay')
-			.then(function(res){
-				return res.data._id;
+		endLecture: function (roomId) {
+			return $http.put('/api/rooms/' + roomId, {lectureEnded: true})
+			.then(function (res) {
+				return res.data
 			})
 		},
 
-		getReplays: function(){
-			return $http.get('api/replay')
+		startLecture: function (roomId) {
+			return $http.put('/api/rooms/' + roomId, {lectureStarted: true})
+			.then(function (res) {
+				return res.data
+			})
+		},
+
+		// createReplay: function(){
+		// 	return $http.get('/api/live/newReplay')
+		// 	.then(function(res){
+		// 		return res.data._id;
+		// 	})
+		// },
+
+		// getReplays: function(){
+		// 	return $http.get('api/replay')
+		// 	.then(function(res){
+		// 		return res.data;
+		// 	})
+		// },
+
+		getCast: function(roomId){
+			return $http.get('/api/replay/' + roomId)
 			.then(function(res){
 				return res.data;
 			})
 		},
 
-		getCast: function(replayId){
-			return $http.get('/api/replay/' + replayId)
-			.then(function(res){
-				return res.data;
-			})
-		},
 		addEvalClick: function(time, replayId){
 			return $http.put('/api/replay/' + replayId, {time: time, replayId: replayId})
 			.then(function(res){

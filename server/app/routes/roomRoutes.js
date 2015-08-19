@@ -20,7 +20,14 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-	Room.find({}).exec()
+	Room.find({lectureEnded: false}).exec()
+		.then(function(rooms) {
+			res.json(rooms);
+		});
+});
+
+router.get('/lectures', function(req, res) {
+	Room.find({lectureEnded: true}).exec()
 		.then(function(rooms) {
 			res.json(rooms);
 		});
@@ -32,5 +39,13 @@ router.get('/:id', function(req, res) {
 			res.json(room);
 		});
 });
+
+router.put('/:id', function (req, res) {
+	Room.findByIdAndUpdate(req.params.id, req.body).exec()
+	.then(function (room) {
+		res.json(room);
+	});
+
+})
 
 module.exports = router;

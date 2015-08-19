@@ -2,7 +2,6 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 require('../../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
-var CodeReplay = mongoose.model('CodeReplay'); 
 
 router.get('/', function(req, res){
 	CodeReplay.find({})
@@ -11,8 +10,8 @@ router.get('/', function(req, res){
 	})
 })
 
-router.get('/:id', function(req, res){
-	CodeSlice.find({replayId: req.params.id})
+router.get('/:roomId', function(req, res){
+	CodeSlice.find({room: req.params.roomId})
 	.then(function(codeSlices){
 		res.json(codeSlices);
 	})

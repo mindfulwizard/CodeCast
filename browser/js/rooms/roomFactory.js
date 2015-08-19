@@ -21,7 +21,13 @@ app.factory('roomFactory', function($http) {
 				.then(function(res) {
 					return res.data;
 				});
-		}
+		},
+		getAllLectures: function() {
+			return $http.get('/api/rooms/lectures')
+				.then(function(res) {
+					return res.data
+				})
+		},
 
 	};
 });

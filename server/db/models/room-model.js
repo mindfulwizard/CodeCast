@@ -10,6 +10,14 @@ var room = new mongoose.Schema({
 	instructor: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
+	},
+	lectureStarted: {
+		type: Boolean,
+		default: false
+	},
+	lectureEnded: {
+		type: Boolean,
+		default: false
 	}
 });
 

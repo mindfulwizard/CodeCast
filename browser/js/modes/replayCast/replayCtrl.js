@@ -1,5 +1,4 @@
-app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory) {
-    $scope.replayId = $stateParams.replayId;
+app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory, $timeout) {
     $scope.paused = false;
     $scope.videoObj = {text: null};
     
@@ -12,40 +11,124 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         })
     }
 
-    var sliceIndex;
+    //var sliceIndex;
     var renderPromise;
+    var sortedSlicesArr;
+    var diffArray = [];
+    var videoInterval;
 
-    function renderFullCast(sortedSlices, index) {
-       // console.log("slices in render fullcast,  ", sortedSlices)
-        sliceIndex = index || 0;
-        renderPromise = $interval(function() {
-            $scope.videoObj.text = sortedSlices[sliceIndex].text;
-            if(sortedSlices[sliceIndex].evaluated) {
-                evaluatorFactory.evalCode($scope.videoObj.text, $scope);
-            }
+    function getTimeDiffs(sortedSlicesArr) {
+        diffArray.push(0);
+      for(var i = 0; i < sortedSlicesArr.length-1; i++) {
+        diffArray.push(Date.parse(sortedSlicesArr[i+1].time) - Date.parse(sortedSlicesArr[i].time));
+      }
+      console.log("timediffs ", diffArray);
+    }   
 
-            sliceIndex++;
-            if (sliceIndex === sortedSlices.length - 1) {
-                sliceIndex = 0
-            }
-        }, 500, sortedSlices.length - sliceIndex - 1)
+    function renderFullCast(sortedSlicesArr) {
+        var diffArrIndex = 0;
+        var sliceIndex = 0;
+                // console.log("slicearr ", sortedSlicesArr);
+                // console.log("slicearrindex ", sortedSlicesArr[sliceIndex]);
+
+        // function recursivePlay(diffIndex, sliceIndex) {
+        //     if (diffIndex === diffArray.length - 2) return;
+
+        //     $timeout(function () {
+        //         $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
+        //         diffIndex++
+        //         sliceIndex++
+        //         recursivePlay(diffIndex, sliceIndex)
+        //     }, diffArray[diffIndex])
+        // }
+        // recursivePlay(diffArrIndex, sliceIndex)
+
+        // function writeWithTimeOut (diff) {
+        //     $timeout(function () {
+        //         $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
+        //     }, diff)
+        // }
+
+        while(diffArrIndex < diffArray.length - 1) {
+            var time = Date.now()
+            var time2 = Date.now()
+            // console.log('time.getTime()',time)
+            // console.log('(new Date()).getTime()', Date.now())
+            // console.log('new Date', D)
+                while(time2 - time <= diffArray[diffArrIndex]) {
+                    time2 = Date.now()
+                    console.log('inner while loop')
+                }
+                console.log('outer while loop')
+                $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
+                //$scope.$digest();
+                diffArrIndex++;
+                sliceIndex++;
+        }
+
+        // code of this morning
+        // while(diffArrIndex < diffArray.length - 1) {
+        //     console.log("slicearrindex ", sortedSlicesArr[sliceIndex]);
+        //     $timeout(function() {
+        //         // if (sliceIndex === sortedSlicesArr.length - 1) {
+        //             $scope.videoObj.text =
+        //             sortedSlicesArr[sliceIndex].text;
+        //             sliceIndex++;
+        //         // }
+        //     }, diffArray[diffArrIndex])
+        //     diffArrIndex++;
+        // }    
+
+        // moduralize with timeout
+        // function myCallback() {
+        //     videoInterval = diffArray[diffArrIndex];
+        //     diffArrIndex++;
+        //     $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
+        //     sliceIndex++;
+        // }
+
+        // while(diffArrIndex < diffArray.length) {
+        //     $timeout(myCallback, videoInterval);
+        // }
+
+
+
+        // original code
+        // sliceIndex = index || 0;
+        // renderPromise = $interval(function() {
+        //     $scope.videoObj.text = sortedSlices[sliceIndex].text;
+        //     if(sortedSlices[sliceIndex].evaluated) {
+        //         evaluatorFactory.evalCode($scope.videoObj.text, $scope);
+        //     }
+
+        //     sliceIndex++;
+        //     if (sliceIndex === sortedSlices.length - 1) {
+        //         sliceIndex = 0
+        //     }
+        // }, 500, sortedSlices.length - sliceIndex - 1)
+    
+
     }
 
     $scope.getFullCast = function() {
-        return castFactory.getCast($scope.replayId)
+        //get array of all codeSlices associated with a specific room
+        return castFactory.getCast($stateParams.roomId)
             .then(function(sliceList) {
-              //  console.log("sliceLIst", sliceList)
+                //order array by time
                 return sortSlices(sliceList);
             })
-            .then(function(sorted) {
-                //console.log('slices in getFullCast, ', sorted)
-                renderFullCast(sorted, sliceIndex);
+            .then(function(sortedArr) {
+                sortedSlicesArr = sortedArr;
+                //get time diffs
+                getTimeDiffs(sortedSlicesArr);
+                //renderFullCast(sortedSlicesArr, sliceIndex);
+                renderFullCast(sortedSlicesArr);
+
             })
     }
 
      $scope.pauseReplay = function() {
         $scope.paused = true;
-        // console.log(evaluatorFactory.readOnly);
         $interval.cancel(renderPromise);
         renderPromise = undefined;
     }
@@ -53,7 +136,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     var continueReplay = function() {
         $scope.paused = false;
         // console.log(evaluatorFactory.readOnly);
-        renderFullCast(sortedSlices, sliceIndex - 1)
+        renderFullCast(sortedSlicesArr, sliceIndex - 1)
     }
 
     $scope.pauseContinue = function() {
