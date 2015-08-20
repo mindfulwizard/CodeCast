@@ -20,7 +20,6 @@ module.exports = function(server) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
-			console.log('obj sent fro front end', obj)
 			CodeSlice.create(obj)
 				.then(function(snippetObj) {
 

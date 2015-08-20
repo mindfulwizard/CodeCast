@@ -51,6 +51,7 @@ app.factory('evaluatorFactory', function($http) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.text = textSnip;
+            //myconsole.log
             document.body.appendChild(script);
         },
         liveEvals: []
