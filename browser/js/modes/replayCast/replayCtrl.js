@@ -11,103 +11,25 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         })
     }
 
-    //var sliceIndex;
-    var renderPromise;
+    var paused = false;
     var sortedSlicesArr;
-    var diffArray = [];
-    var videoInterval;
+    var timerPromise;
 
-    function getTimeDiffs(sortedSlicesArr) {
-        diffArray.push(0);
-      for(var i = 0; i < sortedSlicesArr.length-1; i++) {
-        diffArray.push(Date.parse(sortedSlicesArr[i+1].time) - Date.parse(sortedSlicesArr[i].time));
-      }
-      console.log("timediffs ", diffArray);
-    }   
+    var renderFullCast = function(sortedSlicesArr, currentSlice) {
+        console.log('inside render ', sortedSlicesArr);
+        $scope.videoObj.text = currentSlice.text;
+        var next = sortedSlicesArr.shift();
+                
+        if(next && !paused){
+            $timeout(function(){
+                renderFullCast(sortedSlicesArr, next)
+            }, next.runningTotal - currentSlice.runningTotal)
+        } 
 
-    function renderFullCast(sortedSlicesArr) {
-        var diffArrIndex = 0;
-        var sliceIndex = 0;
-                // console.log("slicearr ", sortedSlicesArr);
-                // console.log("slicearrindex ", sortedSlicesArr[sliceIndex]);
+    };
 
-        // function recursivePlay(diffIndex, sliceIndex) {
-        //     if (diffIndex === diffArray.length - 2) return;
-
-        //     $timeout(function () {
-        //         $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
-        //         diffIndex++
-        //         sliceIndex++
-        //         recursivePlay(diffIndex, sliceIndex)
-        //     }, diffArray[diffIndex])
-        // }
-        // recursivePlay(diffArrIndex, sliceIndex)
-
-        // function writeWithTimeOut (diff) {
-        //     $timeout(function () {
-        //         $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
-        //     }, diff)
-        // }
-
-        while(diffArrIndex < diffArray.length - 1) {
-            var time = Date.now()
-            var time2 = Date.now()
-            // console.log('time.getTime()',time)
-            // console.log('(new Date()).getTime()', Date.now())
-            // console.log('new Date', D)
-                while(time2 - time <= diffArray[diffArrIndex]) {
-                    time2 = Date.now()
-                    console.log('inner while loop')
-                }
-                console.log('outer while loop')
-                $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
-                //$scope.$digest();
-                diffArrIndex++;
-                sliceIndex++;
-        }
-
-        // code of this morning
-        // while(diffArrIndex < diffArray.length - 1) {
-        //     console.log("slicearrindex ", sortedSlicesArr[sliceIndex]);
-        //     $timeout(function() {
-        //         // if (sliceIndex === sortedSlicesArr.length - 1) {
-        //             $scope.videoObj.text =
-        //             sortedSlicesArr[sliceIndex].text;
-        //             sliceIndex++;
-        //         // }
-        //     }, diffArray[diffArrIndex])
-        //     diffArrIndex++;
-        // }    
-
-        // moduralize with timeout
-        // function myCallback() {
-        //     videoInterval = diffArray[diffArrIndex];
-        //     diffArrIndex++;
-        //     $scope.videoObj.text = sortedSlicesArr[sliceIndex].text;
-        //     sliceIndex++;
-        // }
-
-        // while(diffArrIndex < diffArray.length) {
-        //     $timeout(myCallback, videoInterval);
-        // }
-
-
-
-        // original code
-        // sliceIndex = index || 0;
-        // renderPromise = $interval(function() {
-        //     $scope.videoObj.text = sortedSlices[sliceIndex].text;
-        //     if(sortedSlices[sliceIndex].evaluated) {
-        //         evaluatorFactory.evalCode($scope.videoObj.text, $scope);
-        //     }
-
-        //     sliceIndex++;
-        //     if (sliceIndex === sortedSlices.length - 1) {
-        //         sliceIndex = 0
-        //     }
-        // }, 500, sortedSlices.length - sliceIndex - 1)
-    
-
+    var calculateRunningTotal = function(first, slice) {
+        return slice.runningTotal = Date.parse(slice.time) - Date.parse(first.time) + 1;
     }
 
     $scope.getFullCast = function() {
@@ -118,39 +40,31 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
                 return sortSlices(sliceList);
             })
             .then(function(sortedArr) {
-                sortedSlicesArr = sortedArr;
-                //get time diffs
-                getTimeDiffs(sortedSlicesArr);
-                //renderFullCast(sortedSlicesArr, sliceIndex);
-                renderFullCast(sortedSlicesArr);
-
+                sortedSlicesArr = sortedArr
+                sortedSlicesArr.forEach(function(slice) {
+                    calculateRunningTotal(sortedSlicesArr[0], slice)
+                })
+                renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
             })
     }
 
-     $scope.pauseReplay = function() {
-        $scope.paused = true;
-        $interval.cancel(renderPromise);
-        renderPromise = undefined;
+    var pauseReplay = function() {
+        paused = true;
     }
 
     var continueReplay = function() {
-        $scope.paused = false;
-        // console.log(evaluatorFactory.readOnly);
-        renderFullCast(sortedSlicesArr, sliceIndex - 1)
+        paused = false;
+        renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
     }
 
     $scope.pauseContinue = function() {
-        if ($scope.paused) {
+        if (paused) {
             continueReplay();
         } else {
-            $scope.pauseReplay();
+            pauseReplay();
         }
     }
 
 
 });
-
-
-
-
 

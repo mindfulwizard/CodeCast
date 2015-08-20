@@ -33,13 +33,9 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   } 
 
   $scope.constantRecording = function() {
-    // if (!keystroke) {
-    //   keystroke = true;
     if($scope.currentlyRecording){
         castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId);
     }    
-    // }
-
   }
 
   $scope.deleteRoom = function () {
@@ -49,13 +45,4 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
       $state.go('home')
     })
   }
-
-  // $scope.startSharing = function() {
-  //   // console.log('start sharing')
-  //   socketFactory.emit('instructor writing', {
-  //     data: $scope.replayObj.text,
-  //     roomId: $stateParams.roomId
-  //   })
-  // }
-
 });
