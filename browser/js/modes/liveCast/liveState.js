@@ -16,5 +16,11 @@ app.config(function($stateProvider) {
 			// console.log(socketFactory, "factory")
 			socketFactory.emit('leave', $stateParams.roomId);
 		}
+		// resolve: {
+		// 	initializeScopeComments: function ($scope) {
+		// 		$scope.comments = [];
+		// 		return $scope.comments
+		// 	}
+		// }
 	})
 })

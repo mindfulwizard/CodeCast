@@ -1,4 +1,4 @@
-app.factory('roomFactory', function($http) {
+app.factory('roomFactory', function($http, socketFactory) {
 	return {
 		getAllRooms: function() {
 			return $http.get('/api/rooms')
@@ -12,8 +12,9 @@ app.factory('roomFactory', function($http) {
 					name: name
 				})
 				.then(function(res) {
+					socketFactory.emit('initiliaze comments', {roomId: res.data._id})
 					return res.data;
-				});
+				})
 		},
 
 		getOneRoom: function(room_id) {
