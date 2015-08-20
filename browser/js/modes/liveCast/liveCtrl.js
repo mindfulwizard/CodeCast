@@ -13,7 +13,6 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     //console.log('$scope', $scope)
   })
 
-
   // //listener for when codehistory changes on joining a room
   // //everytime the instruction types, change the textsnip
   socketFactory.on('change the textSnip', function(str) {
@@ -23,10 +22,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   var keystroke = false;
   var timerPromise;
-  $scope.replayId;
   $scope.evals = evaluatorFactory.liveEvals;
-
-
 
   $scope.startLecture = function () {
     if(!$scope.currentlyRecording){

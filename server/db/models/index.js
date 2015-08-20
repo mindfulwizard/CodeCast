@@ -5,4 +5,5 @@ require('./user');
 require('./codeSlice');
 require('./fork');
 require('./room-model.js');
+require('./comments-model.js')
 

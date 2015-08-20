@@ -5,6 +5,7 @@ var io = null;
 var mongoose = require('mongoose');
 require('../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
+var Comment = mongoose.model('Comment');
 
 
 module.exports = function(server) {
@@ -15,6 +16,8 @@ module.exports = function(server) {
 
 	// keep track of codeHistory of each room
 	var codeHistory = {};
+	// keep track of codeHistory of each room
+	var commentHistory = {};
 
 	io.on('connection', function(socket) {
 
@@ -22,12 +25,9 @@ module.exports = function(server) {
 		socket.on('updatedText', function(obj) {
 			CodeSlice.create(obj)
 				.then(function(snippetObj) {
-
 					var roomToSendTo = snippetObj.room.toString();
-
 					// update codeHistory
 					codeHistory[snippetObj.room] = snippetObj.text;
-					console.log('Snippet OBJ', snippetObj);
 					// once new snippet created, emit to the specific room
 					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
 
@@ -35,10 +35,33 @@ module.exports = function(server) {
 			// console.log(socket, "SOCKET");
 		})
 
+		// initiliaze comment
+		socket.on('initiliaze comments', function(obj) {
+			commentHistory[obj.roomId] = [];
+		})
+
+
+		// when user posts a comment/quesion, create new comment
+		socket.on('send a comment', function (obj) {
+			Comment.create(obj)
+			.then(function (commentObj) {
+				var roomToSendTo = commentObj.room.toString();
+				if (!commentHistory[commentObj.room]) {
+					commentHistory[commentObj.room] = [];
+				}
+					// add the userId to the obj when we add permissions/auth
+					commentHistory[commentObj.room].push({text: commentObj.text, commentId: commentObj._id})
+				// send comment to specific room
+				io.to(roomToSendTo).emit('receive comment', commentObj)
+			})
+		})
+
 		socket.on('join', function(roomId) {
 			console.log("USER HAS ARRIVED");
 			socket.emit('get code history', codeHistory[roomId]);
+			socket.emit('get comments history', commentHistory[roomId])
 			io.to(roomId).emit('get code history', codeHistory[roomId]);
+			io.to(roomId).emit('get comments history', commentHistory[roomId]);
 			socket.join(roomId);
 		})
 

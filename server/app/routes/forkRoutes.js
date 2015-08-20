@@ -3,9 +3,16 @@ var mongoose = require('mongoose');
 require('../../db/models');
 var Fork = mongoose.model('Fork');
 
+router.get('/:replayId', function(req, res){
+	Fork.find({replayId: req.params.replayId})
+	.then(function(fork){
+		res.json(fork);
+	})
+})
+
 
 router.post('/:replayId', function(req, res){
-	Fork.create({text: req.body.text, replayId: req.params.replayId})
+	Fork.create({name: req.body.name, text: req.body.text, replayId: req.params.replayId})
 	.then(function(fork){
 		res.json(fork);
 	})

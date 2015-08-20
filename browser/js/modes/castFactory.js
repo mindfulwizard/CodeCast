@@ -6,6 +6,11 @@ app.factory('castFactory', function($http, socketFactory){
 
 		},
 
+		// add userId as parameter when we work on permissions
+		sendComment: function (text, roomId) {
+			socketFactory.emit('send a comment', {text: text, room: roomId})
+		},
+
 		endLecture: function (roomId) {
 			return $http.put('/api/rooms/' + roomId, {lectureEnded: true})
 			.then(function (res) {
@@ -29,12 +34,6 @@ app.factory('castFactory', function($http, socketFactory){
 
 		addEvalClick: function(time, replayId){
 			return $http.put('/api/replay/' + replayId, {time: time, replayId: replayId})
-			.then(function(res){
-				return res.data;
-			})
-		},
-		saveUserFork: function(forkedText, replayId){
-			return $http.post('/api/forks/'+ replayId, {text: forkedText, replayId: replayId})
 			.then(function(res){
 				return res.data;
 			})

@@ -1,8 +1,7 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory, $timeout) {
     $scope.paused = false;
-    $scope.forked = false;
     $scope.videoObj = {text: null};
-    $scope.forkedText = {text: null};
+    
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -15,7 +14,6 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     var paused = false;
     var sortedSlicesArr;
     var timerPromise;
-
 
     var renderFullCast = function(sortedSlicesArr, currentSlice) {
         console.log('inside render ', sortedSlicesArr);
@@ -30,25 +28,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
 
     };
 
-    var calculateRunnintTotal = function(first, slice) {
+    var calculateRunningTotal = function(first, slice) {
         return slice.runningTotal = Date.parse(slice.time) - Date.parse(first.time) + 1;
-
     }
-
-    // var renderFullCast = function(sortedSlicesArr) {
-    //     console.log('inside render ', sortedSlicesArr);
-
-    //     sortedSlicesArr.forEach(function(codeSlice){
-    //         calculateRunnintTotal(sortedSlicesArr[0], codeSlice);
-    //         console.log('pausestatus', $scope.paused)
-    //         if(!paused){
-    //             $timeout(function(){
-    //                 $scope.videoObj.text = codeSlice.text;   
-    //             }, codeSlice.runningTotal)
-    //         }    
-    //     })
-    // };
-
 
     $scope.getFullCast = function() {
         //get array of all codeSlices associated with a specific room
@@ -60,17 +42,15 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
             .then(function(sortedArr) {
                 sortedSlicesArr = sortedArr
                 sortedSlicesArr.forEach(function(slice) {
-                    calculateRunnintTotal(sortedSlicesArr[0], slice)
+                    calculateRunningTotal(sortedSlicesArr[0], slice)
                 })
                 renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
-                //renderFullCast(sortedSlicesArr);
             })
     }
 
     var pauseReplay = function() {
         console.log('hitting pause')
         paused = true;
-        $timeout.cancel(timerPromise);
         console.log("does pause change?", paused)
     }
 
@@ -84,22 +64,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         if (paused) {
             continueReplay();
         } else {
-            pauseReplay();
+            $scope.pauseReplay();
         }
     }
-
-     $scope.makeFork = function() {
-        pauseReplay();
-        $scope.forked = true;
-        $scope.forkedText.text = $scope.videoObj.text;
-        setTimeout(function () {
-            $scope.$apply();
-        }, 0);
-      }
-
-      $scope.saveFork = function(){
-        castFactory.saveUserFork($scope.forkedText.text, $scope.replayId);
-      }
 
 
 });
