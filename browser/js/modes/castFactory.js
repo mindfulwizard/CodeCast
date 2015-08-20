@@ -15,6 +15,11 @@ app.factory('castFactory', function($http, socketFactory){
 
 		},
 
+		// add userId as parameter when we work on permissions
+		sendComment: function (text, roomId) {
+			socketFactory.emit('send a comment', {text: text, room: roomId})
+		},
+
 		endLecture: function (roomId) {
 			return $http.put('/api/rooms/' + roomId, {lectureEnded: true})
 			.then(function (res) {
