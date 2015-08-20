@@ -49,9 +49,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     }
 
     var pauseReplay = function() {
-        console.log('hitting pause')
         paused = true;
-        console.log("does pause change?", paused)
     }
 
     var continueReplay = function() {
@@ -60,11 +58,10 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     }
 
     $scope.pauseContinue = function() {
-        console.log('hitting pauseContinue')
         if (paused) {
             continueReplay();
         } else {
-            $scope.pauseReplay();
+            pauseReplay();
         }
     }
 
