@@ -11,13 +11,10 @@ app.controller('commentsCtrl', function($scope, forkFactory, $stateParams, socke
   })
 
      socketFactory.on('receive comment', function (commentObj) {
-        console.log('commentsArr before push', $scope.commentsArr)
         if (!$scope.commentsArr) {
             $scope.commentsArr = [];
         }
-        console.log('commentObj', commentObj)
         $scope.commentsArr.push(commentObj);
-        console.log('commentsArr after push', $scope.commentsArr)
 
     })
 })

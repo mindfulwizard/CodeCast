@@ -51,16 +51,15 @@ module.exports = function(server) {
 				}
 					// add the userId to the obj when we add permissions/auth
 					commentHistory[commentObj.room].push({text: commentObj.text, commentId: commentObj._id})
-					console.log('commentHistory', commentHistory);
 				// send comment to specific room
-				socket.broadcast.to(roomToSendTo).emit('receive comment', commentObj)
+				io.to(roomToSendTo).emit('receive comment', commentObj)
 			})
 		})
 
 		socket.on('join', function(roomId) {
 			console.log("USER HAS ARRIVED");
 			socket.emit('get code history', codeHistory[roomId]);
-			// socket.emit('get comments history', commentHistory[roomId])
+			socket.emit('get comments history', commentHistory[roomId])
 			io.to(roomId).emit('get code history', codeHistory[roomId]);
 			io.to(roomId).emit('get comments history', commentHistory[roomId]);
 			socket.join(roomId);
