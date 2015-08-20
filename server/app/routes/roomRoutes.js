@@ -15,7 +15,7 @@ router.post('/', function(req, res) {
 		// id: uuid.v1().toString()
 	})
 		.then(function(data) {
-			res.send("Room created");
+			res.send(data);
 		});
 });
 
