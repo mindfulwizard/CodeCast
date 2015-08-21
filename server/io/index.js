@@ -25,7 +25,6 @@ module.exports = function(server) {
 		socket.on('updatedText', function(obj) {
 			CodeSlice.create(obj)
 				.then(function(snippetObj) {
-					console.log('snippetObj', snippetObj)
 					var roomToSendTo = snippetObj.room.toString();
 					// update codeHistory
 					codeHistory[snippetObj.room] = snippetObj;
