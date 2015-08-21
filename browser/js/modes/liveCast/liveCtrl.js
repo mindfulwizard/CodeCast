@@ -1,4 +1,6 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state) {
+  $scope.roomId = $stateParams.roomId;
+  console.log($scope.roomId)
 
   $scope.currentlyRecording = false;
 
@@ -42,7 +44,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     $scope.currentlyRecording = false;
     castFactory.endLecture($stateParams.roomId)
     .then(function () {
-      $state.go('home')
+      //$state.go('home')
     })
   }
 });

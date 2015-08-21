@@ -18,6 +18,9 @@ var room = new mongoose.Schema({
 	lectureEnded: {
 		type: Boolean,
 		default: false
+	},
+	audioUrl: {
+		type: String
 	}
 });
 

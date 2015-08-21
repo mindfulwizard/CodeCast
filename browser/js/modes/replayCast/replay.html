@@ -2,5 +2,6 @@
    <button ng-click="getFullCast()">Start Video</button>
      <editor replay-text="videoObj"></editor>
    <button ng-click="pauseContinue()">Pause/Continue</button>
-   <fork pause="pauseReplay" replay-obj="videoObj"></fork>
+   <fork pause-continue="pauseContinue" replay-obj="videoObj"></fork>
+   <recorder start-recording="startRecording" stop-recording="stopRecording" ></recorder>
 </section>

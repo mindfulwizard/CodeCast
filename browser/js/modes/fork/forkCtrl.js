@@ -10,7 +10,7 @@ app.controller('forkCtrl', function($scope, forkFactory) {
 
     $scope.makeFork = function() {
         if($scope.name !== "live") {
-            $scope.pause()
+            $scope.pauseContinue()
         }
         $scope.hasBeenForked = true;
         $scope.forked = true;
