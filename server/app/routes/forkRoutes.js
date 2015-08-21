@@ -1,6 +1,5 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-require('../../db/models');
 var Fork = mongoose.model('Fork');
 
 router.get('/:replayId', function(req, res){

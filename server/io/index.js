@@ -23,18 +23,14 @@ module.exports = function(server) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
+			var roomToSendTo = obj.room.toString();
+			// update codeHistory
+			codeHistory[obj.room] = obj;
+			// emit to the specific room
+			socket.broadcast.to(roomToSendTo).emit('change the textSnip', obj);
+			// store the obj in db
 			CodeSlice.create(obj)
-				.then(function(snippetObj) {
-					var roomToSendTo = snippetObj.room.toString();
-					// update codeHistory
-					codeHistory[snippetObj.room] = snippetObj;
-					console.log('codeHistory[snippetObj.room]', codeHistory[snippetObj.room])
-					// once new snippet created, emit to the specific room
-					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj);
-
-				})
-			// console.log(socket, "SOCKET");
-		})
+			})
 
 		// initiliaze comment
 		socket.on('initiliaze comments', function(obj) {
