@@ -1,7 +1,6 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory, $timeout) {
     $scope.paused = false;
     $scope.videoObj = {text: null, result: null};
-    
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -11,26 +10,29 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         })
     }
 
-    var paused = false;
     var sortedSlicesArr;
-    var timerPromise;
+    var replayCurrentIndex;
+    var paused = false;
 
-    var renderFullCast = function(sortedSlicesArr, currentSlice) {
-        //console.log('inside render ', sortedSlicesArr);
+    var renderFullCast = function(sortedSlicesArr, currentIndex) {
+        replayCurrentIndex = currentIndex;
+        //console.log('currentSlicearr', sortedSlicesArr);
+        var currentSlice = sortedSlicesArr[currentIndex];
         $scope.videoObj.text = currentSlice.text;
         $scope.videoObj.result = currentSlice.result;
-        var next = sortedSlicesArr.shift();
+        $scope.currentTime = currentSlice.runningTotal;
+        var next = sortedSlicesArr[currentIndex+1];
                 
         if(next && !paused){
             $timeout(function(){
-                renderFullCast(sortedSlicesArr, next)
+                renderFullCast(sortedSlicesArr, currentIndex+1)
             }, next.runningTotal - currentSlice.runningTotal)
         } 
 
     };
 
     var calculateRunningTotal = function(first, slice) {
-        return slice.runningTotal = Date.parse(slice.time) - Date.parse(first.time) + 1;
+        return slice.runningTotal = Date.parse(slice.time) - Date.parse(first.time);
     }
 
     $scope.getFullCast = function() {
@@ -45,7 +47,8 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
                 sortedSlicesArr.forEach(function(slice) {
                     calculateRunningTotal(sortedSlicesArr[0], slice)
                 })
-                renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
+                $scope.replayLength = _.last(sortedSlicesArr).runningTotal;
+                renderFullCast(sortedSlicesArr, 0);
             })
     }
 
@@ -55,7 +58,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
 
     var continueReplay = function() {
         paused = false;
-        renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
+        renderFullCast(sortedSlicesArr, replayCurrentIndex);
     }
 
     $scope.pauseContinue = function() {
@@ -66,6 +69,58 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         }
     }
 
+    $scope.pauser = function(){
+        paused = true;
+    }
+
+    // $scope.throttle = function(delay, callback) {
+    //     console.log('throttle')
+    //     var previousCall = new Date().getTime();
+    //     return function() {
+    //         var time = new Date().getTime();
+
+    //     // if "delay" milliseconds have expired since
+    //     // the previous call then propagate this call to
+    //     // "callback"
+
+    //         if ((time - previousCall) >= delay) {
+    //             previousCall = time;
+    //             callback.apply(null, arguments);
+    //         }
+    //     };
+    // }
+
+
+    var userUpdatingTime = function() {
+        //paused = true;
+        sortedSlicesArr.forEach(function(slice, index) {
+            if($scope.currentTime >= slice.runningTotal) {
+                replayCurrentIndex = index-1;
+            }
+        })
+        console.log('ready to rerender')
+        paused = false;
+        renderFullCast(sortedSlicesArr, replayCurrentIndex);
+    }
+
+
+    $scope.userUpdatingTime = _.debounce(userUpdatingTime, 100);
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
