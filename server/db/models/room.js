@@ -21,7 +21,8 @@ var room = new mongoose.Schema({
 	},
 	textHistory: String,
 	resultHistory: String,
-	commentHistory: String
+	// change this to be array of objects when we work on user permissions
+	commentHistory: [String]
 });
 
 mongoose.model('Room', room);

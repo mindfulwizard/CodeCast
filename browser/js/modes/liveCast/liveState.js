@@ -8,6 +8,7 @@ app.config(function($stateProvider) {
 			codeHistory: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
+				  	console.log('res.data.commentHistory in codeHistory', res.data.commentHistory)
 				  	return res.data;
 				  });
 			}

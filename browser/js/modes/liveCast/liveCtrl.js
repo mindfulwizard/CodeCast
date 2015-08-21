@@ -2,7 +2,9 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   $scope.currentlyRecording = false;
 
   socketFactory.emit('join', $stateParams.roomId)
-  $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory};
+  $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory, comments: codeHistory.commentHistory};
+
+  console.log('$scope.replayObj', $scope.replayObj)
 
   // //listener for when codehistory changes on joining a room
   // //everytime the instruction types, change the textsnip and the result if there is
@@ -11,6 +13,8 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     $scope.replayObj.text = codeSliceObj.text;
     $scope.replayObj.result = codeSliceObj.result;
   })
+
+
 
   var keystroke = false;
   var timerPromise;
