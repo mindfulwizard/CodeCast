@@ -16,7 +16,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     var timerPromise;
 
     var renderFullCast = function(sortedSlicesArr, currentSlice) {
-        //console.log('inside render ', sortedSlicesArr);
+        // console.log('inside render ', sortedSlicesArr);
         $scope.videoObj.text = currentSlice.text;
         $scope.videoObj.result = currentSlice.result;
         var next = sortedSlicesArr.shift();
@@ -41,6 +41,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
                 return sortSlices(sliceList);
             })
             .then(function(sortedArr) {
+                // console.log('sortedArr', sortedArr)
                 sortedSlicesArr = sortedArr
                 sortedSlicesArr.forEach(function(slice) {
                     calculateRunningTotal(sortedSlicesArr[0], slice)

@@ -18,7 +18,11 @@ var room = new mongoose.Schema({
 	lectureEnded: {
 		type: Boolean,
 		default: false
-	}
+	},
+	textHistory: String,
+	resultHistory: String,
+	// change this to be array of objects when we work on user permissions
+	commentHistory: [String]
 });
 
 mongoose.model('Room', room);
