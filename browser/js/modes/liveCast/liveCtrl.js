@@ -1,19 +1,8 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state) {
-
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, codeHistory) {
   $scope.currentlyRecording = false;
 
   socketFactory.emit('join', $stateParams.roomId)
-  socketFactory.on('get code history', function(snippetObj) {
-    // if (history === $stateParams.roomId)
-    //console.log('history', history)
-    $scope.replayObj = {
-      text: null,
-      result: ''
-    };
-    $scope.replayObj.text = snippetObj.text;
-    //console.log('$scope', $scope)
-    $scope.replayObj.result = snippetObj.result;
-  })
+  $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory};
 
   // //listener for when codehistory changes on joining a room
   // //everytime the instruction types, change the textsnip and the result if there is

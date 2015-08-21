@@ -3,14 +3,15 @@ app.config(function($stateProvider) {
 		url: '/live/:roomId',
 		templateUrl: 'js/modes/liveCast/live.html',
 		controller: 'liveCtrl',
-		// resolve: {
-		// 	codeHistory: function($http) {
-		// 		return $http.get('/api/codeHistory/:roomId')
-		// 		  .then(function(res) {
-		// 		  	return res.data;
-		// 		  });
-		// 	}
-		// }
+		resolve: {
+			//replaced joinsocket with http call
+			codeHistory: function($http, $stateParams) {
+				return $http.get('/api/rooms/' + $stateParams.roomId)
+				  .then(function(res) {
+				  	return res.data;
+				  });
+			}
+		},
 		onExit: function(socketFactory, $stateParams) {
 			// console.log("stateparams", $stateParams.roomId)
 			// console.log(socketFactory, "factory")

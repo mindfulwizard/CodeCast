@@ -6,31 +6,35 @@ var mongoose = require('mongoose');
 require('../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
 var Comment = mongoose.model('Comment');
-
+var Room = mongoose.model('Room');
 
 module.exports = function(server) {
-	var rooms = {};
+	// var rooms = {};
 
 	if (io) return io;
 	io = socketio(server);
 
-	// keep track of codeHistory of each room
-	var codeHistory = {};
-	// keep track of codeHistory of each room
-	var commentHistory = {};
+	// // keep track of codeHistory of each room
+	// var History = {};
+	// // keep track of codeHistory of each room
+	 var commentHistory = {};
 
 	io.on('connection', function(socket) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
+			var snippet = obj;
 			var roomToSendTo = obj.room.toString();
 			// update codeHistory
-			codeHistory[obj.room] = obj;
+			//codeHistory[obj.room] = obj;
 			// emit to the specific room
 			socket.broadcast.to(roomToSendTo).emit('change the textSnip', obj);
-			// store the obj in db
-			CodeSlice.create(obj)
+			Room.findByIdAndUpdate(obj.room, {textHistory: obj.text, resultHistory: obj.result}).exec()
+			.then(function(){
+				// store the obj in db
+				CodeSlice.create(snippet)
 			})
+		})
 
 		// initiliaze comment
 		socket.on('initiliaze comments', function(obj) {
@@ -55,10 +59,8 @@ module.exports = function(server) {
 
 		socket.on('join', function(roomId) {
 			console.log("USER HAS ARRIVED");
-			socket.emit('get code history', codeHistory[roomId]);
-			socket.emit('get comments history', commentHistory[roomId])
-			io.to(roomId).emit('get code history', codeHistory[roomId]);
-			io.to(roomId).emit('get comments history', commentHistory[roomId]);
+			 socket.emit('get comments history', commentHistory[roomId])
+			 io.to(roomId).emit('get comments history', commentHistory[roomId]);
 			socket.join(roomId);
 		})
 
