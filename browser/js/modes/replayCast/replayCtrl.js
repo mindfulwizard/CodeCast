@@ -1,6 +1,6 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory, $timeout) {
     $scope.paused = false;
-    $scope.videoObj = {text: null};
+    $scope.videoObj = {text: null, result: null};
     
 
     function sortSlices(sliceList) {
@@ -16,8 +16,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     var timerPromise;
 
     var renderFullCast = function(sortedSlicesArr, currentSlice) {
-        console.log('inside render ', sortedSlicesArr);
+        //console.log('inside render ', sortedSlicesArr);
         $scope.videoObj.text = currentSlice.text;
+        $scope.videoObj.result = currentSlice.result;
         var next = sortedSlicesArr.shift();
                 
         if(next && !paused){

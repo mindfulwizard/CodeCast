@@ -1,8 +1,8 @@
 app.factory('castFactory', function($http, socketFactory){
 	return {
 
-		sendText: function (text, time, roomId) {
-			socketFactory.emit('updatedText', {text: text, time: time, room: roomId})
+		sendText: function (text, time, roomId, result) {
+				socketFactory.emit('updatedText', {text: text, time: time, room: roomId, result: result})
 
 		},
 
