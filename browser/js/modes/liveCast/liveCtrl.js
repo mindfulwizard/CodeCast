@@ -3,21 +3,24 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   $scope.currentlyRecording = false;
 
   socketFactory.emit('join', $stateParams.roomId)
-  socketFactory.on('get code history', function(history) {
+  socketFactory.on('get code history', function(snippetObj) {
     // if (history === $stateParams.roomId)
     //console.log('history', history)
     $scope.replayObj = {
-      text: null
+      text: null,
+      result: ''
     };
-    $scope.replayObj.text = history;
+    $scope.replayObj.text = snippetObj.text;
     //console.log('$scope', $scope)
+    $scope.replayObj.result = snippetObj.result;
   })
 
   // //listener for when codehistory changes on joining a room
-  // //everytime the instruction types, change the textsnip
-  socketFactory.on('change the textSnip', function(str) {
+  // //everytime the instruction types, change the textsnip and the result if there is
+  socketFactory.on('change the textSnip', function(codeSliceObj) {
     //console.log('str', str)
-    $scope.replayObj.text = str;
+    $scope.replayObj.text = codeSliceObj.text;
+    $scope.replayObj.result = codeSliceObj.result;
   })
 
   var keystroke = false;
@@ -34,7 +37,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   $scope.constantRecording = function() {
     if($scope.currentlyRecording){
-        castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId);
+        castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
     }    
   }
 

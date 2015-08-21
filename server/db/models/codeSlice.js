@@ -12,9 +12,12 @@ var CodeSlice = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Room'
 	},
-	evaluated: {
-		type: Boolean,
-		default: false
+	// evaluated: {
+	// 	type: Boolean,
+	// 	default: false
+	// },
+	result: {
+		type: String
 	}
 });
 
@@ -23,7 +26,5 @@ var CodeSlice = new mongoose.Schema({
 // 	// emit a socket event
 // 	io.to(this.room).emit('CodeSlice:create', this)
 // })
-
-
 
 mongoose.model('CodeSlice', CodeSlice);

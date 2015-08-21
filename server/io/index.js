@@ -25,11 +25,13 @@ module.exports = function(server) {
 		socket.on('updatedText', function(obj) {
 			CodeSlice.create(obj)
 				.then(function(snippetObj) {
+					console.log('snippetObj', snippetObj)
 					var roomToSendTo = snippetObj.room.toString();
 					// update codeHistory
-					codeHistory[snippetObj.room] = snippetObj.text;
+					codeHistory[snippetObj.room] = snippetObj;
+					console.log('codeHistory[snippetObj.room]', codeHistory[snippetObj.room])
 					// once new snippet created, emit to the specific room
-					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj.text);
+					socket.broadcast.to(roomToSendTo).emit('change the textSnip', snippetObj);
 
 				})
 			// console.log(socket, "SOCKET");

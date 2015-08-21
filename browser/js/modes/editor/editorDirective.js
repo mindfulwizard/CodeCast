@@ -4,7 +4,8 @@ app.directive('editor', function() {
 		restrict: 'E',
 		scope: {
 			replayText: '=', 
-			name: '@'
+			name: '@',
+			output: '='
 		},
 		controller: 'editorCtrl'
 	}
