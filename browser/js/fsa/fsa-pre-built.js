@@ -63,6 +63,12 @@
             return !!Session.user;
         };
 
+        // Uses the session factory to see if an
+        // authenticated user is instructor
+        this.isInstructor = function() {
+            return !!Session.isInstructor;
+        }
+
         this.getLoggedInUser = function (fromServer) {
 
             // If an authenticated session exists, we
@@ -125,10 +131,13 @@
 
         this.id = null;
         this.user = null;
+        // added isInstructor key
+        this.isInstructor = null;
 
         this.create = function (sessionId, user) {
             this.id = sessionId;
             this.user = user;
+            this.isInstructor = user.instructor;
         };
 
         this.destroy = function () {

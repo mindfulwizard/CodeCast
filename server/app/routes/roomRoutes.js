@@ -6,9 +6,11 @@ var User = mongoose.model('User');
 router.post('/', function(req, res) {
 	Room.create({
 		name: req.body.name,
+		instructor: req.body.instructor
 	})
-		.then(function(data) {
-			res.send(data);
+		.then(function(room) {
+			console.log('room created?', room)
+			res.send(room);
 		});
 });
 
@@ -32,6 +34,17 @@ router.get('/:id', function(req, res) {
 			res.json(room);
 		});
 });
+
+
+// find all the rooms by the instructor who created them
+router.get('/instructor/:instructorId', function(req, res) {
+	console.log('in get routes for one instructor')
+	Room.find({instructor: req.params.instructorId}).exec()
+		.then(function(room) {
+			res.json(room);
+		});
+});
+
 
 router.put('/:id', function (req, res) {
 	Room.findByIdAndUpdate(req.params.id, req.body).exec()
