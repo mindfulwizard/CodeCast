@@ -52,9 +52,16 @@ router.put('/:id', function (req, res) {
 router.put('/audio/:id', function(req, res) {
 	Room.findByIdAndUpdate(req.params.id, req.body).exec()
 	.then(function (room) {
-		res.json(room);
+		res.end();
 	})
 });
 
+
+router.get('/audio/:id', function(req, res) {
+	Room.findById(req.params.id).exec()
+	.then(function (room) {
+		res.json(room.audioFileObj);
+	})
+});
 
 module.exports = router;

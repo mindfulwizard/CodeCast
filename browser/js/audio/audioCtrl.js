@@ -1,76 +1,90 @@
-app.controller('audioCtrl', function($scope, audioFactory){
-	var audio_context;
-  	var recorder;
-  	var startDate;
+app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
+    var audio_context;
+    var recorder;
+    var startDate;
 
-  	 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-      window.URL = window.URL || window.webkitURL;
-      
-      audio_context = new AudioContext;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+
+    audio_context = new AudioContext;
 
 
 
-       navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-      console.log('No live audio input: ' + e);
+    navigator.getUserMedia({
+        audio: true
+    }, startUserMedia, function(e) {
+        console.log('No live audio input: ' + e);
     });
 
 
 
     function startUserMedia(stream) {
-    var input = audio_context.createMediaStreamSource(stream);
-	recorder = new Recorder(input);
-  	}
+        var input = audio_context.createMediaStreamSource(stream);
+        recorder = new Recorder(input);
+    }
 
-	$scope.startRecording = function(){
-		startDate = new Date();
-		recorder.record();
-	}
+    $scope.startRecording = function() {
+        startDate = new Date();
+        recorder.record();
+    }
 
-	$scope.stopRecording = function(){
-		recorder.stop();
-		// recorder.getBuffer(function(buffer){
-		// 	// audioFactory.sendBuffer($scope.roomId, buffer)
-		// 	// 	$scope.playBuffer(buffer);
-		// });
-		(function createDownloadLink() {
-		    recorder && recorder.exportWAV(function(blob) {
+    var BinaryFileReader = {
+        read: function(file, callback) {
+            var reader = new FileReader;
 
-		      var url = URL.createObjectURL(blob);
+            var fileInfo = {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                file: null
+            }
 
-		     audioFactory.sendBuffer($scope.roomId, url)
-		     .then(function(room){
-			      
-			      var li = document.createElement('li');
-			      var au = document.createElement('audio');
-			      var hf = document.createElement('a');
-			      au.controls = true;
-			      au.src = room.audioUrl.slice(5);
-			      hf.href = room.audioUrl.slice(5);
-			      hf.download = startDate.toISOString() + '.wav';
-			      hf.innerHTML = hf.download;
-			      li.appendChild(au);
-			      li.appendChild(hf);
-			      recordingslist.appendChild(li);
-			
-		     })
+            reader.onload = function() {
+                fileInfo.file = new Uint8Array(reader.result);
+                callback(null, fileInfo);
+            }
+            reader.onerror = function() {
+                callback(reader.error);
+            }
 
-		    });
-  		})();
-	}
+            reader.readAsArrayBuffer(file);
+        }
+    }
 
-	$scope.playBuffer = function(buffers){
-		// var newSource = audio_context.createBufferSource();
-		// var newBuffer = audio_context.createBuffer(2, buffers[0].length, audio_context.sampleRate);
-		// newBuffer.getChannelData(0).set(buffers[0]);
-		// newBuffer.getChannelData(1).set(buffers[1]);
-		// newSource.buffers = newBuffer;
+// $scope.recording;
 
+    $scope.stopRecording = function() {
+        recorder.stop();
+        recorder.exportWAV(function(blob) {
+            BinaryFileReader.read(blob, function(err, fileInfo) {
+                audioFactory.sendBuffer($scope.roomId, fileInfo)
+                .then(function(room){
+                	//console.log("ROOM ", room.audioFileObj);
+                })
+            })
+        });
 
-		// newSource.connect(audio_context.destination);
-		// newSource.start(0)
-}
+    }
+
+    $scope.playBuffer = function(buffers) {
+     		audioFactory.getBuffer($scope.roomId)
+     		.then(function(rec){
+     			$timeout(function(){
+     			 if (rec) {
+	                var au = document.createElement('audio');
+	                au.controls = true;
+	                var blob = new Blob([rec.file], {
+	                    type: rec.type
+	                });
+	                au.src = URL.createObjectURL(blob);
+	                document.getElementById("recordingslist").appendChild(au);
+	            }
+     			console.log(rec)
+	        	}, 10000)
+	       
+
+     		})
+    }
 
 })
-
-
