@@ -18,6 +18,12 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
+    instructor: {
+        type: Boolean
+    },
+    admin: {
+        type: Boolean
+    },
     twitter: {
         id: String,
         username: String,

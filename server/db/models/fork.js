@@ -8,11 +8,13 @@ var Fork = new mongoose.Schema({
     text: {
         type: String
     },
-    replayId: {
-    	type: String
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room'
     },
-    userId: {
-        type: String
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
