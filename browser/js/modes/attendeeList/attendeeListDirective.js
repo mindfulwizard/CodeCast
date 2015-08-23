@@ -3,7 +3,8 @@ app.directive('attendeeList', function() {
 		templateUrl: 'js/modes/attendeeList/attendeeList.html',
 		restrict: 'E',
 		scope: {
-			room: "="
+			room: '=',
+			user: '='
 		},
 		controller: 'attendeeListCtrl'
 	}

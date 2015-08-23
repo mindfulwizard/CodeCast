@@ -6,7 +6,7 @@ app.directive('editor', function() {
 			replayText: '=', 
 			name: '@',
 			output: '=',
-			currentUser: '='
+			user: '='
 		},
 		controller: 'editorCtrl'
 	}
