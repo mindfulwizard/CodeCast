@@ -1,13 +1,16 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, codeHistory) {
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, codeHistory, AuthService, AUTH_EVENTS) {
+  // wrap the whole ctrl inside this .then
+  AuthService.getLoggedInUser().then(function (user) {
+
+  $scope.user = user;
+  
   $scope.currentlyRecording = false;
 
-  socketFactory.emit('join', $stateParams.roomId)
+  socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
   $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory, comments: codeHistory.commentHistory};
 
-  console.log('$scope.replayObj', $scope.replayObj)
-
   // //listener for when codehistory changes on joining a room
-  // //everytime the instruction types, change the textsnip and the result if there is
+  // //everytime the instructor types, change the textsnip and the result if there is
   socketFactory.on('change the textSnip', function(codeSliceObj) {
     //console.log('str', str)
     $scope.replayObj.text = codeSliceObj.text;
@@ -41,4 +44,26 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
       $state.go('home')
     })
   }
+
+  // Auth and permissions
+
+  // $scope.user;
+
+  // if (AuthService.isInstructor()) { $scope.user = 'instructor'}
+  // else {$scope.user = 'student'}
+
+
+
+  // var setUser = function () {
+            // AuthService.getLoggedInUser().then(function (user) {
+            //     scope.user = user;
+        //     });
+        // };
+
+        // var removeUser = function () {
+        //     scope.user = null;
+        // };
+
+        // setUser();
+      })
 });

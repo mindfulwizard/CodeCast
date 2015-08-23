@@ -1,13 +1,19 @@
 
-
 <section id="live">
-	<div ng-keyup="startLecture();constantRecording()">
+	<div ng-keyup="startLecture();constantRecording()" class="editor">
+	<div>
    		<editor name="live" replay-text="replayObj" output="replayObj.result"></editor>
+   	</div>
 	</div>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
+   	{{user}}
    	<a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
    	 <fork name="live" replay-obj="replayObj"></fork>
+   	 <!-- <div class="overlay"></div> -->
    	 <comments comments-arr="replayObj.comments"></comments>
 </section>
+</br>
+</br>
+</br>
 
 

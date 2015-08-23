@@ -60,7 +60,6 @@ module.exports = function(server) {
 				Comment.create(commentObj)
 			})
 
-
 			// Comment.create(obj)
 			// .then(function (commentObj) {
 			// 	var roomToSendTo = commentObj.room.toString();
@@ -74,17 +73,37 @@ module.exports = function(server) {
 			// })
 		})
 
-		socket.on('join', function(roomId) {
+		socket.on('join', function(objReceived) {
 			console.log("USER HAS ARRIVED");
-			 // socket.emit('get comments history', commentHistory[roomId])
-			 // io.to(roomId).emit('get comments history', commentHistory[roomId]);
-			socket.join(roomId);
+			var newUser = objReceived.user;
+			socket.join(objReceived.room);
+			// update the list of students in room
+			Room.findById(objReceived.room).exec()
+			.then(function (room) {
+				console.log()
+				if (room.students.indexOf(newUser._id) === -1) {
+					room.students.push(newUser._id)
+					console.log('room after user enters if statement', room)
+				}
+				room.save()
+				console.log('room after user enters', room)
+				return room;
+			})
 		})
 
 
-		socket.on('leave', function(roomId) {
+		socket.on('leave', function(objReceived) {
 			console.log("USER HAS LEFT");
-			socket.leave(roomId);
+			var newUser = objReceived.user;
+			socket.leave(objReceived.room);
+			// remove student from list in room
+			Room.findById(objReceived.room).exec()
+			.then(function (room) {
+				room.students.splice(room.students.indexOf(newUser._id), 1)
+				room.save()
+				console.log('room after user leave', room)
+				return room;
+			})
 		});
 
 		socket.on('disconnect', function() {

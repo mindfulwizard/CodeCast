@@ -8,21 +8,16 @@ app.config(function($stateProvider) {
 			codeHistory: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
-				  	console.log('res.data.commentHistory in codeHistory', res.data.commentHistory)
+				  	// console.log('res.data.commentHistory in codeHistory', res.data.commentHistory)
 				  	return res.data;
 				  });
 			}
 		},
-		onExit: function(socketFactory, $stateParams) {
-			// console.log("stateparams", $stateParams.roomId)
-			// console.log(socketFactory, "factory")
-			socketFactory.emit('leave', $stateParams.roomId);
+		onExit: function(socketFactory, $stateParams, AuthService) {
+			 AuthService.getLoggedInUser().then(function (user) {
+			 	console.log('on exit inside AuthService CallBack', user)
+				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
+			})
 		}
-		// resolve: {
-		// 	initializeScopeComments: function ($scope) {
-		// 		$scope.comments = [];
-		// 		return $scope.comments
-		// 	}
-		// }
 	})
 })
