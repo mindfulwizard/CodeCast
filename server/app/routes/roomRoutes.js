@@ -54,4 +54,12 @@ router.put('/:id', function (req, res) {
 
 })
 
+router.get('/instructor/:instructorId', function (req, res) {
+	Room.find({instructor: req.params.instructorId}).exec()
+	.then(function (rooms) {
+		res.json(rooms);
+	});
+
+})
+
 module.exports = router;

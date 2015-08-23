@@ -2,9 +2,23 @@
 
 <section id="student">
 
-Instructor List
-Videos by Instructor
+Instructor List:
+<div ng-repeat="instructor in instructors">
+	<a ng-click="getLectures(instructor._id)">{{instructor.email}}</a>
+</div>
+
+<div ng-show="showRooms" ng-repeat="room in instructorRooms">
+<a ui-sref="liveState({instructorId: room._id})">{{room.name}}</a>
+</div>
+
+
+Forks:
+<div ng-repeat="fork in forks">
+	
+</div>
 Notes (forks made by User), organized by video
+rooms, replay
+search bar to find an instructor / a video name
 
 
 </section>
