@@ -86,17 +86,17 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     }
 
     $scope.pauseContinue = function() {
-        if(!videoStarted){
+         if(videoOver){
+            videoOver = false;
+            renderFullCast(sortedSlicesArr, 0);
+        } else if(!videoStarted){
             $scope.getFullCast();
         } else if(paused) {
             paused = false;
             renderFullCast(sortedSlicesArr, replayCurrentIndex);
         } else if(!paused) {
             paused = true;
-        } else if(videoOver){
-            videoOver = false;
-            renderFullCast(sortedSlicesArr, 0);
-        } 
+        }
     }
 
     //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
