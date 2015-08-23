@@ -1,15 +1,10 @@
 <div>
 	<span>Instructor: {{room.instructor}}</span>
 </br>
-	<input type="search" ng-model="q" placeholder="filter attendees..."/>
-	<ul class="example-animate-container">
+  <ul>
     <span>Attendees:</span>
-      <li ng-repeat="student in room.students">
-    	<!-- <li class="animate-repeat" ng-repeat="student in room.students | filter:q as results"> -->
+      <li ng-repeat="student in room.students" ng-click="select(student)" ng-class="{canType: allowTyping(student)}">
       {{student}}
-    	</li>
-    	<li class="animate-repeat" ng-if="results.length === 0">
-      	<strong>No results found...</strong>
     	</li>
   </ul>
 </div>
