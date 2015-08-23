@@ -2,7 +2,7 @@
 <section id="live">
 	<div ng-keyup="startLecture();constantRecording()" class="editor">
       <div>
-   		<editor name="live" replay-text="replayObj" output="replayObj.result"></editor>
+   		<editor currentUser="user" name="live" replay-text="replayObj" output="replayObj.result"></editor>
       </div>
 	</div>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>

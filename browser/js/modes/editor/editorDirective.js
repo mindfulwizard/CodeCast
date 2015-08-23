@@ -5,7 +5,8 @@ app.directive('editor', function() {
 		scope: {
 			replayText: '=', 
 			name: '@',
-			output: '='
+			output: '=',
+			currentUser: '='
 		},
 		controller: 'editorCtrl'
 	}

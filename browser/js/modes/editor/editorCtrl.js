@@ -19,11 +19,12 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.codemirrorLoaded = function(_editor){
         $scope.editor = _editor;
         //if in replay mode set readOnly to true
-        if($scope.name === 'replay') {
+        if($scope.name === 'replay'  || !$scope.user.instructor) {
             $scope.editor.setOption('readOnly', 'nocursor');
         }
     }
 
+    console.log('user?', $scope.currentUser)
     $scope.readOnly = false;
 
     $scope.toggleReadOnly = function() {
