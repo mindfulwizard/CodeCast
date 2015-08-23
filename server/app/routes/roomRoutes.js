@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
+var fs = require('fs');
 require('../../db/models');
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
@@ -50,17 +51,24 @@ router.put('/:id', function (req, res) {
 
 
 router.put('/audio/:id', function(req, res) {
-	Room.findByIdAndUpdate(req.params.id, req.body).exec()
+	fs.writeFile("AudioFiles/" +req.params.id+'.wav', JSON.stringify(req.body), 'utf-8', function (err) {
+ 	if (err) throw err;
+ 	console.log("file written")
+	Room.findByIdAndUpdate(req.params.id, {audioFileLink: "AudioFiles/" + req.params.id+'.wav'}).exec()
 	.then(function (room) {
-		res.end();
+		res.end();	
 	})
+ 	})
 });
 
 
 router.get('/audio/:id', function(req, res) {
 	Room.findById(req.params.id).exec()
 	.then(function (room) {
-		res.json(room.audioFileObj);
+		fs.readFile(room.audioFileLink, function (err, data) {
+		  if (err) throw err;
+		  res.json(JSON.parse(data));
+		})
 	})
 });
 

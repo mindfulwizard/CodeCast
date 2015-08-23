@@ -52,39 +52,54 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
         }
     }
 
-// $scope.recording;
+
 
     $scope.stopRecording = function() {
         recorder.stop();
         recorder.exportWAV(function(blob) {
             BinaryFileReader.read(blob, function(err, fileInfo) {
                 audioFactory.sendBuffer($scope.roomId, fileInfo)
-                .then(function(room){
-                	//console.log("ROOM ", room.audioFileObj);
-                })
+                    .then(function(room) {
+                        //console.log("ROOM ", room.audioFileObj);
+                    })
             })
         });
 
     }
 
     $scope.playBuffer = function(buffers) {
-     		audioFactory.getBuffer($scope.roomId)
-     		.then(function(rec){
-     			$timeout(function(){
-     			 if (rec) {
-	                var au = document.createElement('audio');
-	                au.controls = true;
-	                var blob = new Blob([rec.file], {
-	                    type: rec.type
-	                });
-	                au.src = URL.createObjectURL(blob);
-	                document.getElementById("recordingslist").appendChild(au);
-	            }
-     			console.log(rec)
-	        	}, 10000)
-	       
+        audioFactory.getBuffer($scope.roomId)
+            .then(function(audioFileObj) {
+                var buff = [];
+                for (var key in audioFileObj) {
+                    buff.push(audioFileObj[key])
+                }
+                var rec = new Blob(buff, {
+                    type: 'audio/wav'
+                })
+                return rec;
+            })
+            .then(function(rec) {
+                var blob = rec;
+                    recorder && recorder.exportWAV(function() {
+                        var url = URL.createObjectURL(blob);
+                        var li = document.createElement('li');
+                        var au = document.createElement('audio');
+                        var hf = document.createElement('a');
 
-     		})
+                        au.controls = true;
+                        au.src = url;
+                        hf.href = url;
+                        hf.download = new Date().toISOString() + '.wav';
+                        hf.innerHTML = hf.download;
+                        li.appendChild(au);
+                        li.appendChild(hf);
+                        recordingslist.appendChild(li);
+                        console.log(blob)
+                    })
+
+
+                
+            })
     }
-
 })

@@ -44,7 +44,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     $scope.currentlyRecording = false;
     castFactory.endLecture($stateParams.roomId)
     .then(function () {
-      //$state.go('home')
+      $state.go('home')
     })
   }
 });

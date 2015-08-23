@@ -1,7 +1,7 @@
 app.factory('audioFactory', function($http){
 	return {
 		sendBuffer: function (roomId, audioFileObj) {
-			return $http.put('/api/rooms/audio/' + roomId, {audioFileObj: audioFileObj})
+			return $http.put('/api/rooms/audio/' + roomId, {audioFileObj: audioFileObj.file})
 			.then(function (res) {
 				return res.data
 			})
@@ -9,7 +9,7 @@ app.factory('audioFactory', function($http){
 		getBuffer:  function(roomId){
 			return $http.get('/api/rooms/audio/' + roomId)
 			.then(function(res){
-				return res.data
+				return res.data.audioFileObj
 			})
 		}
 	}
