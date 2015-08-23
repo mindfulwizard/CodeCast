@@ -10,7 +10,7 @@
       <a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
        <fork name="live" replay-obj="replayObj"></fork>
       <div>
-         <comments comments-arr="replayObj.comments"></comments>
+         <comments user="user" comments-arr="replayObj.comments"></comments>
       </div>
       <div>
          <attendee-list room="room"></attendee-list>

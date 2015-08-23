@@ -12,7 +12,6 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   // //listener for when roomInfo changes on joining a room
   // //everytime the instructor types, change the textsnip and the result if there is
   socketFactory.on('change the textSnip', function(codeSliceObj) {
-    //console.log('str', str)
     $scope.replayObj.text = codeSliceObj.text;
     $scope.replayObj.result = codeSliceObj.result;
   })

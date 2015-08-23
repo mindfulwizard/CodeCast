@@ -3,5 +3,5 @@
 	<input type="text" ng-model="post.question" placeholder="Type in your question/comment"></input>
 	<button type="submit">Post Your Question / Comment </button>
 </form>
-<div ng-repeat="comment in commentsArr">{{comment}}</div>
+<div ng-repeat="comment in commentsArr">{{comment.user}}: {{comment.text}}</div>
 <!-- <div>{{commentsArr}}</div> -->
