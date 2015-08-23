@@ -1,20 +1,38 @@
 app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams){
 	$scope.output;
 
-	$scope.editorOptions = {
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: 'javascript',
-        smartIndent: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        keyMap: 'sublime',
-        // readOnly: false
-    };
-
-    //$scope.editorOptions.setOption("readOnly", true);
+	// $scope.editorOptions = {
+ //        lineWrapping: true,
+ //        lineNumbers: true,
+ //        mode: 'javascript',
+ //        smartIndent: true,
+ //        autoCloseBrackets: true,
+ //        matchBrackets: true,
+ //        keyMap: 'sublime',
+ //        onLoad: codemirrorLoaded
+ //    };
 
     // $scope.output = 'waiting for results'
+
+    $scope.editor;
+
+    $scope.codemirrorLoaded = function(_editor){
+        $scope.editor = _editor;
+    }
+
+    $scope.readOnly = false;
+
+    $scope.toggleReadOnly = function() {
+        if ($scope.editor && $scope.readOnly === false) {
+            console.log('readOnly!')
+            $scope.readOnly = true;
+            $scope.editor.setOption('readOnly', 'nocursor');
+        } else if ($scope.editor && $scope.readOnly === true) {
+            console.log('can edit!')
+            $scope.readOnly = false;
+            $scope.editor.setOption('readOnly', false);
+        }
+    }
 
     $scope.$on('console', function(event, data) {
         // console.log($scope.replayText.text, new Date(), $stateParams.roomId, $scope.replayText.result)
@@ -23,11 +41,6 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     })
 
     $scope.getResultCode = function() {
-        
         evaluatorFactory.evalCode($scope.replayText.text, $scope);
-        
-        // if($scope.name === 'live') {
-        //     evaluatorFactory.liveEvals.push(new Date());
-        // }
     }
 })
