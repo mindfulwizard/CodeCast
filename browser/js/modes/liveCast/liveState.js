@@ -5,10 +5,10 @@ app.config(function($stateProvider) {
 		controller: 'liveCtrl',
 		resolve: {
 			//replaced joinsocket with http call
-			codeHistory: function($http, $stateParams) {
+			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
-				  	// console.log('res.data.commentHistory in codeHistory', res.data.commentHistory)
+				  	// console.log('res.data.commentHistory in roomInfo', res.data.commentHistory)
 				  	return res.data;
 				  });
 			}

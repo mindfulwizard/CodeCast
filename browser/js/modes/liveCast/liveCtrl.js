@@ -1,15 +1,15 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, codeHistory, AuthService, AUTH_EVENTS) {
+app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, AuthService, AUTH_EVENTS) {
   // wrap the whole ctrl inside this .then
   AuthService.getLoggedInUser().then(function (user) {
 
   $scope.user = user;
-  
+  $scope.room = roomInfo;
   $scope.currentlyRecording = false;
 
   socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
-  $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory, comments: codeHistory.commentHistory};
+  $scope.replayObj = {text: roomInfo.textHistory, result: roomInfo.resultHistory, comments: roomInfo.commentHistory};
 
-  // //listener for when codehistory changes on joining a room
+  // //listener for when roomInfo changes on joining a room
   // //everytime the instructor types, change the textsnip and the result if there is
   socketFactory.on('change the textSnip', function(codeSliceObj) {
     //console.log('str', str)

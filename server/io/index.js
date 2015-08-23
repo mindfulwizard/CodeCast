@@ -81,7 +81,7 @@ module.exports = function(server) {
 			Room.findById(objReceived.room).exec()
 			.then(function (room) {
 				console.log()
-				if (room.students.indexOf(newUser._id) === -1) {
+				if ((room.students.indexOf(newUser._id) === -1) && (room.students.indexOf(newUser._id) !== objReceived.instructor)){
 					room.students.push(newUser._id)
 					console.log('room after user enters if statement', room)
 				}
