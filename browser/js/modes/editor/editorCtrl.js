@@ -18,6 +18,10 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
 
     $scope.codemirrorLoaded = function(_editor){
         $scope.editor = _editor;
+        //if in replay mode set readOnly to true
+        if($scope.name === 'replay') {
+            $scope.editor.setOption('readOnly', 'nocursor');
+        }
     }
 
     $scope.readOnly = false;
