@@ -53,16 +53,26 @@ module.exports = function(server) {
 		socket.on('join', function(objReceived) {
 			console.log("USER HAS ARRIVED");
 			var newUser = objReceived.user;
+			socket.join(objReceived.room);
 			// update the list of students in room
-			Room.findById(objReceived.room).exec()
+			Room.findById(objReceived.room).populate('students').exec()
 			.then(function (room) {
-				if ((room.students.indexOf(newUser._id) === -1) && (room.students.indexOf(newUser._id) !== objReceived.instructor)){
-					room.students.push(newUser._id)
+				var push = true;
+				room.students.forEach(function (studentObj) {
+					if ((studentObj._id === newUser._id) || (objReceived.instructor === true)) {
+						push = false;
+					}
+				})
+				if (push) {
+					room.students.push(newUser)
 				}
+
+				// if ((room.students.indexOf(newUser._id) === -1) && (room.students.indexOf(newUser._id) !== objReceived.instructor)){
+				// 	room.students.push(newUser._id)
+				// }
 				room.save()
 				console.log('room.students after update', room)
-				io.to(roomToSendTo).emit('add to room.students', room);
-				socket.join(room._id);
+				io.to(room._id).emit('add to room.students', room);
 				return room;
 			})
 		})
@@ -72,13 +82,13 @@ module.exports = function(server) {
 			console.log("USER HAS LEFT");
 			var newUser = objReceived.user;
 			// remove student from list in room
-			Room.findById(objReceived.room).exec()
+			socket.leave(objReceived.room);
+			Room.findById(objReceived.room).populate('students').exec()
 			.then(function (room) {
-				room.students.splice(room.students.indexOf(newUser._id), 1)
+				room.students.splice(room.students.indexOf(newUser), 1)
 				room.save()
 				console.log('room.students after update when leaves room', room.students)
-				io.to(roomToSendTo).emit('delete from room.students', room);
-				socket.leave(room._id);
+				io.to(room._id).emit('delete from room.students', room);
 				return room;
 			})
 		});

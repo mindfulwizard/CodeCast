@@ -18,7 +18,6 @@ app.config(function($stateProvider) {
 			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
-				  	console.log('room in resolve', res.data)
 				  	return res.data;
 				  });
 			}
