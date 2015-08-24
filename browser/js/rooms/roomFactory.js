@@ -7,7 +7,7 @@ app.factory('roomFactory', function($http, socketFactory) {
 				})
 		},
 
-		getAllRoomsOfOneInstructor: function (instructorId) {
+		getAllFutureLecturesOfOneInstructor: function (instructorId) {
 			console.log('instructorId in getAllRoomsOfOneInstructor', instructorId)
 			return $http.get('/api/rooms/instructor/' + instructorId)
 				.then(function (res) {

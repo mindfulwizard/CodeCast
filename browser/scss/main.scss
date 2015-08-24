@@ -6,10 +6,6 @@
     color: red;
   }
 
-body {
-  background: #fdfdfd;
-  width: 100%
-}
 
 @mixin clearfix {
   &:after {
@@ -24,6 +20,7 @@ body {
   width: 1200px;
   margin: 0 auto;
 }
+
 
 @import 'directives/main';
 @import 'home/main';

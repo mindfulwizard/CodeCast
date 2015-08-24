@@ -7,3 +7,7 @@
 	<span>My Past Lectures:</span>
 	<a ng-repeat='lecture in lectures' ng-click='watchLecture(lecture._id)'>{{ lecture.name }} </a>
 </div>
+<div id='teacherInfo'>
+	<span>My Personal Info:</span>
+	<a ng-repeat='(key, value) in user'>{{ key }}: {{ value }} </a>
+</div>

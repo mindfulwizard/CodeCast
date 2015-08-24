@@ -12,7 +12,7 @@ app.controller('teacherDashboardCtrl', function ($scope, $rootScope, $state, soc
 	$scope.rooms;
 	$scope.instructorId = $stateParams.userId;
 
-	roomFactory.getAllRoomsOfOneInstructor($stateParams.userId)
+	roomFactory.getAllFutureLecturesOfOneInstructor($stateParams.userId)
 		.then(function(rooms) {
 			$scope.rooms = rooms;
 		});
