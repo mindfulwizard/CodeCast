@@ -1,7 +1,8 @@
 app.controller('attendeeListCtrl', function($scope, $stateParams){
 
-	$scope.room;
-	$scope.students;
+$scope.room;
+console.log('$scope.room in attendeeListCtrl', $scope.room)
+
 
 	$scope.select= function(student) {
  		$scope.selectedStudent = student;
