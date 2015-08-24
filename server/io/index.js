@@ -59,17 +59,13 @@ module.exports = function(server) {
 			.then(function (room) {
 				var push = true;
 				room.students.forEach(function (studentObj) {
-					if ((studentObj._id === newUser._id) || (objReceived.instructor === true)) {
+						if ( ((studentObj._id).toString() === (newUser._id).toString()) || (newUser.instructor === true) ) {
 						push = false;
 					}
 				})
 				if (push) {
 					room.students.push(newUser)
 				}
-
-				// if ((room.students.indexOf(newUser._id) === -1) && (room.students.indexOf(newUser._id) !== objReceived.instructor)){
-				// 	room.students.push(newUser._id)
-				// }
 				room.save()
 				console.log('room.students after update', room)
 				io.to(room._id).emit('add to room.students', room);
@@ -85,9 +81,12 @@ module.exports = function(server) {
 			socket.leave(objReceived.room);
 			Room.findById(objReceived.room).populate('students').exec()
 			.then(function (room) {
-				room.students.splice(room.students.indexOf(newUser), 1)
+				room.students.forEach(function (studentObj, index) {
+					if ((newUser._id).toString() === (studentObj._id).toString()) {
+						room.students.splice(room.students.indexOf(studentObj), 1)
+					}
+				})
 				room.save()
-				console.log('room.students after update when leaves room', room.students)
 				io.to(room._id).emit('delete from room.students', room);
 				return room;
 			})
