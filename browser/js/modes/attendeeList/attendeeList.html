@@ -1,16 +1,15 @@
 <!-- <div ng-if="user.instructor"> -->
 <div>
-	<span>Instructor: {{room.instructor}}</span>
+	<span>Instructor: {{room.instructor.email}}</span>
 </br>
 	<input type="search" ng-model="q" placeholder="filter attendees..."/>
 	<ul class="example-animate-container">
     <span>Attendees:</span>
-      <li ng-repeat="student in room.students" ng-click="select(student)">
-    	<!-- <li class="animate-repeat" ng-repeat="student in room.students | filter:q as results"> -->
-      {{student}}
+    	<li class="animate-repeat" ng-repeat="student in room.students | filter:q as results" ng-click="select(student)">
+      {{student.email}}
     	</li>
     	<li class="animate-repeat" ng-if="results.length === 0">
-      	<strong>No results found...</strong>
+      	<strong> No results found...</strong>
     	</li>
   </ul>
 </div>

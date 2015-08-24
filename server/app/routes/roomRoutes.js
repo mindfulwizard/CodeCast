@@ -19,7 +19,7 @@ router.get('/lectures', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-	Room.findById(req.params.id).populate('students instructor').exec()
+	Room.findById(req.params.id).populate('students instructor commentHistory').exec()
 		.then(function(room) {
 			res.json(room);
 		});

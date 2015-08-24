@@ -3,7 +3,10 @@ app.directive('comments', function() {
 		templateUrl: 'js/comments/comments.html',
 		restrict: 'E',
 		scope: {
-			commentsArr: '='
+			commentsArr: '=',
+			room: '=',
+			user: '='
+
 		},
 		controller: 'commentsCtrl'
 	}
