@@ -46,6 +46,12 @@ module.exports = function(server) {
 			})
 		})
 
+		socket.on('select one user', function(object){
+			console.log('useridee', object.userId)
+			var roomToSendTo = object.roomId.toString();
+			io.to(roomToSendTo).emit('toggling editing permission to student', {userId: object.userId})
+		})
+
 		socket.on('join', function(objReceived) {
 			console.log("USER HAS ARRIVED");
 			var newUser = objReceived.user;

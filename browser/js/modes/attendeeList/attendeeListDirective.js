@@ -4,8 +4,7 @@ app.directive('attendeeList', function() {
 		restrict: 'E',
 		scope: {
 			room: '=',
-			user: '=',
-			student: '='
+			user: '='
 		},
 		controller: 'attendeeListCtrl'
 	}

@@ -1,7 +1,31 @@
-app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams){
+app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams, socketFactory){
 	$scope.output;
+    $scope.canEdit = false;
+    $scope.editor;
 
-	// $scope.editorOptions = {
+    $scope.codemirrorLoaded = function(_editor){
+        $scope.editor = _editor;
+        //if in replay mode set readOnly to true
+        if($scope.name === 'replay'  || !$scope.user.instructor) {
+            $scope.editor.setOption('readOnly', 'nocursor');
+        }
+    }
+
+    socketFactory.on('toggling editing permission to student', function(object) {
+        console.log('hitting editorctrl', object.userId)
+        if(($scope.editor && $scope.user._id === object.userId && !$scope.canEdit) || $scope.user.instructor) {
+            console.log('can edit!')
+            $scope.canEdit = true;
+            $scope.editor.setOption('readOnly', false);
+        } else {
+            console.log('readOnly!');
+            $scope.canEdit = false;
+            $scope.editor.setOption('readOnly', 'nocursor');
+        }
+    })
+
+
+    // $scope.editorOptions = {
  //        lineWrapping: true,
  //        lineNumbers: true,
  //        mode: 'javascript',
@@ -13,26 +37,18 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
  //    };
     // $scope.output = 'waiting for results'
 
-    console.log('user?', $scope.user);
-    $scope.editor;
+    // console.log('user?', $scope.user);
 
-    $scope.codemirrorLoaded = function(_editor){
-        $scope.editor = _editor;
-        //if in replay mode set readOnly to true
-        if($scope.name === 'replay'  || !$scope.user.instructor) {
-            $scope.editor.setOption('readOnly', 'nocursor');
-        }
-    }
 
-    $scope.allowUser = function(selectedStudent) {
-        if($scope.editor && $scope.selectedStudent.canType) {
-            console.log('can edit!')
-            $scope.editor.setOption('readOnly', false);
-        } else {
-            console.log('readOnly!');
-            $scope.editor.setOption('readOnly', 'nocursor');
-        }
-    }
+    // $scope.allowUser = function(selectedStudent) {
+    //     if($scope.editor && $scope.selectedStudent.canType) {
+    //         console.log('can edit!')
+    //         $scope.editor.setOption('readOnly', false);
+    //     } else {
+    //         console.log('readOnly!');
+    //         $scope.editor.setOption('readOnly', 'nocursor');
+    //     }
+    // }
 
 
 
