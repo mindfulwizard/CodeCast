@@ -24,8 +24,8 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
         }
     }
 
-    $scope.allowUser = function() {
-        if($scope.editor && $scope.user.canType) {
+    $scope.allowUser = function(selectedStudent) {
+        if($scope.editor && $scope.selectedStudent.canType) {
             console.log('can edit!')
             $scope.editor.setOption('readOnly', false);
         } else {
