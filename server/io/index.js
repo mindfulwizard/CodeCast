@@ -1,6 +1,5 @@
 'use strict';
 var socketio = require('socket.io');
-// var uuid = require('node-uuid');
 var io = null;
 var mongoose = require('mongoose');
 require('../db/models');
@@ -9,15 +8,9 @@ var Comment = mongoose.model('Comment');
 var Room = mongoose.model('Room');
 
 module.exports = function(server) {
-	// var rooms = {};
 
 	if (io) return io;
 	io = socketio(server);
-
-	// // keep track of codeHistory of each room
-	// var History = {};
-	// // keep track of codeHistory of each room
-	 // var commentHistory = {};
 
 	io.on('connection', function(socket) {
 
@@ -35,56 +28,66 @@ module.exports = function(server) {
 			})
 		})
 
-		// // initiliaze comment
-		// socket.on('initiliaze comments', function(obj) {
-		// 	commentHistory[obj.roomId] = [];
-		// })
-
-
 		// when user posts a comment/quesion, create new comment
 		socket.on('send a comment', function (obj) {
 			var commentObj = obj;
 			var roomToSendTo = obj.room.toString();
-			// update comment History
-			// add user parameter when work on user permissions
-			Room.findById(obj.room).exec()
+			// create a comment instance and update comment History on room
+			Comment.create(commentObj)
+			.then(function(comment){
+				Room.findById(commentObj.room).populate('commentHistory').exec()
+				.then(function (room) {
+					room.commentHistory.push(comment);
+					room.save()
+					// send comment to specific room including the sender
+					io.to(roomToSendTo).emit('receive comment', room);
+					return room;
+				})
+			})
+		})
+
+		socket.on('join', function(objReceived) {
+			console.log("USER HAS ARRIVED");
+			var newUser = objReceived.user;
+			socket.join(objReceived.room);
+			// update the list of students in room
+			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
-				room.commentHistory.push(commentObj.text);
+				var push = true;
+				if (newUser.instructor === true) {
+					push = false;
+				}
+				room.students.forEach(function (studentObj) {
+						if ( ((studentObj._id).toString() === (newUser._id).toString())) {
+						push = false;
+					}
+				})
+				if (push) {
+					room.students.push(newUser)
+				}
 				room.save()
-				// send comment to specific room including the sender
-				io.to(roomToSendTo).emit('receive comment', room.commentHistory)
+				io.to(room._id).emit('add to room.students', room);
 				return room;
 			})
-			.then(function(room){
-				// store the comment in db
-				Comment.create(commentObj)
-			})
-
-
-			// Comment.create(obj)
-			// .then(function (commentObj) {
-			// 	var roomToSendTo = commentObj.room.toString();
-			// 	if (!commentHistory[commentObj.room]) {
-			// 		commentHistory[commentObj.room] = [];
-			// 	}
-			// 		// add the userId to the obj when we add permissions/auth
-			// 		commentHistory[commentObj.room].push({text: commentObj.text, commentId: commentObj._id})
-			// 	// send comment to specific room
-			// 	io.to(roomToSendTo).emit('receive comment', commentObj)
-			// })
-		})
-
-		socket.on('join', function(roomId) {
-			console.log("USER HAS ARRIVED");
-			 // socket.emit('get comments history', commentHistory[roomId])
-			 // io.to(roomId).emit('get comments history', commentHistory[roomId]);
-			socket.join(roomId);
 		})
 
 
-		socket.on('leave', function(roomId) {
+		socket.on('leave', function(objReceived) {
 			console.log("USER HAS LEFT");
-			socket.leave(roomId);
+			var newUser = objReceived.user;
+			// remove student from list in room
+			socket.leave(objReceived.room);
+			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
+			.then(function (room) {
+				room.students.forEach(function (studentObj, index) {
+					if ((newUser._id).toString() === (studentObj._id).toString()) {
+						room.students.splice(room.students.indexOf(studentObj), 1)
+					}
+				})
+				room.save()
+				io.to(room._id).emit('delete from room.students', room);
+				return room;
+			})
 		});
 
 		socket.on('disconnect', function() {

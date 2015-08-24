@@ -17,13 +17,19 @@ app.controller('teacherDashboardCtrl', function ($scope, $rootScope, $state, soc
 			$scope.rooms = rooms;
 		});
 
+	roomFactory.getAllLecturesOfOneInstructor($stateParams.userId)
+	.then(function(lectures) {
+		$scope.lectures = lectures;
+		console.log('lectures in Ctrl', $scope.lectures)
+	});
+
 	$scope.joinRoom = function(id) {
 		// socketFactory.emit('join', id)
 		$state.go('liveState', {
 			roomId: id
 		})
 	}
-	
+
 	roomFactory.getAllLectures()
 		.then(function(lectures) {
 			$scope.lectures = lectures;

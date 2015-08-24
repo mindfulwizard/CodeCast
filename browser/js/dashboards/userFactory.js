@@ -7,14 +7,16 @@ app.factory('userFactory', function($http) {
                 })
         },
         getRoomsByInstructor: function(instructorId){
-            return $http.get('/api/room/instructor' + instructorId)
+            return $http.get('/api/rooms/instructor/' + instructorId)
              .then(function(res) {
+                console.log(res.data)
                 return res.data
             })
         },
         getForks: function(){
               return $http.get('/api/forks')
              .then(function(res) {
+                console.log(res.data)
                 return res.data
             })
         }

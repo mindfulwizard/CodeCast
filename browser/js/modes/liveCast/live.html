@@ -1,13 +1,23 @@
 
-
 <section id="live">
-	<div ng-keyup="startLecture();constantRecording()">
+	<div ng-keyup="startLecture();constantRecording()" class="editor">
+      <div>
    		<editor name="live" replay-text="replayObj" output="replayObj.result"></editor>
+      </div>
 	</div>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
-   	<a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
-   	 <fork name="live" replay-obj="replayObj"></fork>
-   	 <comments comments-arr="replayObj.comments"></comments>
+   	I am: {{user.email}} 
+      <a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
+   </br>
+       <fork name="live" replay-obj="replayObj"></fork>
+    </br>
+      <div>
+         <comments class="commentsDirective" user="user" comments-arr="replayObj.comments"></comments>
+      </div>
+   </br>
+      <div>
+         <attendee-list class="attendeeListDirective" room="room"></attendee-list>
+      </div>
 </section>
 
 

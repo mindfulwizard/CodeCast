@@ -5,24 +5,27 @@ app.config(function($stateProvider) {
 		controller: 'liveCtrl',
 		resolve: {
 			//replaced joinsocket with http call
-			codeHistory: function($http, $stateParams) {
+			joinRoom: function($stateParams, socketFactory, AuthService) {
+				 AuthService.getLoggedInUser().then(function (user) {
+					socketFactory.emit('join', {room: $stateParams.roomId, user: user})
+				 })
+			},
+			setUser: function (AuthService) {
+				return AuthService.getLoggedInUser().then(function (user) {
+					return user;
+				})
+			},
+			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
-				  	console.log('res.data.commentHistory in codeHistory', res.data.commentHistory)
 				  	return res.data;
 				  });
 			}
 		},
-		onExit: function(socketFactory, $stateParams) {
-			// console.log("stateparams", $stateParams.roomId)
-			// console.log(socketFactory, "factory")
-			socketFactory.emit('leave', $stateParams.roomId);
+		onExit: function(socketFactory, $stateParams, AuthService) {
+			 AuthService.getLoggedInUser().then(function (user) {
+				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
+			})
 		}
-		// resolve: {
-		// 	initializeScopeComments: function ($scope) {
-		// 		$scope.comments = [];
-		// 		return $scope.comments
-		// 	}
-		// }
 	})
 })

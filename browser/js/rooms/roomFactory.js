@@ -15,6 +15,14 @@ app.factory('roomFactory', function($http, socketFactory) {
 				})
 		},
 
+		getAllLecturesOfOneInstructor: function (instructorId) {
+			console.log('instructorId in getAllLecturesOfOneInstructor', instructorId)
+			return $http.get('/api/rooms/lectures/' + instructorId)
+				.then(function (res) {
+					return res.data
+				})
+		},
+
 		makeRoom: function(name, instructorId) {
 			return $http.post('/api/rooms', {
 					name: name,

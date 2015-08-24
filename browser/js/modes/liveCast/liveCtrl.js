@@ -1,20 +1,30 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, codeHistory) {
+app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser) {
+  $scope.user = setUser;
+  $scope.room = roomInfo;
+  console.log('$scope.room', $scope.room)
   $scope.currentlyRecording = false;
 
-  socketFactory.emit('join', $stateParams.roomId)
-  $scope.replayObj = {text: codeHistory.textHistory, result: codeHistory.resultHistory, comments: codeHistory.commentHistory};
+  // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
+  $scope.replayObj = {text: roomInfo.textHistory,
+                      result: roomInfo.resultHistory,
+                      comments: roomInfo.commentHistory};
 
-  console.log('$scope.replayObj', $scope.replayObj)
-
-  // //listener for when codehistory changes on joining a room
-  // //everytime the instruction types, change the textsnip and the result if there is
-  socketFactory.on('change the textSnip', function(codeSliceObj) {
-    //console.log('str', str)
+  //listener for when roomInfo changes on joining a room
+  //everytime the instructor types, change the textsnip and the result if there is
+  socketFactory.on('change the textSnip', function (codeSliceObj) {
     $scope.replayObj.text = codeSliceObj.text;
     $scope.replayObj.result = codeSliceObj.result;
   })
 
+  socketFactory.on('add to room.students', function (newRoom) {
+    $scope.room = newRoom;
+    console.log('new room after join', $scope.room)
+  })
 
+  socketFactory.on('delete from room.students', function (newRoom) {
+    $scope.room = newRoom;
+    console.log('new room after join', $scope.room)
+  })
 
   var keystroke = false;
   var timerPromise;
@@ -24,7 +34,6 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     if(!$scope.currentlyRecording){
       castFactory.startLecture($stateParams.roomId)
       $scope.currentlyRecording = true;
-      console.log('hit the start lecture')
     }
   } 
 

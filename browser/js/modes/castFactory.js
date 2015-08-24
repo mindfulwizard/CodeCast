@@ -6,9 +6,8 @@ app.factory('castFactory', function($http, socketFactory){
 
 		},
 
-		// add userId as parameter when we work on permissions
-		sendComment: function (text, roomId) {
-			socketFactory.emit('send a comment', {text: text, room: roomId})
+		sendComment: function (text, userId, roomId) {
+			socketFactory.emit('send a comment', {text: text, user: userId, room: roomId, time: new Date() })
 		},
 
 		endLecture: function (roomId) {
