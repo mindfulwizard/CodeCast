@@ -4,7 +4,9 @@
             <fullstack-logo></fullstack-logo>
         </div>
         <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) || (isLoggedIn() && isInstructor() || ((isLoggedIn() && !isInstructor) && !item.instructor) )">
+            <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
+            || (isLoggedIn() && isInstructor() || ((isLoggedIn() && !isInstructor) && !item.instructor))
+            || (isLoggedIn() && isAdmin() || ((isLoggedIn() && !isAdmin) && !item.admin))">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }}</a>
             </li>
         </ul>

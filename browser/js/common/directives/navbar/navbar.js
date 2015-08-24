@@ -10,8 +10,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Home', state: 'home' },
                 { label: 'About', state: 'about' },
                 { label: 'Documentation', state: 'docs' },
+                { label: 'Admin DashBoard', state: 'adminDashBoard', auth: true, instructor: true, admin: true },
                 { label: 'Teacher DashBoard', state: 'teacherDashboard', auth: true, instructor: true },
-                { label: 'Student DashBoard', state: 'studentDashboard', auth: true, instructor: false }
+                { label: 'Student DashBoard', state: 'studentDashboard', auth: true, instructor: false },
             ];
 
             scope.user = null;
@@ -22,7 +23,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.isInstructor = function() {
                 return AuthService.isInstructor();
-            }
+            };
+
+            scope.isAdmin = function () {
+                return AuthService.isAdmin();
+            };
 
 
             scope.logout = function () {

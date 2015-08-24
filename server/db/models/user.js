@@ -19,10 +19,16 @@ var schema = new mongoose.Schema({
         type: String
     },
     instructor: {
-        type: Boolean
+        type: Boolean,
+        default: false
+    },
+    canType: {
+        type: Boolean,
+        default: false
     },
     admin: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     twitter: {
         id: String,
