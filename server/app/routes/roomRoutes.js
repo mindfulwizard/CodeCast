@@ -51,24 +51,17 @@ router.put('/:id', function (req, res) {
 
 
 router.put('/audio/:id', function(req, res) {
-	fs.writeFile("AudioFiles/" +req.params.id+'.wav', JSON.stringify(req.body), 'utf-8', function (err) {
- 	if (err) throw err;
- 	console.log("file written")
-	Room.findByIdAndUpdate(req.params.id, {audioFileLink: "AudioFiles/" + req.params.id+'.wav'}).exec()
+	Room.findByIdAndUpdate(req.params.id, {audioFileLink: req.body.audioFileLink}).exec()
 	.then(function (room) {
 		res.end();	
 	})
- 	})
 });
 
 
 router.get('/audio/:id', function(req, res) {
 	Room.findById(req.params.id).exec()
 	.then(function (room) {
-		fs.readFile(room.audioFileLink, function (err, data) {
-		  if (err) throw err;
-		  res.json(JSON.parse(data));
-		})
+		res.json(room)
 	})
 });
 

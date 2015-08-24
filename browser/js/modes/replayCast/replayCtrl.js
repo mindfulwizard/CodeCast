@@ -1,7 +1,7 @@
 app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory, $stateParams, evaluatorFactory, $timeout) {
     $scope.paused = false;
     $scope.videoObj = {text: null};
-    
+    $scope.roomId = $stateParams.roomId;
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
