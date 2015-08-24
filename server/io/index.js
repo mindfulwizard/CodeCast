@@ -51,11 +51,14 @@ module.exports = function(server) {
 			var newUser = objReceived.user;
 			socket.join(objReceived.room);
 			// update the list of students in room
-			Room.findById(objReceived.room).populate('students').exec()
+			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
 				var push = true;
+				if (newUser.instructor === true) {
+					push = false;
+				}
 				room.students.forEach(function (studentObj) {
-						if ( ((studentObj._id).toString() === (newUser._id).toString()) || (newUser.instructor === true) ) {
+						if ( ((studentObj._id).toString() === (newUser._id).toString())) {
 						push = false;
 					}
 				})
@@ -74,7 +77,7 @@ module.exports = function(server) {
 			var newUser = objReceived.user;
 			// remove student from list in room
 			socket.leave(objReceived.room);
-			Room.findById(objReceived.room).populate('students').exec()
+			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
 				room.students.forEach(function (studentObj, index) {
 					if ((newUser._id).toString() === (studentObj._id).toString()) {
