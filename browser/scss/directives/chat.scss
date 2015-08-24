@@ -1,0 +1,12 @@
+#chat {
+	width: 40%;
+	border: 1px solid black;
+	max-height: 10px;
+	overflow-y: scroll;
+}
+
+.comment {
+	padding: 1vh
+	display: inline-block;
+	word-break:break-all;
+}
