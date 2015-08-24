@@ -3,10 +3,14 @@ app.controller('attendeeListCtrl', function($scope, $stateParams){
 	$scope.room;
 	$scope.students;
 
-	$scope.select= function(item) {
- 		$scope.selectedStudent = item;
- 		$scope.selectedStudent.canType = true;
-
+	$scope.select= function(student) {
+ 		$scope.selectedStudent = student;
+ 		if(!$scope.selectedStudent.canType) {
+ 			$scope.selectedStudent.canType = true;
+ 		} else {
+ 			$scope.selectedStudent.canType = false;
+ 		}
+ 			$scope.allowUser($scope.selectedStudent);
  	};
 
 	//for adding classes to user on click

@@ -11,9 +11,9 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
  //        keyMap: 'sublime',
  //        onLoad: codemirrorLoaded
  //    };
-
     // $scope.output = 'waiting for results'
 
+    console.log('user?', $scope.user);
     $scope.editor;
 
     $scope.codemirrorLoaded = function(_editor){
@@ -24,20 +24,30 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
         }
     }
 
-    console.log('user?', $scope.currentUser)
-    $scope.readOnly = false;
-
-    $scope.toggleReadOnly = function() {
-        if ($scope.editor && $scope.readOnly === false) {
-            console.log('readOnly!')
-            $scope.readOnly = true;
-            $scope.editor.setOption('readOnly', 'nocursor');
-        } else if ($scope.editor && $scope.readOnly === true) {
+    $scope.allowUser = function() {
+        if($scope.editor && $scope.user.canType) {
             console.log('can edit!')
-            $scope.readOnly = false;
             $scope.editor.setOption('readOnly', false);
+        } else {
+            console.log('readOnly!');
+            $scope.editor.setOption('readOnly', 'nocursor');
         }
     }
+
+
+
+    // $scope.readOnly = false;
+    // $scope.toggleReadOnly = function() {
+    //     if ($scope.editor && $scope.readOnly === false) {
+    //         console.log('readOnly!')
+    //         $scope.readOnly = true;
+    //         $scope.editor.setOption('readOnly', 'nocursor');
+    //     } else if ($scope.editor && $scope.readOnly === true) {
+    //         console.log('can edit!')
+    //         $scope.readOnly = false;
+    //         $scope.editor.setOption('readOnly', false);
+    //     }
+    // }
 
     $scope.$on('console', function(event, data) {
         // console.log($scope.replayText.text, new Date(), $stateParams.roomId, $scope.replayText.result)

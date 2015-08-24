@@ -21,6 +21,10 @@ var schema = new mongoose.Schema({
     instructor: {
         type: Boolean
     },
+    canType: {
+        type: Boolean,
+        default: false
+    },
     admin: {
         type: Boolean
     },
