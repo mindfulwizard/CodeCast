@@ -5,12 +5,24 @@
 Instructor List:
 <input placeholder="Instructor Name" ng-model='instructorSearch'>
 <div ng-repeat="instructor in instructors | filter: instructorSearch">
-	<a ng-click="getLecture(instructor._id)">{{instructor.name}}</a>
+	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
 </div>
 
 <div ng-show="showRooms" ng-repeat="room in instructorRooms">
 <a ui-sref="liveState({roomId: room._id})">{{room.name}}</a>
 </div>
+
+Live Lectures:
+<input placeholder="Live Lecture" ng-model='liveSearch'>
+<div ng-repeat="live in liveLectures | filter: liveSearch">
+	<a ng-click="liveState({roomId: live._id})">{{live.name}}</a>
+</div>
+
+Replay Lectures:
+<input placeholder="Replay Lecture" ng-model='replaySearch'>
+<div ng-repeat="replay in replayLectures | filter: replaySearch">
+	<a ng-click="replayState({roomId: replay._id})">{{replay.name}}</a>
+</div> 
 
 
 Forks:

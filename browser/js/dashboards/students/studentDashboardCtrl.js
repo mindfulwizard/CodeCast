@@ -1,8 +1,10 @@
-app.controller('studentDashboardCtrl', function ($scope, userFactory) {
+app.controller('studentDashboardCtrl', function ($scope, userFactory, castFactory) {
 	$scope.instructors;
 	$scope.instructorRooms;
 	$scope.showRooms = false;
 	$scope.forks;
+	$scope.liveLectures;
+	$scope.replayLectures;
 
 	userFactory.getInstructors()
 	.then(function(instructors){
@@ -20,6 +22,20 @@ app.controller('studentDashboardCtrl', function ($scope, userFactory) {
 		.then(function(rooms){
 			$scope.instructorRooms = rooms;
 			$scope.showRooms = true;
+		})
+	}
+
+	$scope.getAllLiveCasts = function(){
+		castFactory.getAllLive()
+		.then(function(liveLectures){
+			$scople.liveLectures = liveLectures;
+		})
+	}
+
+	$scope.getAllReplayCasts = function(){
+		castFactory.getAllReplays()
+		.then(function(replays){
+			$scople.replayLectures = replays;
 		})
 	}
 
