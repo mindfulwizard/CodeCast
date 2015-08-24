@@ -69,6 +69,12 @@
             return !!Session.isInstructor;
         }
 
+        // Uses the session factory to see if an
+        // authenticated user is admin
+        this.isAdmin = function() {
+            return !!Session.isAdmin;
+        }
+
         this.getLoggedInUser = function (fromServer) {
 
             // If an authenticated session exists, we
@@ -133,11 +139,13 @@
         this.user = null;
         // added isInstructor key
         this.isInstructor = null;
+        this.isAdmin
 
         this.create = function (sessionId, user) {
             this.id = sessionId;
             this.user = user;
             this.isInstructor = user.instructor;
+            this.isAdmin = user.admin
         };
 
         this.destroy = function () {
