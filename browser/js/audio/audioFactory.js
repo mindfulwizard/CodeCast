@@ -9,7 +9,8 @@ app.factory('audioFactory', function($http){
 		getBuffer:  function(roomId){
 			return $http.get('/api/rooms/audio/' + roomId)
 			.then(function(res){
-				return res.data.audioFileLink
+				console.log(res.data)
+				return res.data
 			})
 		}
 	}

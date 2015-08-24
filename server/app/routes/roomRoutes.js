@@ -1,9 +1,12 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var fs = require('fs');
+var path = require('path')
 require('../../db/models');
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
+var multer = require('multer')
+var upload = multer({ dest: 'audio/' })
 // var uuid = require('node-uuid');
 
 router.post('/', function(req, res) {
@@ -49,19 +52,42 @@ router.put('/:id', function (req, res) {
 
 })
 
+/*
+app.use(function(req, res, next) {
+	  if (req.busboy) {
+	    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+	      // ...
+	      console.log(filename)
+	    });
+	    req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
+	      // ...
+	    });
+	    // req.pipe(req.busboy);
+	  }
+	  next()
+	  // etc ...
+	});
+*/
 
-router.put('/audio/:id', function(req, res) {
-	Room.findByIdAndUpdate(req.params.id, {audioFileLink: req.body.audioFileLink}).exec()
+router.put('/audio/:id', upload.single('data'), function(req, res, next) {
+	console.log('we get past multer middleware')
+	console.log(req.file)
+	next()
+}, function(req, res,next) {
+	Room.findByIdAndUpdate(req.params.id, {audioFileLink: req.file.path}).exec()
 	.then(function (room) {
 		res.end();	
 	})
+	.then(null,next)
 });
 
 
 router.get('/audio/:id', function(req, res) {
 	Room.findById(req.params.id).exec()
 	.then(function (room) {
-		res.json(room)
+		console.log(process.cwd())
+		res.set('Content-Type', 'audio/wav')
+		res.sendFile(path.join(process.cwd(),room.audioFileLink))
 	})
 });
 

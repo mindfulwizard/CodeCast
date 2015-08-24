@@ -1,4 +1,4 @@
-app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
+app.controller('audioCtrl', function($scope, audioFactory, $timeout, $http) {
     var audio_context;
     var recorder;
     var startDate;
@@ -33,27 +33,43 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
     $scope.stopRecording = function() {
         recorder.stop();
         recorder.exportWAV(function(blob){
-               var url = URL.createObjectURL(blob);
-               var a = document.createElement("a");
-               a.href = url;
-               a.download 
-               a.click();= $scope.roomId + '.wav';
-               window.URL.revokeObjectURL(url);
-               audioFactory.sendBuffer($scope.roomId, url)
+            var fd = new FormData()
+            fd.append('data', blob)
+            $http.put('/api/rooms/audio/' + $scope.roomId, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function(res) {
+                return res.data
+            })
+            .then(function(data) {
+                console.log(data)
+            }, function(err) {
+                console.warn(err)
+            })
+            // console.log(blob);
+            // window.bloby = blob
+            //    var url = URL.createObjectURL(blob);
+            //    var a = document.createElement("a");
+            //    a.href = url;
+            //    a.download = $scope.roomId + '.wav';
+            //    a.click();
+            //    window.URL.revokeObjectURL(url);
+            //    audioFactory.sendBuffer($scope.roomId, url)
         })
 
     }
 
     $scope.playBuffer = function(buffers) {
-        audioFactory.getBuffer($scope.roomId)
-            .then(function(audioFileObj) {
-                console.log(audioFileObj)
-                var li = document.createElement('li');
-                var au = document.createElement('audio');
-                au.controls = true;
-                au.src = audioFileObj;
-                li.appendChild(au);
-                recordingslist.appendChild(li); 
-            })
+        $scope.audioSrc = '/api/rooms/audio/' + $scope.roomId
+        // audioFactory.getBuffer($scope.roomId)
+        //     .then(function(file) {
+        //        // console.log(file)
+        //         var li = document.createElement('li');
+        //         var au = document.createElement('audio');
+        //         au.controls = true;
+        //         au.src = file;
+        //         li.appendChild(au);
+        //         recordingslist.appendChild(li); 
+        //     })
     }
 })
