@@ -7,7 +7,6 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 
 		sendComment: function (text, userId, roomId) {
-			console.log('sending comments castFactory')
 			socketFactory.emit('send a comment', {text: text, user: userId, room: roomId, time: new Date() })
 		},
 

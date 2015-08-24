@@ -16,7 +16,6 @@ module.exports = function(server) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
-			console.log('in index io updatedText', obj.room.toString())
 			var snippet = obj;
 			var roomToSendTo = obj.room.toString();
 			// emit to the specific room
@@ -31,18 +30,15 @@ module.exports = function(server) {
 
 		// when user posts a comment/quesion, create new comment
 		socket.on('send a comment', function (obj) {
-			console.log('socket on server obj', obj)
 			var commentObj = obj;
 			var roomToSendTo = obj.room.toString();
 			// create a comment instance and update comment History on room
 			Comment.create(commentObj)
 			.then(function(comment){
-				console.log('comment created', comment)
 				Room.findById(commentObj.room).populate('commentHistory').exec()
 				.then(function (room) {
 					room.commentHistory.push(comment);
 					room.save()
-					console.log('room with commentHistory', room)
 					// send comment to specific room including the sender
 					io.to(roomToSendTo).emit('receive comment', room);
 					return room;
@@ -67,7 +63,6 @@ module.exports = function(server) {
 					room.students.push(newUser)
 				}
 				room.save()
-				console.log('room.students after update', room)
 				io.to(room._id).emit('add to room.students', room);
 				return room;
 			})
