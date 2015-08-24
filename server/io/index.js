@@ -16,6 +16,7 @@ module.exports = function(server) {
 
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
+			console.log('in index io updatedText', obj.room.toString())
 			var snippet = obj;
 			var roomToSendTo = obj.room.toString();
 			// emit to the specific room
@@ -43,7 +44,7 @@ module.exports = function(server) {
 					room.save()
 					console.log('room with commentHistory', room)
 					// send comment to specific room including the sender
-					io.to(roomToSendTo).emit('receive comment', room.commentHistory);
+					io.to(roomToSendTo).emit('receive comment', room);
 					return room;
 				})
 			})
@@ -52,7 +53,6 @@ module.exports = function(server) {
 		socket.on('join', function(objReceived) {
 			console.log("USER HAS ARRIVED");
 			var newUser = objReceived.user;
-			socket.join(objReceived.room);
 			// update the list of students in room
 			Room.findById(objReceived.room).exec()
 			.then(function (room) {
@@ -60,6 +60,9 @@ module.exports = function(server) {
 					room.students.push(newUser._id)
 				}
 				room.save()
+				console.log('room.students after update', room)
+				io.to(roomToSendTo).emit('add to room.students', room);
+				socket.join(room._id);
 				return room;
 			})
 		})
@@ -68,12 +71,14 @@ module.exports = function(server) {
 		socket.on('leave', function(objReceived) {
 			console.log("USER HAS LEFT");
 			var newUser = objReceived.user;
-			socket.leave(objReceived.room);
 			// remove student from list in room
 			Room.findById(objReceived.room).exec()
 			.then(function (room) {
 				room.students.splice(room.students.indexOf(newUser._id), 1)
 				room.save()
+				console.log('room.students after update when leaves room', room.students)
+				io.to(roomToSendTo).emit('delete from room.students', room);
+				socket.leave(room._id);
 				return room;
 			})
 		});

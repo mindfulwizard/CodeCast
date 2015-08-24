@@ -5,16 +5,26 @@ app.config(function($stateProvider) {
 		controller: 'liveCtrl',
 		resolve: {
 			//replaced joinsocket with http call
+			joinRoom: function($stateParams, socketFactory, AuthService) {
+				 AuthService.getLoggedInUser().then(function (user) {
+					socketFactory.emit('join', {room: $stateParams.roomId, user: user})
+				 })
+			},
+			setUser: function (AuthService) {
+				return AuthService.getLoggedInUser().then(function (user) {
+					return user;
+				})
+			},
 			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
+				  	console.log('room in resolve', res.data)
 				  	return res.data;
 				  });
 			}
 		},
 		onExit: function(socketFactory, $stateParams, AuthService) {
 			 AuthService.getLoggedInUser().then(function (user) {
-			 	console.log('on exit inside AuthService CallBack', user)
 				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
 			})
 		}

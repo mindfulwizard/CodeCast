@@ -2,6 +2,7 @@ app.factory('castFactory', function($http, socketFactory){
 	return {
 
 		sendText: function (text, time, roomId, result) {
+			console.log('in castFactory')
 				socketFactory.emit('updatedText', {text: text, time: time, room: roomId, result: result})
 
 		},

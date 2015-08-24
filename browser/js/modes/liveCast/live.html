@@ -6,18 +6,18 @@
       </div>
 	</div>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
-   	User: {{user}} - should be same as instructor
+   	I am: {{user.email}} 
       <a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
+   </br>
        <fork name="live" replay-obj="replayObj"></fork>
+    </br>
       <div>
-         <comments user="user" comments-arr="replayObj.comments"></comments>
+         <comments class="commentsDirective" user="user" comments-arr="replayObj.comments"></comments>
       </div>
+   </br>
       <div>
-         <attendee-list room="room"></attendee-list>
+         <attendee-list class="attendeeListDirective" room="room"></attendee-list>
       </div>
 </section>
-</br>
-</br>
-</br>
 
 
