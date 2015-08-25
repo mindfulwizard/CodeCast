@@ -2,6 +2,13 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Fork = mongoose.model('Fork');
 
+router.get('/', function(req, res){
+	Fork.find({user: req.user._id})
+	.then(function(fork){
+		res.json(fork);
+	})
+})
+
 router.get('/:replayId', function(req, res){
 	Fork.find({replayId: req.params.replayId})
 	.then(function(fork){

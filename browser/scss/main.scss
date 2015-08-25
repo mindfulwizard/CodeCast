@@ -8,7 +8,7 @@
 
 body {
   background: #fdfdfd;
-  width: 100%
+  width: 100%;
 }
 
 @mixin clearfix {
@@ -24,6 +24,7 @@ body {
   width: 1200px;
   margin: 0 auto;
 }
+
 
 @import 'directives/main';
 @import 'home/main';

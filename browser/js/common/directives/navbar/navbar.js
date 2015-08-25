@@ -12,7 +12,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Documentation', state: 'docs' },
                 { label: 'Admin DashBoard', state: 'adminDashBoard', auth: true, instructor: true, admin: true },
                 { label: 'Teacher DashBoard', state: 'teacherDashboard', auth: true, instructor: true },
-                { label: 'Student DashBoard', state: 'studentDashboard', auth: true, instructor: false },
+                { label: 'Student DashBoard', state: 'studentDashboard.overview', auth: true, instructor: false },
             ];
 
             scope.user = null;

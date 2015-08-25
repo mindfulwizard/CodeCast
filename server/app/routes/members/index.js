@@ -1,7 +1,20 @@
 'use strict';
 var router = require('express').Router();
+var mongoose = require('mongoose');
+var User = mongoose.model('User');  
 module.exports = router;
 var _ = require('lodash');
+
+router.get('/user', function(req, res){
+  res.send(req.user)
+})
+
+router.get('/', function(req, res){
+    User.find({instructor: true})
+    .then(function(users){
+        res.json(users);
+    })
+})
 
 var ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {

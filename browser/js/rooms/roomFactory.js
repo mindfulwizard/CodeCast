@@ -30,6 +30,7 @@ app.factory('roomFactory', function($http, socketFactory) {
 				})
 				.then(function(res) {
 					socketFactory.emit('initiliaze comments', {roomId: res.data._id})
+					console.log("getting back to factory",res.data)
 					return res.data;
 				})
 		},
