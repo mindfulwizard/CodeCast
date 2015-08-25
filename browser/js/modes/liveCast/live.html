@@ -1,21 +1,27 @@
 
 <section id="live">
-  <div id="chat">
-     <comments class="commentsDirective" user="user" comments-arr="replayObj.comments"></comments>
-  </div>
-  <a><button ng-click="deleteRoom()">end lecture</button></a>
-  <div ng-keyup="startLecture();constantRecording()" class="editor">
-      <div>
-      <editor user="user" name="live" replay-text="replayObj" output="replayObj.result"></editor>
-      </div>
-  </div>
-   </br>  
-       <fork name="live" replay-obj="replayObj"></fork>
-    </br>
-   </br>
-      <div>
+   <div class="container">
+    <div class="row">
+      <div id="rightBlock" class="col-lg-1">
+         <comments class="commentsDirective" user="user" comments-arr="replayObj.comments"></comments>
          <attendee-list user="user" class="attendeeListDirective" room="room"></attendee-list>
       </div>
+      <div id='leftBlock' class="col-lg-5">
+        <a><button ng-click="deleteRoom()">end lecture</button></a>
+        <div ng-keyup="startLecture();constantRecording()" class="editor">
+            <div>
+            <editor user="user" name="live" replay-text="replayObj" output="replayObj.result"></editor>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+     </br>  
+         <fork name="live" replay-obj="replayObj"></fork>
+      </br>
+     </br>
+    </div>
+  </div>
 </section>
 
 
