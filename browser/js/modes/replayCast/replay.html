@@ -1,8 +1,14 @@
 <section id="replay">
+
    <button ng-click="getFullCast(); playBack(); isPlayBack()">Start Video</button>
-     <editor replay-text="videoObj"></editor>
+     <editor replay-text="videoObj" output="videoObj.result"></editor>
+   <input ng-show="replayLength" type="range" ng-model="currentTime" ng-change="pauser();userUpdatingTime()" min="0" max="{{replayLength}}"/>
+   {{currentTime}}
+
    <button ng-click="pauseContinue()">Pause/Continue</button>
    <fork pause-continue="pauseContinue" replay-obj="videoObj"></fork>
 	<audio id="audioRec" ng-show="isAudio" ng-src="{{audioSrc}}" controls autoplay></audio>
    <recorder room-id="roomId" play-buffer="playBack" audio-src="audioSrc" name="replay"></recorder>
+
 </section>
+  
