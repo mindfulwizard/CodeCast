@@ -1,12 +1,3 @@
-app.config(function ($stateProvider) {
-
-    $stateProvider.state('teacherDashboard', {
-        url: '/teacherDashboard/:userId',
-        templateUrl: 'js/dashboards/teachers/teacherDashboard.html',
-        controller: 'teacherDashboardCtrl'
-    });
-
-});
 
 app.controller('teacherDashboardCtrl', function ($scope, $rootScope, $state, socketFactory, roomFactory, $stateParams) {
 	$scope.rooms;
