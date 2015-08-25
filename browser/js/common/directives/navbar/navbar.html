@@ -11,24 +11,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav" ng-class="{pad:boolChangeClass}">
-                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                <!--  <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#download">Download</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li> -->
                 <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
             || (isLoggedIn() && isInstructor() || ((isLoggedIn() && !isInstructor) && !item.instructor))
             || (isLoggedIn() && isAdmin() || ((isLoggedIn() && !isAdmin) && !item.admin))">
                     <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }} </a>
                 </li>
+<button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+    <div ng-show="user" class="welcome">
+            <span>Welcome, {{ user.email }}!</span>
+            <a ng-click="logout()">Logout</a>
+        </div>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
