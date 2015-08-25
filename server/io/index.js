@@ -37,7 +37,7 @@ module.exports = function(server) {
 			.then(function(comment){
 				Room.findById(commentObj.room).populate('commentHistory').exec()
 				.then(function (room) {
-					room.commentHistory.push(comment);
+					room.commentHistory.unshift(comment);
 					room.save()
 					.then(function(room) {
 						Room.findById(room._id).deepPopulate('commentHistory commentHistory.user').exec()

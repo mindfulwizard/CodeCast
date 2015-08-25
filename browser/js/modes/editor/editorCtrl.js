@@ -3,6 +3,9 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
 	$scope.output;
     $scope.canEdit = false;
     $scope.editor;
+    $scope.instructor;
+
+    console.log('instructor in editorCtrl', $scope.instructor)
 
     $scope.codemirrorLoaded = function(_editor){
         $scope.editor = _editor;
@@ -13,7 +16,6 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     }
 
     socketFactory.on('toggling editing permission to student', function(object) {
-        console.log('hitting editorctrl', object.userId)
         if(($scope.editor && $scope.user._id === object.userId && !$scope.canEdit) || $scope.user.instructor) {
             console.log('can edit!')
             $scope.canEdit = true;
