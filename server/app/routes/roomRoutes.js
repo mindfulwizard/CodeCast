@@ -47,6 +47,8 @@ router.put('/:id', function (req, res) {
 	});
 })
 
+
+
 //Auth authentication here
 router.use('/', Auth.isAuthenticated, function(req, res, next) {
 	if (req.user.instructor) next();
@@ -64,5 +66,6 @@ router.post('/', function(req, res) {
 			res.send(room);
 		});
 });
+
 
 module.exports = router;

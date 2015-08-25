@@ -4,6 +4,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
+
         link: function(scope) {
 
             scope.items = [{
@@ -28,10 +29,10 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
                 {
                     label: 'Student DashBoard',
-                    state: 'studentDashboard',
+                    state: 'studentDashboard.overview',
                     auth: true,
                     instructor: false
-                },
+                }
             ];
 
             scope.user = null;
