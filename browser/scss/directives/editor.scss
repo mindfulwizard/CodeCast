@@ -1,9 +1,14 @@
+#leftBlock {
+	height: 100%;
+}
+
 #editorEnsemble {
 	width: 100%;
+	height:100%
 }
 
 editor {
-	margin-right : 20vw;
+	margin-right : 10vw;
 }
 
 #sandBoxResult {
@@ -12,8 +17,10 @@ editor {
 }
 
 #getResult {
+	margin-right: 5%;
+	float: right;
 	display: block;
-	position: relative;
+	position: inherit;
 	margin-bottom: 2vh;
 }
 

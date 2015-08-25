@@ -1,13 +1,10 @@
-#attendeeList {
-  margin-top: 3vh;
-  width: 30%;
+.attendeeListDirective {
   border: 1px solid black;
-  display: block;
-  float: right
+  margin-top: 10px;
 }
 
-.attendeeListDirective {
-  border: 1px solid black
+#attendeeBlock {
+  overflow:auto
 }
 
 .example-animate-container {

@@ -1,14 +1,18 @@
 #rightBlock {
 	margin-top: 3vh;
-	width: 50%;
-	border: 1px solid black;
+	height: 100%;
 	display: block;
 	float: right
+}
+
+.commentsDirective {
+	border: 3px solid blue;
 }
 
 #rightBlock input {
 	width: 100%
 }
+
 
 #commentsBlock {
 	height: 50vh;
