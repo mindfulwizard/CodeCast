@@ -1,4 +1,5 @@
 app.controller('forkCtrl', function($scope, forkFactory) {
+    $scope.showEnd = false;
     $scope.forked = false;
     $scope.hasBeenForked = false;
     $scope.forks = [];

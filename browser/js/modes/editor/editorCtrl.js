@@ -1,4 +1,5 @@
-app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams, socketFactory){
+app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams, socketFactory, $state){
+    $scope.showEnd = true;
 	$scope.output;
     $scope.canEdit = false;
     $scope.editor;
@@ -23,6 +24,14 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
             $scope.editor.setOption('readOnly', 'nocursor');
         }
     })
+
+    $scope.deleteRoom = function () {
+    $scope.currentlyRecording = false;
+    castFactory.endLecture($stateParams.roomId)
+    .then(function () {
+      $state.go('home')
+    })
+  }
 
 
     // $scope.editorOptions = {

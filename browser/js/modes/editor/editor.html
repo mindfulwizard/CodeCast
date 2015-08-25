@@ -1,6 +1,7 @@
 <div id="editorEnsemble"> 
   <div class="row">
-    <button id="getResult" ng-click="getResultCode()"> Run the Code > </button>
+    <button id="endLecture" ng-show="name=='live' && user.instructor" ng-click="deleteRoom()"> End lecture </button>
+    <button id="getResult" ng-hide="name=='live' && !user.instructor" ng-click="getResultCode()"> Run the Code > </button>
   </div>
   <textarea class="row" ui-codemirror ui-codemirror-opts="{
         lineWrapping: true,
