@@ -2,6 +2,7 @@ app.controller('commentsCtrl', function($scope, forkFactory, $stateParams, socke
 
   $scope.commentsArr;
   $scope.user;
+  console.log('commebtsArr in commentsCtrl', $scope.commentsArr)
 
   // creates a comment to be sent to back end via sockets
   $scope.createComment = function(commentText) {

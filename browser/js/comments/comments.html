@@ -1,8 +1,29 @@
 	<div id='commentsBlock'>
-		<div class="comment" ng-repeat="comment in commentsArr">{{comment.user}}: {{comment.text}}
+		<div class="comment" ng-repeat="comment in commentsArr">
+			<p> 
+				{{comment.user.firstName}}:
+			</p>
+			<p>
+				{{comment.text}}
+			</p>
 		</div>
 	</div>
-	<form id="comment" ng-submit="createComment(post.question)">
+	<div class="panel-footer">
+	    <div class="input-group">
+	    	<form id="comment" ng-submit="createComment(post.question)">
+		        <input id="btn-input" type="text" ng-model="post.question" class="form-control input-sm" placeholder="Type your question here..." />
+		        <span class="input-group-btn">
+		            <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">
+		                Send</button>
+		        </span>
+		    </form>
+	    </div>
+	</div>
+
+
+
+
+	<!-- <form id="comment" ng-submit="createComment(post.question)">
 		<input type="text" ng-model="post.question" placeholder="Type in your question/comment"></input>
 		<button type="submit">Post Your Question / Comment </button>
-	</form>
+	</form> -->

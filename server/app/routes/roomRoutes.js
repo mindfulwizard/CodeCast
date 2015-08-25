@@ -19,8 +19,9 @@ router.get('/lectures', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-	Room.findById(req.params.id).populate('students instructor commentHistory').exec()
+	Room.findById(req.params.id).deepPopulate('students instructor commentHistory commentHistory.user').exec()
 		.then(function(room) {
+			console.log('room populated', room)
 			res.json(room);
 		});
 });

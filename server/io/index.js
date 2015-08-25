@@ -39,12 +39,20 @@ module.exports = function(server) {
 				.then(function (room) {
 					room.commentHistory.push(comment);
 					room.save()
-					// send comment to specific room including the sender
-					io.to(roomToSendTo).emit('receive comment', room);
-					return room;
-				})
+					.then(function(room) {
+						Room.findById(room._id).deepPopulate('commentHistory commentHistory.user').exec()
+						.then(function (room) {
+							// send comment to specific room including the sender
+							io.to(roomToSendTo).emit('receive comment', room);
+							return room;
+						})
+							
+						})
+					})
 			})
 		})
+
+		// deepPopulate('commentHistory commentHistory.user')
 
 		socket.on('select one user', function(object){
 			console.log('useridee', object.userId)
