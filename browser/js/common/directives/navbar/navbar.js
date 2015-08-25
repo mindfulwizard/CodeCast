@@ -1,23 +1,38 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
-        link: function (scope) {
+        link: function(scope) {
 
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Documentation', state: 'docs' },
-                { label: 'Admin DashBoard', state: 'adminDashBoard', auth: true, instructor: true, admin: true },
-                { label: 'Teacher DashBoard', state: 'teacherDashboard', auth: true, instructor: true },
-                { label: 'Student DashBoard', state: 'studentDashboard', auth: true, instructor: false },
-            ];
+            scope.items = [{
+                label: 'Home',
+                state: 'home'
+            }, {
+                label: 'About',
+                state: 'about'
+            }, {
+                label: 'Admin DashBoard',
+                state: 'adminDashBoard',
+                auth: true,
+                instructor: true,
+                admin: true
+            }, {
+                label: 'Teacher DashBoard',
+                state: 'teacherDashboard',
+                auth: true,
+                instructor: true
+            }, {
+                label: 'Student DashBoard',
+                state: 'studentDashboard',
+                auth: true,
+                instructor: false
+            }, ];
 
             scope.user = null;
 
-            scope.isLoggedIn = function () {
+            scope.isLoggedIn = function() {
                 return AuthService.isAuthenticated();
             };
 
@@ -25,24 +40,24 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 return AuthService.isInstructor();
             };
 
-            scope.isAdmin = function () {
+            scope.isAdmin = function() {
                 return AuthService.isAdmin();
             };
 
 
-            scope.logout = function () {
-                AuthService.logout().then(function () {
-                   $state.go('home');
+            scope.logout = function() {
+                AuthService.logout().then(function() {
+                    $state.go('home');
                 });
             };
 
-            var setUser = function () {
-                AuthService.getLoggedInUser().then(function (user) {
+            var setUser = function() {
+                AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
                 });
             };
 
-            var removeUser = function () {
+            var removeUser = function() {
                 scope.user = null;
             };
 

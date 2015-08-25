@@ -1,19 +1,37 @@
-<nav class="navbar navbar-static-top">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">
+                <i class="fa fa-play-circle"></i> <span class="light">CodeCast</span>
+            </a>
         </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav" ng-class="{pad:boolChangeClass}">
+                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                <!--  <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#download">Download</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li> -->
+                <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
             || (isLoggedIn() && isInstructor() || ((isLoggedIn() && !isInstructor) && !item.instructor))
             || (isLoggedIn() && isAdmin() || ((isLoggedIn() && !isAdmin) && !item.admin))">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+                    <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }} </a>
+                </li>
+            </ul>
         </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
 </nav>

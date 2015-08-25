@@ -1,13 +1,18 @@
-<a ui-sref='roomState({instructorId: instructorId})'><button>Create new Room</button></a>
-<div id='rooms'>
-	<span>My Future Lectures:</span>
-	<a ng-repeat='room in rooms' ng-click='joinRoom(room._id)'>{{ room.name }} </a>
+<div id='teacherInfo' class="col-md-3">
+    <span>My Personal Info:</span>
+    <!-- <a ng-repeat='(key, value) in user'>{{ key }}: {{ value }} </a> -->
+    <span>{{ user.firstName }}</span>
 </div>
-<div id='recordedlectures'>
-	<span>My Past Lectures:</span>
-	<a ng-repeat='lecture in lectures' ng-click='watchLecture(lecture._id)'>{{ lecture.name }} </a>
-</div>
-<div id='teacherInfo'>
-	<span>My Personal Info:</span>
-	<a ng-repeat='(key, value) in user'>{{ key }}: {{ value }} </a>
+<div class='rooms' class="col-md-6">
+    <div id="currentLectures" class="col-md-3">
+        <p>My Current Lectures:</p>
+        <a ng-repeat='room in rooms' ng-click='joinRoom(room._id)'>{{ room.name }}</br> </a>
+<a ui-sref='roomState({instructorId: instructorId})'>
+    <button>Create new Room</button>
+</a>
+    </div>
+    <div id='recordedlectures' class="col-md-3">
+        <p>My Past Lectures:</p>
+        <a ng-repeat='lecture in lectures' ng-click='watchLecture(lecture._id)'>{{ lecture.name }} </br> </a>
+    </div>
 </div>
