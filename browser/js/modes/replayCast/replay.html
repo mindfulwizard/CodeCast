@@ -1,5 +1,5 @@
 <section id="replay">
-     <editor replay-text="videoObj" output="videoObj.result"></editor>
+     <editor name="replay" replay-text="videoObj" output="videoObj.result"></editor>
    <button ng-click="pauseContinue()">Start/Pause/Continue</button>
    <fork pause="pauseReplay" replay-obj="videoObj"></fork>
    <input ng-show="replayLength" type="range" ng-model="currentTime" ng-change="pauser();userUpdatingTime()" min="0" max="{{replayLength}}"/>

@@ -3,6 +3,12 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+    firstName: {
+        type: String
+    },
+    lastname: {
+        type: String
+    },
     email: {
         type: String
     },
@@ -11,6 +17,18 @@ var schema = new mongoose.Schema({
     },
     salt: {
         type: String
+    },
+    instructor: {
+        type: Boolean,
+        default: false
+    },
+    canType: {
+        type: Boolean,
+        default: false
+    },
+    admin: {
+        type: Boolean,
+        default: false
     },
     twitter: {
         id: String,

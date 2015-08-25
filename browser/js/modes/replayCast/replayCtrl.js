@@ -22,7 +22,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
 
     var renderFullCast = function(sortedSlicesArr, currentIndex) {
         if(!paused){
-
             //index to start/restart playback
             replayCurrentIndex = currentIndex;
             //console.log('currentSlicearr', sortedSlicesArr);

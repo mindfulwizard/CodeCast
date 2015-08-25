@@ -18,7 +18,13 @@ var room = new mongoose.Schema({
 	lectureEnded: {
 		type: Boolean,
 		default: false
-	}
+	},
+	textHistory: String,
+	resultHistory: String,
+	commentHistory: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Comment'
+	}]
 });
 
 mongoose.model('Room', room);

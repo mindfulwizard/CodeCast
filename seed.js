@@ -27,13 +27,29 @@ var seedUsers = function () {
 
     var users = [
         {
-            email: 'testing@fsa.com',
-            password: 'password'
+            // instructor
+            firstName: 'instructorFirstNameSample',
+            lastName: 'instructorLastNameSample',
+            email: 'instructor@gmail.com',
+            password: '123',
+            instructor: true,
         },
         {
+            // user
+            firstName: 'Barack',
+            lastName: 'Obama',
             email: 'obama@gmail.com',
-            password: 'potus'
+            password: '123'
+        },
+        {
+            // admin
+            firstName: 'adminFirstNameSample',
+            lastName: 'adminLastNameSample',
+            email: 'admin@gmail.com',
+            password: '123',
+            admin: true
         }
+
     ];
 
     return User.createAsync(users);

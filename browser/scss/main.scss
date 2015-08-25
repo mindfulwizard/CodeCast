@@ -2,8 +2,13 @@
   box-sizing: border-box;
 }
 
+.canType {
+    color: red;
+  }
+
 body {
   background: #fdfdfd;
+  width: 100%
 }
 
 @mixin clearfix {
