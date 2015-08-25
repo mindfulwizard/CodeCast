@@ -2,6 +2,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     $scope.paused = false;
     $scope.videoObj = {text: null};
     $scope.roomId = $stateParams.roomId;
+    $scope.isAudio = false;
 
     function sortSlices(sliceList) {
         return sliceList.sort(function(a, b) {
@@ -16,7 +17,7 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
     var timerPromise;
 
     var renderFullCast = function(sortedSlicesArr, currentSlice) {
-        console.log('inside render ', sortedSlicesArr);
+
         $scope.videoObj.text = currentSlice.text;
         var next = sortedSlicesArr.shift();
                 
@@ -47,13 +48,16 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
                 renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
             })
     }
+    var aud = document.getElementById("audioRec"); 
 
     var pauseReplay = function() {
+        aud.pause();
         paused = true;
     }
 
     var continueReplay = function() {
         paused = false;
+        aud.play();
         renderFullCast(sortedSlicesArr, sortedSlicesArr.shift());
     }
 
@@ -65,6 +69,9 @@ app.controller('replayCtrl', function($scope, $rootScope, $interval, castFactory
         }
     }
 
+    $scope.isPlayBack = function(){
+        $scope.isAudio = true;
+    }
 
 });
 

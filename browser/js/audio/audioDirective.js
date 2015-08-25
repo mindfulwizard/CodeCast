@@ -5,8 +5,11 @@ app.directive('recorder', function() {
 		controller: 'audioCtrl',
 		scope: {
 			startRecording: "=",
-			stopRecording: "=",
-			roomId: "="
+			stopRecording: "=", 
+			playBuffer: "=",
+			audioSrc: "=",
+			roomId: "=",
+			name: "@"
 		}
 	}
-})
+}) 

@@ -2,12 +2,12 @@
 
 <section id="live">
 
-	<div ng-keyup="startLecture(); constantRecording()">
-	<recorder start-recording="startRecording" stop-recording="stopRecording" room-id="roomId"></recorder>
+	<button ng-click="startLecture(); constantRecording(); startRec()">Start Rec</button>
+	<recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
    		<editor name="live" replay-text="replayObj"></editor>
 	</div>
    	<a ui-sref="replayListState"><button>Go to replay section</button></a>
-   	<a><button ng-click="deleteRoom()">end lecture (delete room)</button></a>
+   	<a><button ng-click="deleteRoom(); stopRec()">end lecture (delete room)</button></a>
    	 <fork name="live" replay-obj="replayObj"></fork>
    	 <comments></comments>
 </section>

@@ -1,7 +1,8 @@
 <section id="replay">
-   <button ng-click="getFullCast()">Start Video</button>
+   <button ng-click="getFullCast(); playBack(); isPlayBack()">Start Video</button>
      <editor replay-text="videoObj"></editor>
    <button ng-click="pauseContinue()">Pause/Continue</button>
    <fork pause-continue="pauseContinue" replay-obj="videoObj"></fork>
-   <recorder start-recording="startRecording" stop-recording="stopRecording" room-id="roomId"></recorder>
+	<audio id="audioRec" ng-show="isAudio" ng-src="{{audioSrc}}" controls autoplay></audio>
+   <recorder room-id="roomId" play-buffer="playBack" audio-src="audioSrc" name="replay"></recorder>
 </section>

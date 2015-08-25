@@ -1,15 +1,11 @@
 app.factory('audioFactory', function($http){
 	return {
-		sendBuffer: function (roomId, link) {
-			return $http.put('/api/rooms/audio/' + roomId, {audioFileLink: link})
+		sendFile: function (roomId, fd) {
+			return $http.put('/api/rooms/audio/' + roomId, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
 			.then(function (res) {
-				return res.data
-			})
-		},
-		getBuffer:  function(roomId){
-			return $http.get('/api/rooms/audio/' + roomId)
-			.then(function(res){
-				console.log(res.data)
 				return res.data
 			})
 		}

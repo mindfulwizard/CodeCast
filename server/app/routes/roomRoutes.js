@@ -52,22 +52,6 @@ router.put('/:id', function (req, res) {
 
 })
 
-/*
-app.use(function(req, res, next) {
-	  if (req.busboy) {
-	    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-	      // ...
-	      console.log(filename)
-	    });
-	    req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-	      // ...
-	    });
-	    // req.pipe(req.busboy);
-	  }
-	  next()
-	  // etc ...
-	});
-*/
 
 router.put('/audio/:id', upload.single('data'), function(req, res, next) {
 	console.log('we get past multer middleware')
