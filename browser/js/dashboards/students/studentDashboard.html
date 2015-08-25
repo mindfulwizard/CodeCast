@@ -1,29 +1,4 @@
-
-
-<section id="student">
-
-Instructor List:
-<input placeholder="Instructor Name" ng-model='instructorSearch'>
-<div ng-repeat="instructor in instructors | filter: instructorSearch">
-	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
-</div>
-
-<div ng-show="showRooms" ng-repeat="room in instructorRooms">
-<a ui-sref="liveState({roomId: room._id})">{{room.name}}</a>
-</div>
-
-Live Lectures:
-<input placeholder="Live Lecture" ng-model='liveSearch'>
-<div ng-repeat="live in liveLectures | filter: liveSearch">
-	<a ng-click="liveState({roomId: live._id})">{{live.name}}</a>
-</div>
-
-Replay Lectures:
-<input placeholder="Replay Lecture" ng-model='replaySearch'>
-<div ng-repeat="replay in replayLectures | filter: replaySearch">
-	<a ng-click="replayState({roomId: replay._id})">{{replay.name}}</a>
-</div> 
-
+<!-- 
 
 Forks:
 <div ng-repeat="fork in forks">
@@ -32,8 +7,36 @@ Forks:
 Notes (forks made by User), organized by video
 rooms, replay
 search bar to find an instructor / a video name
+ -->
 
 
+<section class='dashBoard'>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <br>
+        <ul class="nav menu dashboard row">
+        	<li ui-sref-active="active">
+                <a class='dashButton' ui-sref="studentDashboard.overview">
+                    <span class="glyphicon glyphicon-user"></span> Overview</a>
+            </li>
+            <li ui-sref-active="active">
+                <a class='dashButton' ui-sref="studentDashboard.instructorList">
+                    <span class="glyphicon glyphicon-education"></span> Instructor List</a>
+            </li>
+            <li ui-sref-active="active">
+                <a class='dashButton' ui-sref="studentDashboard.liveList">
+                    <span class="glyphicon glyphicon-facetime-video"></span> Live Lectures</a>
+            </li>
+            <li ui-sref-active="active">
+                <a class='dashButton' ui-sref="studentDashboard.replayList">
+                    <span class="glyphicon glyphicon-play-circle"></span> Recorded Lectures</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div ui-view class='col-lg-10 col-sm-9'></div>
+    </div>
 </section>
 
+
+<!-- FOR FORKS glyphicon glyphicon-edit -->
 

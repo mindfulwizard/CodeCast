@@ -1,0 +1,11 @@
+<h1>Instructor List</h1>
+<input placeholder="Instructor Name" ng-model='instructorSearch'>
+<div ng-repeat="instructor in instructors | filter: instructorSearch">
+	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
+</div>
+
+<div ng-show="showRooms" ng-repeat="room in instructorRooms">
+<ul>
+<li><a ui-sref="liveState({roomId: room._id})">{{room.name}}</a> </li>
+</ul>
+</div>
