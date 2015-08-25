@@ -1,4 +1,28 @@
 #login-form {
-  width: 60%;
-  margin: 0 auto;
+    margin: 0 auto;
+    padding-top: 120px;
+    width: 60%;
+}
+
+#loginPage {
+    width: 100vw;
+    height: 100vh;
+    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("../images/login.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+.loginText{
+	color: #42dca3;
+}
+
+
+#toSignUp{
+	color: #42dca3;
+	margin-top: 10px;
+	font-size: 15px;	
 }

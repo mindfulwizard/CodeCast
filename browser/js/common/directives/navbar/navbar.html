@@ -1,11 +1,10 @@
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand page-scroll" href="#page-top">
-                <i class="fa fa-play-circle"></i> <span class="light">CodeCast</span>
+      <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> -->
+         <!--    </button> -->
+            <a class="navbar-brand page-scroll">
+               <span class="light">CodeCast</span>
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -16,14 +15,14 @@
             || (isLoggedIn() && isAdmin() || ((isLoggedIn() && !isAdmin) && !item.admin))">
                     <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }} </a>
                 </li>
-<button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-    <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
             </ul>
+            <button ng-show="!user" ui-sref="login" id="loginButton" class="btn login-button btn-default">Login</button>
+            <div ng-show="user" class="welcome">
+                <span>Welcome, {{ user.email }}!</span>
+                <a ng-click="logout()">Logout</a>
+            </div>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.navbar-collapse -->
     <!-- /.container -->
 </nav>
