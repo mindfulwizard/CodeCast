@@ -1,12 +1,23 @@
 #chat {
-	width: 40%;
+	margin-top: 3vh;
+	width: 30%;
 	border: 1px solid black;
-	max-height: 10px;
-	overflow-y: scroll;
+	display: block;
+	float: right
+}
+
+#chat input {
+	width: 100%
+}
+
+#commentsBlock {
+	height: 50vh;
+	overflow:auto
 }
 
 .comment {
-	padding: 1vh
+	padding: 1vh;
 	display: inline-block;
-	word-break:break-all;
+	word-break:break-all
+	
 }
