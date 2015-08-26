@@ -1,0 +1,69 @@
+#rightBlock {
+	margin-top: 3vh;
+	height: 100%;
+	display: block;
+	float: right
+}
+
+.commentsDirective {
+	border: 3px solid #FFE3D5;
+}
+
+#rightBlock input {
+	width: 100%
+}
+
+.panel-footer {
+	background-color: black;
+}
+
+
+#commentsBlock {
+	height: 50vh;
+	overflow:auto
+}
+
+.comment {
+	padding: 1vh;
+	display: inline-block;
+	width: 100%
+}
+
+#commenter {
+	color: #42dca3;
+	font-style: italic;
+}
+
+#message {
+	color: #FFE3D5;
+}
+
+#input {
+	width: 100%
+}
+
+#confirmButton {
+	width: 15%
+}
+
+#chatQuest {
+	border-radius: 0px;
+	background-color: #FFE3D5;
+}
+#attendeeList{
+	background-color: #FFE3D5;
+}
+
+
+::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}

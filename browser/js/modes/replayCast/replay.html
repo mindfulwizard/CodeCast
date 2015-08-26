@@ -1,7 +1,8 @@
-<section id="replay">
+<section id="live">
+	<div id="repl" style="margin-left: 50px;">
      <editor name="replay" replay-text="videoObj" output="videoObj.result"></editor>
-   <button ng-click="pauseContinue()">Start/Pause/Continue</button>
-   <fork pause="pauseReplay" replay-obj="videoObj"></fork>
-   <input ng-show="replayLength" type="range" ng-model="currentTime" ng-change="pauser();userUpdatingTime()" min="0" max="{{replayLength}}"/>
-   {{currentTime}}
+   <input style="width: 780px;" ng-show="replayLength" type="range" ng-model="currentTime" ng-change="pauser();userUpdatingTime()" min="0" max="{{replayLength}}"/>
+   <button style="font-family: 'Oswald', sans-serif;" class="btn btn-default" ng-click="pauseContinue()">Start/Pause/Continue</button>
+   <fork fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
+</div>
 </section>

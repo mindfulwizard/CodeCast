@@ -1,19 +1,31 @@
-<nav class="navbar navbar-static-top">
+<section id="grad">
+<nav class="navbar navbar-custom navbar-fixed-top" scroll ng-class="{min: boolChangeClass}" role="navigation">
     <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
+        <div class="navbar-header" ng-class="{pad: boolChangeClass}">
+            <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> -->
+            <!--    </button> -->
+            <a class="navbar-brand page-scroll">
+                <span class="light">CodeCast</span>
+            </a>
         </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul ng-class="{pad: boolChangeClass}" class="nav navbar-nav" ng-class="{pad:boolChangeClass}">
+                <li class="fontChange" ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor) 
             || (isLoggedIn() && isInstructor() || ((isLoggedIn() && !isInstructor) && !item.instructor))
             || (isLoggedIn() && isAdmin() || ((isLoggedIn() && !isAdmin) && !item.admin))">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+                    <a ui-sref-active="active" ui-sref="{{ item.state }}({ userId:user._id })">{{ item.label }} </a>
+                </li>
+                <li class="fontChange" ng-show="!user"> 
+                    <a ui-sref="login">Login</a>
+                </li>
+                <li class="fontChange" ng-show="user"> 
+                    <a ng-click="logout()">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
+    <!-- /.navbar-collapse -->
+    <!-- /.container -->
 </nav>
+</section>

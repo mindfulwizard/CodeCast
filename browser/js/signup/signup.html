@@ -1,18 +1,23 @@
-<form id="signup-form" name="signupForm" ng-submit="sendLogin(credentials)">
+
+<section id='signupPage'>
+
+<form id="login-form" name="signupForm" ng-submit="sendLogin(credentials)">
 
     <alert type="danger" ng-show="error">
         {{ error }}
     </alert>
 
     <div class="form-group">
-        <label for="email">Email address</label>
+        <label for="email" class='loginText'>Email address</label>
         <input type="text" ng-model="credentials.email" class="form-control" id="email" placeholder="Enter email">
     </div>
     <div class="form-group">
-        <label for="credentials-password">Password</label>
+        <label for="credentials-password" class='loginText'>Password</label>
         <input type="password" ng-model="credentials.password" class="form-control" id="credentials-password" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button style="font-family: 'Oswald', sans-serif;" type="submit" class="btn btn-default">Submit</button>
     <oauth provider="google"></oauth>
     <oauth provider="github"></oauth>
 </form>
+
+</section>
