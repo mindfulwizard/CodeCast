@@ -1,16 +1,13 @@
-
-
- #home{
+#home {
     width: 100vw;
     height: 100vh;
     font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/codePic.jpeg") no-repeat center fixed;
+    background: url("../images/editor.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-
 
 h1,
 h2,
@@ -30,7 +27,7 @@ p {
     line-height: 1.5;
 }
 
-.fontChange{
+.fontChange {
     font-family: 'Oswald', sans-serif;
 }
 
@@ -65,25 +62,26 @@ a:focus {
     font-family: 'Oswald', sans-serif;
     color: #FFE3D5;
 }
+
 #grad {
-  nav{
-  border-bottom: none;
-  padding-bottom: 50px;
-  background: linear-gradient(to top, rgba(255,0,0,0), rgba(39,20,0,1));
-}
-  .min {
-    transition: background 1s;
-    background: black;
-    padding-bottom: 5px;
-  }
-  .pad {
-    transition: transform 1s;
-    transform: translate(0, 7px);
-    /*margin-top: -5px;*/
-  }
+    nav {
+        border-bottom: none;
+        padding-bottom: 50px;
+        background: linear-gradient(to top, rgba(255, 0, 0, 0), rgba(39, 20, 0, 1));
+    }
+    .min {
+        transition: background 1s;
+        background: black;
+        padding-bottom: 5px;
+    }
+    .pad {
+        transition: transform 1s;
+        transform: translate(0, 7px);
+        /*margin-top: -5px;*/
+    }
 }
 
-.clear-navbar{
+.clear-navbar {
     margin-top: 90px;
 }
 

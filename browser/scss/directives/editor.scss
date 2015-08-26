@@ -15,8 +15,9 @@ editor {
 
 #sandBoxResult {
 	margin-top: 2vh;
-	border: 1px solid black;
 	color: #42dca3;
+    font-size: 200%;
+    border: 1px solid white;
 }
 
 #endLecture {
@@ -55,5 +56,9 @@ editor {
 
 .replayEditor{
 	margin-left: 50px;
+}
+
+#permissionText{
+	color: #42dca3;
 }
 

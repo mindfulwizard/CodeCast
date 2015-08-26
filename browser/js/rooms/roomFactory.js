@@ -7,18 +7,18 @@ app.factory('roomFactory', function($http, socketFactory) {
 				})
 		},
 
-		getAllFutureLecturesOfOneInstructor: function (instructorId) {
-			console.log('instructorId in getAllRoomsOfOneInstructor', instructorId)
+		getAllFutureLecturesOfOneInstructor: function(instructorId) {
+
 			return $http.get('/api/rooms/instructor/' + instructorId)
-				.then(function (res) {
+				.then(function(res) {
 					return res.data
 				})
 		},
 
-		getAllLecturesOfOneInstructor: function (instructorId) {
-			console.log('instructorId in getAllLecturesOfOneInstructor', instructorId)
+		getAllLecturesOfOneInstructor: function(instructorId) {
+
 			return $http.get('/api/rooms/lectures/' + instructorId)
-				.then(function (res) {
+				.then(function(res) {
 					return res.data
 				})
 		},
@@ -29,8 +29,10 @@ app.factory('roomFactory', function($http, socketFactory) {
 					instructor: instructorId
 				})
 				.then(function(res) {
-					socketFactory.emit('initiliaze comments', {roomId: res.data._id})
-					console.log("getting back to factory",res.data)
+					socketFactory.emit('initiliaze comments', {
+						roomId: res.data._id
+					})
+
 					return res.data;
 				})
 		},

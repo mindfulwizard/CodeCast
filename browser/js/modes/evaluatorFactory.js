@@ -3,7 +3,6 @@ app.factory('evaluatorFactory', function($http) {
         evalCode: function(textSnip, $scope) {
             window.console = (function(origConsole) {
                 // $scope.output = 'nothing yet';
-                // console.log('the output')
                 if (!window.console)
                     console = {};
                 var isDebug = false,
