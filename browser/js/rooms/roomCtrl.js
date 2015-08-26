@@ -1,4 +1,4 @@
-app.controller('roomCtrl', function($scope, $rootScope, $state, socketFactory, roomFactory, $stateParams) {
+app.controller('roomCtrl', function($scope, $state, roomFactory, $stateParams) {
 
     console.log('instructorId in roomCtrl with stateparams', $stateParams.instructorId)
 
