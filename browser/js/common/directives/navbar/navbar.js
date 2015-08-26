@@ -3,6 +3,9 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
     return {
         restrict: 'E',
         scope: {},
+        controller: function($scope) {
+            $scope.scroll = 0;
+        },
         templateUrl: 'js/common/directives/navbar/navbar.html',
 
 
