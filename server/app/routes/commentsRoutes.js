@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res) {
-	Comment.find({}).exec()
+	Comment.find({}).populate('user').exec()
 		.then(function(comments) {
 			res.json(comments);
 		});
