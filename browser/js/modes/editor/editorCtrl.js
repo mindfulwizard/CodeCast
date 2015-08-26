@@ -19,11 +19,9 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
 
     socketFactory.on('toggling editing permission to student', function(object) {
         if(($scope.editor && $scope.user._id === object.userId && !$scope.canEdit) || $scope.user.instructor) {
-            console.log('can edit!')
             $scope.canEdit = true;
             $scope.editor.setOption('readOnly', false);
         } else {
-            console.log('readOnly!');
             $scope.canEdit = false;
             $scope.editor.setOption('readOnly', 'nocursor');
         }
