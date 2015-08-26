@@ -1,6 +1,10 @@
 <h1>Instructor List</h1>
-<input placeholder="Instructor Name" ng-model='instructorSearch'>
-<div ng-repeat="instructor in instructors | filter: instructorSearch">
+<input class="inputBoxRight" placeholder="Instructor Name" ng-model='instructorSearch'>
+<br/>
+<br/>
+<br/>
+
+<div class="listIt" ng-repeat="instructor in instructors | filter: instructorSearch">
 	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
 </div>
 

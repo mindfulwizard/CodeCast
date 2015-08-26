@@ -1,0 +1,53 @@
+
+
+#studentDash {
+    width: 100vw;
+    height: 100vh;
+    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("../images/studenDash.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#studentDiv {
+    margin: 0 auto;
+    padding-top: 140px;
+}
+
+
+#sidebar-collapse:hover{
+	 font-family: 'Droid Sans Mono';
+    color: #FFE3D5;
+    font-size: 16px;
+}
+
+.inputBoxRight {
+	display: inline;
+	float: left;
+		margin-top: 30px;
+	margin-left: 500px;
+}
+
+.listIt {
+
+	float: left;
+}
+#studentContent{
+
+	h1{
+	width: 250px;
+	font-size: 32px;
+	color: #42dca3;
+	display: inline;
+	float: left;
+		
+	}
+	margin-top: 20px;
+}
+// #sidebar-collapse{
+// 	 font-family: 'Droid Sans Mono';
+//     color: #FFE3D5;
+//     font-size: 16px;
+// }

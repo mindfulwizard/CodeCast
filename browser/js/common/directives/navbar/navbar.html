@@ -1,10 +1,10 @@
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-      <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> -->
-         <!--    </button> -->
+            <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> -->
+            <!--    </button> -->
             <a class="navbar-brand page-scroll">
-               <span class="light">CodeCast</span>
+                <span class="light">CodeCast</span>
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,9 +17,11 @@
                 </li>
             </ul>
             <button ng-show="!user" ui-sref="login" id="loginButton" class="btn login-button btn-default">Login</button>
-            <div ng-show="user" class="welcome">
-                <span>Welcome, {{ user.email }}!</span>
-                <a ng-click="logout()">Logout</a>
+            <div ng-show="user" id="welcome" style="color:#FFE3D5; margin-left:150px">
+            
+                    <span >Welcome, {{ user.email }}!</span>
+                    <a ng-click="logout()" style="color:#FFE3D5">Logout</a>
+                
             </div>
         </div>
     </div>

@@ -13,12 +13,6 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 }, {
                     label: 'About',
                     state: 'about'
-                }, {
-                    label: 'Admin DashBoard',
-                    state: 'adminDashBoard',
-                    auth: true,
-                    instructor: true,
-                    admin: true
                 },
                 // }, {
                 //     label: 'Teacher DashBoard',
