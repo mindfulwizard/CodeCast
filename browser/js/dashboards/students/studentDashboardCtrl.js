@@ -12,6 +12,7 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
             $scope.instructors = instructors;
         })
 
+
     // userFactory.getForks()
     // .then(function(forks){
     // 	$scope.forks = forks;
@@ -33,16 +34,20 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
     $scope.getAllLiveCasts = function() {
         castFactory.getAllLive()
             .then(function(liveLectures) {
-                $scople.liveLectures = liveLectures;
+                $scope.liveLectures = liveLectures;
+    console.log($scope.liveLectures)
             })
     }
+
+    $scope.getAllLiveCasts();
 
     $scope.getAllReplayCasts = function() {
         castFactory.getAllReplays()
             .then(function(replays) {
-                $scople.replayLectures = replays;
+                $scope.replayLectures = replays;
             })
     }
+      $scope.getAllReplayCasts();
 
     $scope.getCurrentUser = function() {
         userFactory.getUser()
@@ -50,6 +55,7 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
                 $scope.user = user;
             })
     }
+
 
     $scope.getCurrentUser();
 
