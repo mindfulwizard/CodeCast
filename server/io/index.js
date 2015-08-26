@@ -37,14 +37,22 @@ module.exports = function(server) {
 			.then(function(comment){
 				Room.findById(commentObj.room).populate('commentHistory').exec()
 				.then(function (room) {
-					room.commentHistory.push(comment);
+					room.commentHistory.unshift(comment);
 					room.save()
-					// send comment to specific room including the sender
-					io.to(roomToSendTo).emit('receive comment', room);
-					return room;
-				})
+					.then(function(room) {
+						Room.findById(room._id).deepPopulate('commentHistory commentHistory.user').exec()
+						.then(function (room) {
+							// send comment to specific room including the sender
+							io.to(roomToSendTo).emit('receive comment', room);
+							return room;
+						})
+							
+						})
+					})
 			})
 		})
+
+		// deepPopulate('commentHistory commentHistory.user')
 
 		socket.on('select one user', function(object){
 			console.log('useridee', object.userId)
@@ -96,8 +104,9 @@ module.exports = function(server) {
 			})
 		});
 
-		socket.on('disconnect', function() {
-			console.log('user disconnected');
+		socket.on('disconnect', function(obj) {
+			console.log('user disconnected', obj);
+
 		});
 	});
 
