@@ -1,8 +1,8 @@
 <div id="editorEnsemble"> 
   <div class="row">
-    <button id="endLecture" ng-show="name=='live' && user.instructor" ng-click="deleteRoom()"> End lecture </button>
+    <button class="btn btn-default navbar-btn" id="endLecture" ng-show="name=='live' && user.instructor" ng-click="deleteRoom()"> End lecture </button>
     <p ng-show="canEdit && !user.instructor">You have been given temporary permission to edit the code by {{instructor.firstName}}!</p>
-    <button id="getResult" ng-hide="(name=='live' && !user.instructor) || (name==='replay')" ng-click="getResultCode()"> Run the Code > </button>
+    <button class="btn btn-default navbar-btn" id="getResult" ng-hide="(name=='live' && !user.instructor) || (name==='replay')" ng-click="getResultCode()"> Run the Code > </button>
   </div>
   <textarea class="row" ui-codemirror ui-codemirror-opts="{
         lineWrapping: true,
