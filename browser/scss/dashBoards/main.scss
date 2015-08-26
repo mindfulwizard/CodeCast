@@ -10,7 +10,16 @@
     -o-background-size: cover;
     background-size: cover;
 }
-
+#teacherDash {
+    width: 100vw;
+    height: 100vh;
+    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("../images/teacherDash.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 #studentDiv {
     margin: 0 auto;
     padding-top: 140px;
@@ -28,6 +37,9 @@
 	float: left;
 		margin-top: 30px;
 	margin-left: 500px;
+	height: 41px;
+	background-color: #FFE3D5;
+
 }
 
 .listIt {
@@ -45,6 +57,29 @@
 		
 	}
 	margin-top: 20px;
+}
+
+.createRoomInput{
+	display: inline;
+	float: left;
+	margin-top: 80px;
+	margin-left: 300px;
+	height: 41px;
+	background-color: #FFE3D5;
+
+}
+
+#createRoom{
+	margin-left: -130px;
+	margin-top: 80px;
+}
+
+.textTeal{
+	color: #42dca3;
+}
+
+.listItemText{
+	color: #FFE3D5;
 }
 // #sidebar-collapse{
 // 	 font-family: 'Droid Sans Mono';
