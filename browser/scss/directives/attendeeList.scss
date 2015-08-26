@@ -1,5 +1,18 @@
 .attendeeListDirective {
-  border: 1px solid black
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+#attendeeBlock {
+  overflow:auto
+}
+
+.selected {
+  color: red
+}
+
+.notSelected {
+  color: black
 }
 
 .example-animate-container {
@@ -34,4 +47,10 @@
 .animate-repeat.ng-enter.ng-enter-active {
   opacity:1;
   max-height:40px;
+}
+
+
+#attendees{
+  width: 30%;
+  float: right;
 }

@@ -42,12 +42,4 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
         castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
     }    
   }
-
-  $scope.deleteRoom = function () {
-    $scope.currentlyRecording = false;
-    castFactory.endLecture($stateParams.roomId)
-    .then(function () {
-      $state.go('home')
-    })
-  }
 });
