@@ -32,6 +32,11 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/dashboards/students/replayList.html',
         controller: 'studentDashboardCtrl'
     })
+     .state("studentDashboard.forkList", {
+        url: "/forkList",
+        templateUrl: 'js/dashboards/students/forkList.html',
+        controller: 'studentDashboardCtrl'
+    })
 
 });
 

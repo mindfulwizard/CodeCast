@@ -1,38 +1,53 @@
 #about {
 
-  margin: 0 auto;
-  width: 90%;
+    width: 100vw;
+    height: 100vh;
+    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("../images/codePic.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
   @include clearfix;
 
   p {
-    width: 40%;
-    margin: 0 auto;
+    width: 80vw;
+    margin-left: 10vw;
     text-align: justify;
     font-size: 22px;
     font-weight: 300;
     float: left;
+    color: #FFE3D5;
   }
 
-  .carousel {
-    float: right;
-    width: 55%;
-    overflow: hidden;
-    margin: 0 auto;
-    .carousel-inner {
-      height: 500px !important;
-    }
-    .carousel-control {
-      background: none;
-    }
-    .carousel-indicators {
-      display: none;
-    }
-    img {
-      max-width: 100%;
-      max-height: 500px;
-      display: block;
-      margin: 0 auto;
-    }
+
+  li {
+    color: #FFE3D5;
   }
+
+  #features {
+    width: 40vw;
+    float: left;
+  }
+
+  h3 {
+    text-align: center;
+    color: #42dca3;
+  }
+
+  
+img {
+  width: 40vw;
+  height: auto;
+  display: block;
+  margin-left: 10vw;
+}
+
+#aboutMargin {
+  margin: 0 auto;
+  padding-top: 120px;
+}
+
 
 }
