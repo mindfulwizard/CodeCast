@@ -1,4 +1,4 @@
-<h1>Replay Lectures</h1>
+<h1>Recorded Lectures</h1>
 <input class="inputBoxRight" placeholder="Replay Lecture" ng-model='replaySearch'>
 <div ng-repeat="replay in replayLectures | filter: replaySearch">
 	<a ng-click="replayState({roomId: replay._id})">{{replay.name}}</a>
