@@ -10,7 +10,6 @@ app.controller('teacherDashboardCtrl', function($scope, $rootScope, $state, sock
 	roomFactory.getAllLecturesOfOneInstructor($stateParams.userId)
 		.then(function(lectures) {
 			$scope.lectures = lectures;
-			console.log('lectures in Ctrl', $scope.lectures)
 		});
 
 	$scope.joinRoom = function(id) {

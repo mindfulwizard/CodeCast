@@ -35,7 +35,6 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
         castFactory.getAllLive()
             .then(function(liveLectures) {
                 $scope.liveLectures = liveLectures;
-    console.log($scope.liveLectures)
             })
     }
 
@@ -47,7 +46,7 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
                 $scope.replayLectures = replays;
             })
     }
-      $scope.getAllReplayCasts();
+    $scope.getAllReplayCasts();
 
     $scope.getCurrentUser = function() {
         userFactory.getUser()
