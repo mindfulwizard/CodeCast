@@ -1,11 +1,11 @@
 	<div id='commentsBlock'>
 		<div class="comment" ng-repeat="comment in commentsArr">
-			<p> 
+			<span id="commenter"> 
 				{{comment.user.firstName}}:
-			</p>
-			<p>
+			</span>
+			<span id="message">
 				{{comment.text}}
-			</p>
+			</span>
 		</div>
 	</div>
 	<div class="panel-footer">

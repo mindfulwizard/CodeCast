@@ -104,8 +104,9 @@ module.exports = function(server) {
 			})
 		});
 
-		socket.on('disconnect', function() {
-			console.log('user disconnected');
+		socket.on('disconnect', function(obj) {
+			console.log('user disconnected', obj);
+
 		});
 	});
 

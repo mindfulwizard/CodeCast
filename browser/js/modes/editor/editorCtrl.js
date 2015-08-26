@@ -5,12 +5,14 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.editor;
     $scope.instructor;
 
-    console.log('instructor in editorCtrl', $scope.instructor)
-
     $scope.codemirrorLoaded = function(_editor){
         $scope.editor = _editor;
+        if($scope.fork === 'fork') {
+            $scope.editor.setOption('readOnly', false);
+        }
+
         //if in replay mode set readOnly to true
-        if($scope.name === 'replay'  || !$scope.user.instructor) {
+        else if ($scope.name === 'replay'  || ($scope.user && !$scope.user.instructor) || !$scope.user) {
             $scope.editor.setOption('readOnly', 'nocursor');
         }
     }

@@ -7,7 +7,8 @@ app.directive('editor', function() {
 			name: '@',
 			output: '=',
 			user: '=',
-			instructor: '='
+			instructor: '=',
+			fork: "="
 		},
 		controller: 'editorCtrl'
 	}

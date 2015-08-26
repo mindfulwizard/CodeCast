@@ -22,8 +22,14 @@
 .comment {
 	padding: 1vh;
 	display: inline-block;
-	word-break:break-all
-	
+	width: 100%
+}
+
+#commenter {
+	color: blue
+}
+
+#message {
 }
 
 #input {

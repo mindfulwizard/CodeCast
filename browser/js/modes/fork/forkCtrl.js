@@ -7,6 +7,7 @@ app.controller('forkCtrl', function($scope, forkFactory) {
     $scope.forkedText = {
         text: null
     };
+    $scope.fork = 'fork';
 
 
     $scope.makeFork = function() {
