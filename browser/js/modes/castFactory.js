@@ -14,6 +14,7 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 
 		sendModal: function (roomId) {
+			console.log('sendModal in castFactory')
 			socketFactory.emit('send a closing modal', {room: roomId})
 		},
 
@@ -30,7 +31,18 @@ app.factory('castFactory', function($http, socketFactory){
 				return res.data
 			})
 		},
-
+		getAllLive: function(){
+			return $http.get('api/rooms')
+			.then(function(res){
+				return res.data
+			})
+		},
+		getAllReplays: function(){
+			return $http.get('api/rooms/lectures')
+			.then(function(res){
+				return res.data
+			})
+		},
 		getCast: function(roomId){
 			return $http.get('/api/replay/' + roomId)
 			.then(function(res){

@@ -21,7 +21,6 @@ router.get('/lectures', function(req, res) {
 router.get('/:id', function(req, res) {
 	Room.findById(req.params.id).deepPopulate('students instructor commentHistory commentHistory.user').exec()
 		.then(function(room) {
-			console.log('room populated', room)
 			res.json(room);
 		});
 });
@@ -48,6 +47,8 @@ router.put('/:id', function (req, res) {
 	});
 })
 
+
+
 //Auth authentication here
 router.use('/', Auth.isAuthenticated, function(req, res, next) {
 	if (req.user.instructor) next();
@@ -65,5 +66,6 @@ router.post('/', function(req, res) {
 			res.send(room);
 		});
 });
+
 
 module.exports = router;

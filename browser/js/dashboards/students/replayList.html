@@ -1,0 +1,12 @@
+<h1>Recorded Lectures</h1>
+<input class="inputBoxRight" placeholder="Replay Lecture" ng-model='replaySearch'>
+
+<br/>
+<br/>
+<br/>
+
+<div ng-repeat="replay in replayLectures | filter: replaySearch">
+<ul>
+	<li><a class="listItemText" ui-sref="replayState({roomId: replay._id})">{{replay.name}}</a></li>
+</ul>
+</div> 

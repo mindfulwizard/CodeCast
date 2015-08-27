@@ -6,11 +6,15 @@
 }
 
 .commentsDirective {
-	border: 3px solid blue;
+	border: 3px solid #FFE3D5;
 }
 
 #rightBlock input {
 	width: 100%
+}
+
+.panel-footer {
+	background-color: black;
 }
 
 
@@ -26,10 +30,12 @@
 }
 
 #commenter {
-	color: blue
+	color: #42dca3;
+	font-style: italic;
 }
 
 #message {
+	color: #FFE3D5;
 }
 
 #input {
@@ -38,6 +44,14 @@
 
 #confirmButton {
 	width: 15%
+}
+
+#chatQuest {
+	border-radius: 0px;
+	background-color: #FFE3D5;
+}
+#attendeeList{
+	background-color: #FFE3D5;
 }
 
 

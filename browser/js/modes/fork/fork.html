@@ -1,8 +1,8 @@
-   <button ng-click="makeFork()">Fork</button>
-   <button ng-show="hasBeenForked" ng-click="getForks()">Show Forks</button>
+   <button ng-click="makeFork()" style="font-family: 'Oswald', sans-serif;" class="btn btn-default navbar-btn" type="button">Fork</button>
+   <button class="btn btn-default navbar-btn" style="font-family: 'Oswald', sans-serif;" ng-show="hasBeenForked" ng-click="getForks()">Show Forks</button>
      <editor fork="fork" replay-text="forkedText" ng-if="forked"></editor>
-    <button ng-show="forked" ng-click="saveFork()">Save Fork</button>
-    <button ng-show="forked" ng-click="hideFork()">Hide Fork</button>
+    <button class="btn btn-default navbar-btn" style="font-family: 'Oswald', sans-serif;" ng-show="forked" ng-click="saveFork()">Save Fork</button>
+    <button class="btn btn-default navbar-btn" style="font-family: 'Oswald', sans-serif;" ng-show="forked" ng-click="hideFork()">Hide Fork</button>
     <ul ng-show="showForks">
     	<li ng-click="bringUpFork(fork.text)" ng-repeat="fork in forks"><a>{{fork.name}}</a></li>
     </ul>

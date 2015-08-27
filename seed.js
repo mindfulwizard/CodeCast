@@ -23,25 +23,28 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 
-var seedUsers = function () {
+var seedUsers = function() {
 
-    var users = [
-        {
+    var users = [{
             // instructor
-            firstName: 'instructorFirstNameSample',
+            firstName: 'Instructor',
             lastName: 'instructorLastNameSample',
             email: 'instructor@gmail.com',
             password: '123',
             instructor: true,
-        },
-        {
-            // user
+        }, {
+            // user 1
             firstName: 'Barack',
             lastName: 'Obama',
             email: 'obama@gmail.com',
             password: '123'
-        },
-        {
+        },{
+            // user 2
+            firstName: 'John',
+            lastName: 'Smith',
+            email: 'smith@gmail.com',
+            password: '123'
+        },{
             // admin
             firstName: 'adminFirstNameSample',
             lastName: 'adminLastNameSample',
@@ -56,18 +59,18 @@ var seedUsers = function () {
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
+connectToDb.then(function() {
+    User.findAsync({}).then(function(users) {
         if (users.length === 0) {
             return seedUsers();
         } else {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
             process.kill(0);
         }
-    }).then(function () {
+    }).then(function() {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.error(err);
         process.kill(1);
     });
