@@ -6,7 +6,7 @@
   <audio id="audioRec" ng-show="isAudio" ng-src="{{audioSrc}}" controls autoplay></audio>
    <recorder room-id="roomId" play-buffer="playBack" audio-src="audioSrc" name="replay"></recorder>
    <button style="font-family: 'Oswald', sans-serif;" class="btn btn-default" ng-click="pauseContinue()">Start/Pause/Continue</button>
-   <fork fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
+   <fork room-id="roomId" fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
 </div>
 </section>
   

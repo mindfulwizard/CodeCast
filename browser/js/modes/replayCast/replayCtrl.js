@@ -10,7 +10,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     $scope.roomId = $stateParams.roomId;
     $scope.isAudio = false;
 
-
     //custom sort to order codeSlices in array by timestamp
     var sortSlices = function(sliceList) {
         return sliceList.sort(function(a, b) {

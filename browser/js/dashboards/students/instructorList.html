@@ -6,12 +6,12 @@
 
 <div class="listIt" ng-repeat="instructor in instructors | filter: instructorSearch">
 	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
-</div>
 <br/>
 <br/>
 
-<div ng-show="showRooms" ng-repeat="room in instructorRooms">
+<div ng-if="showRooms && room.instructor === instructor._id" ng-repeat="room in instructorRooms">
 <ul>
 <li class="listItemText"><a class="listItemText" ui-sref="liveState({roomId: room._id})">{{room.name}}</a> </li>
 </ul>
+</div>
 </div>

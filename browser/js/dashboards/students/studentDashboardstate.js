@@ -30,6 +30,12 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/dashboards/students/forkList.html',
         controller: 'studentDashboardCtrl'
     })
+    .state("studentDashboard.editorDash", {
+        url: "/editorDash/:forkId",
+        templateUrl: 'js/dashboards/students/editorDash.html',
+        controller: 'studentDashboardCtrl'
+    })
+
 });
 
 
