@@ -3,6 +3,12 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+    firstName: {
+        type: String
+    },
+    lastname: {
+        type: String
+    },
     email: {
         type: String
     },
@@ -11,6 +17,21 @@ var schema = new mongoose.Schema({
     },
     salt: {
         type: String
+    },
+    photo: {
+        type: [String]
+    },
+    instructor: {
+        type: Boolean,
+        default: false
+    },
+    canType: {
+        type: Boolean,
+        default: false
+    },
+    admin: {
+        type: Boolean,
+        default: false
     },
     twitter: {
         id: String,
@@ -28,18 +49,18 @@ var schema = new mongoose.Schema({
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
-var generateSalt = function () {
+var generateSalt = function() {
     return crypto.randomBytes(16).toString('base64');
 };
 
-var encryptPassword = function (plainText, salt) {
+var encryptPassword = function(plainText, salt) {
     var hash = crypto.createHash('sha1');
     hash.update(plainText);
     hash.update(salt);
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+schema.pre('save', function(next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
@@ -53,7 +74,7 @@ schema.pre('save', function (next) {
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+schema.method('correctPassword', function(candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 

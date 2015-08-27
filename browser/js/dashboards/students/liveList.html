@@ -1,5 +1,10 @@
 <h1>Live Lectures</h1>
-<input placeholder="Live Lecture" ng-model='liveSearch'>
+<input class="inputBoxRight" placeholder="Live Lecture" ng-model='liveSearch'>
+<br/>
+<br/>
+<br/>
 <div ng-repeat="live in liveLectures | filter: liveSearch">
-	<a ng-click="liveState({roomId: live._id})">{{live.name}}</a>
+<ul>
+	<li><a class="listItemText" ui-sref="liveState({roomId: live._id})">{{live.name}}</a></li>
+</ul>
 </div>

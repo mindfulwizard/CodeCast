@@ -3,24 +3,29 @@ app.config(function($stateProvider) {
 		url: '/live/:roomId',
 		templateUrl: 'js/modes/liveCast/live.html',
 		controller: 'liveCtrl',
-		// resolve: {
-		// 	codeHistory: function($http) {
-		// 		return $http.get('/api/codeHistory/:roomId')
-		// 		  .then(function(res) {
-		// 		  	return res.data;
-		// 		  });
-		// 	}
-		// }
-		onExit: function(socketFactory, $stateParams) {
-			// console.log("stateparams", $stateParams.roomId)
-			// console.log(socketFactory, "factory")
-			socketFactory.emit('leave', $stateParams.roomId);
+		resolve: {
+			//replaced joinsocket with http call
+			joinRoom: function($stateParams, socketFactory, AuthService) {
+				 AuthService.getLoggedInUser().then(function (user) {
+					socketFactory.emit('join', {room: $stateParams.roomId, user: user})
+				 })
+			},
+			setUser: function (AuthService) {
+				return AuthService.getLoggedInUser().then(function (user) {
+					return user;
+				})
+			},
+			roomInfo: function($http, $stateParams) {
+				return $http.get('/api/rooms/' + $stateParams.roomId)
+				  .then(function(res) {
+				  	return res.data;
+				  });
+			}
+		},
+		onExit: function(socketFactory, $stateParams, AuthService) {
+			 AuthService.getLoggedInUser().then(function (user) {
+				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
+			})
 		}
-		// resolve: {
-		// 	initializeScopeComments: function ($scope) {
-		// 		$scope.comments = [];
-		// 		return $scope.comments
-		// 	}
-		// }
 	})
 })

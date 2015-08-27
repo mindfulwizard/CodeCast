@@ -63,6 +63,18 @@
             return !!Session.user;
         };
 
+        // Uses the session factory to see if an
+        // authenticated user is instructor
+        this.isInstructor = function() {
+            return !!Session.isInstructor;
+        }
+
+        // Uses the session factory to see if an
+        // authenticated user is admin
+        this.isAdmin = function() {
+            return !!Session.isAdmin;
+        }
+
         this.getLoggedInUser = function (fromServer) {
 
             // If an authenticated session exists, we
@@ -101,6 +113,14 @@
             });
         };
 
+         this.signup = function (credentials) {
+            return $http.post('/signup', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid login credentials.' });
+                });
+        };
+
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
@@ -117,10 +137,15 @@
 
         this.id = null;
         this.user = null;
+        // added isInstructor key
+        this.isInstructor = null;
+        this.isAdmin
 
         this.create = function (sessionId, user) {
             this.id = sessionId;
             this.user = user;
+            this.isInstructor = user.instructor;
+            this.isAdmin = user.admin
         };
 
         this.destroy = function () {

@@ -1,15 +1,33 @@
-
-
 <section id="live">
-
-	<button ng-click="startLecture(); constantRecording(); startRec()">Start Rec</button>
-	<recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
-   <editor name="live" replay-text="replayObj" output="replayObj.result"></editor>
-
-   	<a ui-sref="replayListState"><button>Go to replay section</button></a>
-   	<a><button ng-click="deleteRoom(); stopRec()">end lecture (delete room)</button></a>
-   	 <fork name="live" replay-obj="replayObj"></fork>
-   	 <comments></comments>
+   <div class="container" id="repl">
+    <div class="row">
+      <div id="rightBlock" class="col-lg-3">
+        <div class="commentsDirective">
+          <comments user="user" comments-arr="replayObj.comments"></comments>
+        </div>
+        <div class="attendeeListDirective">
+          <attendee-list user="user" room="room"></attendee-list>
+        </div>
+      </div>
+      <div id='leftBlock' class="col-lg-8">
+        <div ng-keyup="constantRecording()" class="editor">
+            <div>
+                <button ng-click="startLecture(); constantRecording(); startRec()">Start Rec</button>
+              <recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
+              <editor instructor="room.instructor" user="user" name="live" stop-rec="stopRec" replay-text="replayObj" output="replayObj.result"></editor>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+     </br>  
+         <fork fork="fork" name="live" replay-obj="replayObj"></fork>
+      </br>
+     </br>
+    </div>
+  </div>
 </section>
+
+
 
 

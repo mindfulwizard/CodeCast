@@ -21,7 +21,17 @@ var room = new mongoose.Schema({
 	},
 	audioFileLink: {
 		type: String
-	}
+	},
+	textHistory: String,
+	resultHistory: String,
+	commentHistory: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Comment'
+	}]
 });
+
+//allows deep population //see github docs for usage
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
+room.plugin(deepPopulate, {});
 
 mongoose.model('Room', room);

@@ -1,37 +1,62 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
         scope: {},
+        controller: function($scope) {
+            $scope.scroll = 0;
+        },
         templateUrl: 'js/common/directives/navbar/navbar.html',
-        link: function (scope) {
 
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Documentation', state: 'docs' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
-            ];
+
+        link: function(scope) {
+
+            scope.items = [{
+                label: 'Home',
+                state: 'home'
+            }, {
+                label: 'About',
+                state: 'about'
+            }, {
+                label: 'Teacher DashBoard',
+                state: 'teacherDashboard.overview',
+                auth: true,
+                instructor: true
+            }, {
+                label: 'Student DashBoard',
+                state: 'studentDashboard.overview',
+                auth: true,
+                instructor: false
+            }];
 
             scope.user = null;
 
-            scope.isLoggedIn = function () {
+            scope.isLoggedIn = function() {
                 return AuthService.isAuthenticated();
             };
 
-            scope.logout = function () {
-                AuthService.logout().then(function () {
-                   $state.go('home');
+            scope.isInstructor = function() {
+                return AuthService.isInstructor();
+            };
+
+            scope.isAdmin = function() {
+                return AuthService.isAdmin();
+            };
+
+
+            scope.logout = function() {
+                AuthService.logout().then(function() {
+                    $state.go('home');
                 });
             };
 
-            var setUser = function () {
-                AuthService.getLoggedInUser().then(function (user) {
+            var setUser = function() {
+                AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
                 });
             };
 
-            var removeUser = function () {
+            var removeUser = function() {
                 scope.user = null;
             };
 

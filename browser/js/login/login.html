@@ -1,3 +1,5 @@
+
+<section id='loginPage'>
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
 
     <alert type="danger" ng-show="error">
@@ -5,12 +7,18 @@
     </alert>
 
     <div class="form-group">
-        <label for="email">Email address</label>
+        <label for="email" class='loginText'>Email address</label>
         <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
     </div>
     <div class="form-group">
-        <label for="login-password">Password</label>
+        <label for="login-password" class='loginText'>Password</label>
         <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" style="font-family: 'Oswald', sans-serif;">Submit</button>
+    <div id='toSignUp'>
+        You don't have an account yet? 
+        <a ui-sref="signup" id="signupLink">Sign Up Now!</a>
+    </div>
 </form>
+
+</section>

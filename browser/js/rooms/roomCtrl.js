@@ -1,24 +1,14 @@
-app.controller('roomCtrl', function($scope, $rootScope, $state, socketFactory, roomFactory) {
-    // $scope.rooms = [];
-    // $scope.createRoom = function() {
-    //     socketFactory.emit('createRoom', {
-    //         name: this.roomName
-    //     })
-    // socket.on('give room to front-end', function(roomName) {
-    //     console.log(roomName)
-    //     $scope.rooms.push(roomName);
-    //     console.log($scope.rooms);
-    // })
-    // $state.go('home');
+app.controller('roomCtrl', function($scope, $state, roomFactory, $stateParams) {
+
+    console.log('instructorId in roomCtrl with stateparams', $stateParams.instructorId)
 
     $scope.createRoom = function() {
-        roomFactory.makeRoom($scope.roomName)
-            .then(function() {
-                console.log('room on the front end created');
-            })
-            .then(function() {
-                $state.go('home');
-            })
+        roomFactory.makeRoom($scope.roomName, $stateParams.instructorId)
+        // .then(function() {
+        // })
+        .then(function() {
+            $state.go('teacherDashboard.futureLectures');
+        })
     }
 
 });

@@ -1,27 +1,13 @@
+require('../../db/models');
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var fs = require('fs');
+var multer = require('multer')
 var path = require('path')
-require('../../db/models');
+var Auth = require('./../configure/auth.middleware.js')
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
-var multer = require('multer')
 var upload = multer({ dest: 'audio/' })
-// var uuid = require('node-uuid');
-
-router.post('/', function(req, res) {
-	var newRoom = new Room();
-
-	// console.log(req.body);
-	//instructor ID ?
-	Room.create({
-		name: req.body.name,
-		// id: uuid.v1().toString()
-	})
-		.then(function(data) {
-			res.send(data);
-		});
-});
 
 router.get('/', function(req, res) {
 	Room.find({lectureEnded: false}).exec()
@@ -38,9 +24,25 @@ router.get('/lectures', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-	Room.findById(req.params.id).exec()
+	Room.findById(req.params.id).deepPopulate('students instructor commentHistory commentHistory.user').exec()
+		.then(function(room) {
+			console.log('room populated', room)
+			res.json(room);
+		});
+});
+
+// find all the rooms by the instructor who created them
+router.get('/instructor/:instructorId', function(req, res) {
+	Room.find({instructor: req.params.instructorId, lectureStarted: false}).exec()
 		.then(function(room) {
 			res.json(room);
+		});
+});
+
+router.get('/lectures/:instructorId', function(req, res) {
+	Room.find({instructor: req.params.instructorId, lectureEnded: true}).exec()
+		.then(function(rooms) {
+			res.json(rooms);
 		});
 });
 
@@ -49,7 +51,6 @@ router.put('/:id', function (req, res) {
 	.then(function (room) {
 		res.json(room);
 	});
-
 })
 
 
@@ -65,7 +66,6 @@ router.put('/audio/:id', upload.single('data'), function(req, res, next) {
 	.then(null,next)
 });
 
-
 router.get('/audio/:id', function(req, res) {
 	Room.findById(req.params.id).exec()
 	.then(function (room) {
@@ -73,6 +73,24 @@ router.get('/audio/:id', function(req, res) {
 		res.set('Content-Type', 'audio/wav')
 		res.sendFile(path.join(process.cwd(),room.audioFileLink))
 	})
+});
+
+//Auth authentication here
+router.use('/', Auth.isAuthenticated, function(req, res, next) {
+	if (req.user.instructor) next();
+	else Auth.isAdmin(req, res, next);
+});
+
+router.post('/', function(req, res) {
+	console.log('passed auth')
+	Room.create({
+		name: req.body.name,
+		instructor: req.body.instructor
+	})
+		.then(function(room) {
+			console.log('room created?', room)
+			res.send(room);
+		});
 });
 
 module.exports = router;

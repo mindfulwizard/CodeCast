@@ -1,8 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-require('../../db/models');
 var CodeSlice = mongoose.model('CodeSlice');
-
 
 router.post('/', function(req, res) {
 	// Todo: assume that req.body will include a room id

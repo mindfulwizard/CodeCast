@@ -1,27 +1,30 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  background: #fdfdfd;
+    width: 100%;
+    height: 100%;
+  // -webkit-filter: invert(100%);
+  //  filter: invert(100%);
 }
 
 @mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
 
-#main {
-  padding-top: 60px;
-  width: 1200px;
-  margin: 0 auto;
+btn btn-default {
+font-family: 'Oswald', sans-serif;
+
 }
 
-@import 'directives/main';
 @import 'home/main';
+@import 'directives/main';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'dashBoards/main';

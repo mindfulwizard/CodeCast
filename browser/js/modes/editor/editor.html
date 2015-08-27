@@ -1,8 +1,21 @@
-<div> 
-  <textarea ui-codemirror ui-codemirror-opts="editorOptions" type="text" size="200px" ng-model="replayText.text" id="originalBox"></textarea>
-   <button ng-click="getResultCode()">Check your code result</button>
-   <div id="sandBoxResult">{{output}}</div>
- </div> 
+<div id="editorEnsemble"> 
+  <div class="row">
+    <button style="font-family: 'Oswald', sans-serif;" class="btn btn-default navbar-btn" id="endLecture" ng-show="name=='live' && user.instructor" ng-click="stopRec(); deleteRoom()"> End lecture </button>
+    <p id ="permissionText" ng-show="canEdit && !user.instructor">You have been given temporary permission to edit the code by {{instructor.firstName}}!</p>
+    <button class="btn btn-default navbar-btn" id="getResult" ng-hide="(name=='live' && !user.instructor) || (name==='replay')" ng-click="getResultCode()" style="font-family: 'Oswald', sans-serif;"style="font-family: 'Oswald', sans-serif;"> Run the Code > </button>
+  </div>
+  <textarea class="row" ui-codemirror ui-codemirror-opts="{
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: 'javascript',
+        smartIndent: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        keyMap: 'sublime',
+        onLoad: codemirrorLoaded
+    }" type="text" size="200px" ng-model="replayText.text" id="originalBox"></textarea>
+   <div id="sandBoxResult">Result > {{output}}</div>
+</div> 
 
 
 <!-- ng-readonly="replayText.noEditing" -->

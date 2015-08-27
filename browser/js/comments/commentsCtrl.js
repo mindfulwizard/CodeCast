@@ -1,20 +1,17 @@
 app.controller('commentsCtrl', function($scope, forkFactory, $stateParams, socketFactory, castFactory) {
 
-	// creates a comment to be sent to back end via sockets
-	$scope.createComment = function(commentText) {
-        castFactory.sendComment(commentText, $stateParams.roomId)
-    }
+  $scope.commentsArr;
+  $scope.user;
 
-     socketFactory.on('get comments history', function (historyArrOfObj) {
-    $scope.commentsArr = [];
-    $scope.commentsArr = historyArrOfObj;
+
+  // creates a comment to be sent to back end via sockets
+  $scope.createComment = function(commentText) {
+    castFactory.sendComment(commentText, $scope.user._id, $stateParams.roomId)
+  }
+
+  // update comments everytime one user writes on
+  socketFactory.on('receive comment', function(room) {
+    $scope.commentsArr = room.commentHistory;
   })
 
-     socketFactory.on('receive comment', function (commentObj) {
-        if (!$scope.commentsArr) {
-            $scope.commentsArr = [];
-        }
-        $scope.commentsArr.push(commentObj);
-
-    })
 })
