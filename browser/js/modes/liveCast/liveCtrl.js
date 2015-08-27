@@ -1,6 +1,7 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser) {
   $scope.user = setUser;
   $scope.room = roomInfo;
+  $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
 
   // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
@@ -30,15 +31,10 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   $scope.evals = evaluatorFactory.liveEvals;
 
   $scope.startLecture = function() {
-    if (!$scope.currentlyRecording) {
-      castFactory.startLecture($stateParams.roomId)
-      $scope.currentlyRecording = true;
-    }
+      castFactory.startLecture($stateParams.roomId);
   }
 
   $scope.constantRecording = function() {
-    if ($scope.currentlyRecording) {
       castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
-    }
   }
 });
