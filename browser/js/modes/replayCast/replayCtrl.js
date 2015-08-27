@@ -5,6 +5,7 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     var videoStarted = false;
     var videoOver = false;
     var paused = false;
+    $scope.roomId = $stateParams.roomId;
 
     //custom sort to order codeSlices in array by timestamp
     var sortSlices = function(sliceList) {

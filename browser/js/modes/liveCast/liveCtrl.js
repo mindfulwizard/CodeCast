@@ -1,6 +1,7 @@
 app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser) {
   $scope.user = setUser;
   $scope.room = roomInfo;
+  $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
 
   // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})

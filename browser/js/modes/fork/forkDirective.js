@@ -5,7 +5,8 @@ app.directive('fork', function() {
 		scope: {
 			replayObj: '=',
 			pauseContinue: '=',
-			name: '@'
+			name: '@',
+			roomId: '='
 		},
 		controller: 'forkCtrl'
 	}
