@@ -3,8 +3,8 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     var sortedSlicesArr;
     var replayCurrentIndex;
     var timer;
-    var videoDownloaded = false;
-    var videoOver = false;
+    var videoOver = true;
+    var downloaded = false;
     var paused = false;
     var aud = document.getElementById("audioRec"); 
     $scope.roomId = $stateParams.roomId;
@@ -43,9 +43,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 timer = $timeout(function(){
                     renderFullCast(sortedSlicesArr, replayCurrentIndex+1)
                 }, next.runningTotal - currentSlice.runningTotal)
-            } else{
-                replayCurrentIndex = 0;
-                videoOver = true;
             }
         }
     }
@@ -57,16 +54,13 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 replayCurrentIndex = index;
             }
         })
-        //console.log('rerendering')
         paused = false;
         renderFullCast(sortedSlicesArr, replayCurrentIndex);
     }
 
       var restart = function() {
-        //console.log('hit restart')
         var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
         console.log('wait is', wait);
-        //console.log('replayCurrentIndex is', replayCurrentIndex);
         $timeout(function() {
             replayCurrentIndex = replayCurrentIndex +1;
             renderFullCast(sortedSlicesArr, replayCurrentIndex)
@@ -84,14 +78,12 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 sortedSlicesArr = sortedArr;
                 sortedSlicesArr.forEach(function(slice) {
                     calculateRunningTotal(sortedSlicesArr[0], slice);
-                    //console.log('slice.runningTotal', slice.runningTotal)
                 });
                 $scope.replayLength = _.last(sortedSlicesArr).runningTotal;
-                if(!videoDownloaded){
-                    $scope.isPlayBack();
-                    renderFullCast(sortedSlicesArr, 0);
-                    videoDownloaded = true;
-                }    
+                videoOver = false;
+                downloaded = true;
+                $scope.isPlayBack();
+                renderFullCast(sortedSlicesArr, 0);
             })
     }
 
@@ -101,12 +93,14 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     }
 
     $scope.pauseContinue = function() {
-         if(videoOver){
-            videoOver = false;
-            aud.play();
-            renderFullCast(sortedSlicesArr, 0);
-        } else if(!videoDownloaded){
-            $scope.getFullCast();
+        if(videoOver){
+            if(downloaded) {
+                videoOver = false;
+                renderFullCast(sortedSlicesArr, 0);
+                aud.play();
+            } else {
+                $scope.getFullCast();
+            }
         } else if(paused) {
             paused = false;
             restart();
@@ -121,28 +115,18 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     }
 
     $scope.isPlayBack = function(){
+        aud.play();
         $scope.isAudio = true;
-         $scope.playBack();
+        $scope.playBack();
     }
 
     //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
     $scope.userUpdatingTime = _.debounce(userUpdatingTime, 250);
 
-
+    aud.onended = function() {
+        videoOver = true;
+    };
 });
-
-        // else if(paused) {
-        //     //restart();
-        //     var pausetime = aud.currentTime*1000;
-        //     console.log('pausetime', pausetime)
-        //     sortedSlicesArr.forEach(function(slice){
-        //         slice.runningTotal = slice.runningTotal - pausetime;
-        //     })
-        //     paused = false;
-        //     renderFullCast(sortedSlicesArr, replayCurrentIndex)
-        //     aud.play()
-        //     console.log('restarttime', aud.currentTime*1000)
-
 
 
 
