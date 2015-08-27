@@ -1,9 +1,10 @@
 var recLength = 0,
-  recBuffers = [],
-  sampleRate,
-  numChannels;
+  recBuffersL = [],
+  recBuffersR = [],
+  sampleRate;
 
-this.onmessage = function(e){
+
+self.onmessage = function(e) {
   switch(e.data.command){
     case 'init':
       init(e.data.config);
@@ -25,51 +26,35 @@ this.onmessage = function(e){
 
 function init(config){
   sampleRate = config.sampleRate;
-  numChannels = config.numChannels;
-  initBuffers();
 }
 
 function record(inputBuffer){
-  for (var channel = 0; channel < numChannels; channel++){
-    recBuffers[channel].push(inputBuffer[channel]);
-  }
+  recBuffersL.push(inputBuffer[0]);
+  recBuffersR.push(inputBuffer[1]);
   recLength += inputBuffer[0].length;
 }
 
 function exportWAV(type){
-  var buffers = [];
-  for (var channel = 0; channel < numChannels; channel++){
-    buffers.push(mergeBuffers(recBuffers[channel], recLength));
-  }
-  if (numChannels === 2){
-      var interleaved = interleave(buffers[0], buffers[1]);
-  } else {
-      var interleaved = buffers[0];
-  }
+  var bufferL = mergeBuffers(recBuffersL, recLength);
+  var bufferR = mergeBuffers(recBuffersR, recLength);
+  var interleaved = interleave(bufferL, bufferR);
   var dataview = encodeWAV(interleaved);
   var audioBlob = new Blob([dataview], { type: type });
 
-  this.postMessage(audioBlob);
+  self.postMessage(audioBlob);
 }
 
-function getBuffer(){
+function getBuffer() {
   var buffers = [];
-  for (var channel = 0; channel < numChannels; channel++){
-    buffers.push(mergeBuffers(recBuffers[channel], recLength));
-  }
-  this.postMessage(buffers);
+  buffers.push( mergeBuffers(recBuffersL, recLength) );
+  buffers.push( mergeBuffers(recBuffersR, recLength) );
+  self.postMessage(buffers);
 }
 
 function clear(){
   recLength = 0;
-  recBuffers = [];
-  initBuffers();
-}
-
-function initBuffers(){
-  for (var channel = 0; channel < numChannels; channel++){
-    recBuffers[channel] = [];
-  }
+  recBuffersL = [];
+  recBuffersR = [];
 }
 
 function mergeBuffers(recBuffers, recLength){
@@ -127,13 +112,13 @@ function encodeWAV(samples){
   /* sample format (raw) */
   view.setUint16(20, 1, true);
   /* channel count */
-  view.setUint16(22, numChannels, true);
+  view.setUint16(22, 2, true);
   /* sample rate */
   view.setUint32(24, sampleRate, true);
   /* byte rate (sample rate * block align) */
   view.setUint32(28, sampleRate * 4, true);
   /* block align (channel count * bytes per sample) */
-  view.setUint16(32, numChannels * 2, true);
+  view.setUint16(32, 4, true);
   /* bits per sample */
   view.setUint16(34, 16, true);
   /* data chunk identifier */

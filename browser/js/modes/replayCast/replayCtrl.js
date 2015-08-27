@@ -1,10 +1,14 @@
+
 app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeout) {
     $scope.videoObj = {text: null, result: null};
     var sortedSlicesArr;
     var replayCurrentIndex;
-    var videoStarted = false;
+    var timer;
+    var videoDownloaded = false;
     var videoOver = false;
     var paused = false;
+    $scope.roomId = $stateParams.roomId;
+    $scope.isAudio = false;
 
     //custom sort to order codeSlices in array by timestamp
     var sortSlices = function(sliceList) {
@@ -24,7 +28,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
         if(!paused){
             //index to start/restart playback
             replayCurrentIndex = currentIndex;
-            //console.log('currentSlicearr', sortedSlicesArr);
             var currentSlice = sortedSlicesArr[replayCurrentIndex];
 
             //send currentSlice info to Angular to instantiate
@@ -35,12 +38,11 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             var next = sortedSlicesArr[replayCurrentIndex+1];      
             if(next){
                 //call renderFullCast recursively inside a timeout, passing in runningTotal diff as delay
-                $timeout(function(){
+                timer = $timeout(function(){
                     renderFullCast(sortedSlicesArr, replayCurrentIndex+1)
-                    //console.log(replayCurrentIndex)
                 }, next.runningTotal - currentSlice.runningTotal)
-            }
-            else{
+            } else{
+                replayCurrentIndex = 0;
                 videoOver = true;
             }
         }
@@ -58,6 +60,17 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
         renderFullCast(sortedSlicesArr, replayCurrentIndex);
     }
 
+    //   var restart = function() {
+    //     var wait = sortedSlicesArr[replayCurrentIndex].runningTotal - aud.currentTime*1000;
+    //     console.log('wait', wait)
+    //     aud.play();
+    //     console.log('audio restart time', aud.currentTime*1000)
+    //     console.log('slice restart time', sortedSlicesArr[replayCurrentIndex].runningTotal)
+    //     $timeout(function() {
+    //         renderFullCast(sortedSlicesArr, replayCurrentIndex)
+    //     }, wait);
+    // }
+
     $scope.getFullCast = function() {
         //get array of all codeSlices associated with a specific room
         return castFactory.getCast($stateParams.roomId)
@@ -72,34 +85,46 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 });
 
                 $scope.replayLength = _.last(sortedSlicesArr).runningTotal;
-                if(!videoStarted){
-                    //console.log('starting')
+                if(!videoDownloaded){
+                    $scope.isPlayBack();
                     renderFullCast(sortedSlicesArr, 0);
-                    videoStarted = true;
+                    videoDownloaded = true;
                 }    
             })
     }
-    
+
+    var aud = document.getElementById("audioRec"); 
+
     $scope.pauser = function(){
+        aud.pause();
         paused = true;
     }
 
     $scope.pauseContinue = function() {
          if(videoOver){
             videoOver = false;
+            aud.play();
             renderFullCast(sortedSlicesArr, 0);
-        } else if(!videoStarted){
+        } else if(!videoDownloaded){
             $scope.getFullCast();
         } else if(paused) {
             paused = false;
+            aud.play();
             renderFullCast(sortedSlicesArr, replayCurrentIndex);
         } else if(!paused) {
             paused = true;
+            aud.pause();
         }
+    }
+
+    $scope.isPlayBack = function(){
+        $scope.isAudio = true;
+         $scope.playBack();
     }
 
     //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
     $scope.userUpdatingTime = _.debounce(userUpdatingTime, 250);
+
 
 });
 

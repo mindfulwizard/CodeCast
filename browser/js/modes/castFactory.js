@@ -6,7 +6,8 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 
 		sendText: function (text, time, roomId, result) {
-				socketFactory.emit('updatedText', {text: text, time: time, room: roomId, result: result})
+				socketFactory.emit('updatedText', {text: text || null, time: time, room: roomId, result: result})
+
 		},
 
 		sendComment: function (text, userId, roomId) {

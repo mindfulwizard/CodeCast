@@ -1,8 +1,13 @@
+require('../../db/models');
 var router = require('express').Router();
 var mongoose = require('mongoose');
+var fs = require('fs');
+var multer = require('multer')
+var path = require('path')
+var Auth = require('./../configure/auth.middleware.js')
 var Room = mongoose.model('Room');
 var User = mongoose.model('User');
-var Auth = require('./../configure/auth.middleware.js')
+var upload = multer({ dest: 'audio/' })
 
 router.get('/', function(req, res) {
 	Room.find({lectureEnded: false}).exec()
@@ -48,6 +53,26 @@ router.put('/:id', function (req, res) {
 })
 
 
+router.put('/audio/:id', upload.single('data'), function(req, res, next) {
+	console.log('we get past multer middleware')
+	console.log(req.file)
+	next()
+}, function(req, res,next) {
+	Room.findByIdAndUpdate(req.params.id, {audioFileLink: req.file.path}).exec()
+	.then(function (room) {
+		res.end();	
+	})
+	.then(null,next)
+});
+
+router.get('/audio/:id', function(req, res) {
+	Room.findById(req.params.id).exec()
+	.then(function (room) {
+		console.log(process.cwd())
+		res.set('Content-Type', 'audio/wav')
+		res.sendFile(path.join(process.cwd(),room.audioFileLink))
+	})
+});
 
 //Auth authentication here
 router.use('/', Auth.isAuthenticated, function(req, res, next) {
@@ -66,6 +91,5 @@ router.post('/', function(req, res) {
 			res.send(room);
 		});
 });
-
 
 module.exports = router;

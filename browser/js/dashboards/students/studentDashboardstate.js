@@ -4,14 +4,7 @@ app.config(function ($stateProvider) {
         url: '/studentDashboard/:userId',
         templateUrl: 'js/dashboards/students/studentDashboard.html',
         controller: 'studentDashboardCtrl'
-    //     resolve: {
-    //         getInstructors: function(userFactory){
-    //             return userFactory.getInstructors();
-    //     }
-    // }
     })
-
-    $stateProvider
     .state("studentDashboard.overview", {
         url: "/overview",
         templateUrl: 'js/dashboards/students/overview.html',
@@ -37,6 +30,17 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/dashboards/students/forkList.html',
         controller: 'studentDashboardCtrl'
     })
+    .state("studentDashboard.editorDash", {
+        url: "/editorDash/:forkId",
+        templateUrl: 'js/dashboards/students/editorDash.html',
+        controller: 'studentDashboardCtrl'
+    })
 
 });
 
+
+    //     resolve: {
+    //         getInstructors: function(userFactory){
+    //             return userFactory.getInstructors();
+    //     }
+    // }

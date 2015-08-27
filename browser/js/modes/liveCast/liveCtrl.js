@@ -1,6 +1,7 @@
 app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser, $modal) {
   $scope.user = setUser;
   $scope.room = roomInfo;
+  $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
   console.log('user in liveCtrl', $scope.user)
 
@@ -50,15 +51,10 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   $scope.evals = evaluatorFactory.liveEvals;
 
   $scope.startLecture = function() {
-    if (!$scope.currentlyRecording) {
-      castFactory.startLecture($stateParams.roomId)
-      $scope.currentlyRecording = true;
-    }
+      castFactory.startLecture($stateParams.roomId);
   }
 
   $scope.constantRecording = function() {
-    if ($scope.currentlyRecording) {
       castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
-    }
   }
 });

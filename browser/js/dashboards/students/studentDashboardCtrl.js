@@ -1,4 +1,4 @@
-app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory) {
+app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory, castFactory, $stateParams) {
     $scope.instructors;
     $scope.instructorRooms;
     $scope.showRooms = false;
@@ -6,18 +6,17 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
     $scope.liveLectures;
     $scope.replayLectures;
     $scope.user;
+    $scope.forkId = $stateParams.forkId;
+    $scope.fork = "fork";
+    $scope.forkedLectures = [];
+    $scope.showForks = false;
+    $scope.roomForks = [];
 
     userFactory.getInstructors()
         .then(function(instructors) {
             $scope.instructors = instructors;
         })
 
-
-    // userFactory.getForks()
-    // .then(function(forks){
-    // 	$scope.forks = forks;
-    // 	//this has all the forks. we should sort by fork room Id and display based on that
-    // })
 
     $scope.getLecture = function(instructorId) {
         if (!$scope.showRooms) {
@@ -55,8 +54,52 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, castFactory
             })
     }
 
-
     $scope.getCurrentUser();
+
+    $scope.getForkRoomList = function() {
+        userFactory.getForks()
+            .then(function(forks) {
+                $scope.forks = forks;
+                return forks
+            })
+            .then(function(forks) {
+                var allRooms = $scope.liveLectures.concat($scope.replayLectures)
+                forks.forEach(function(fork) {
+                    allRooms.forEach(function(room) {
+                        if (room._id === fork.roomId) {
+                            if ($scope.forkedLectures.indexOf(room) === -1)
+                                $scope.forkedLectures.push(room)
+                        }
+                    })
+                })
+            })
+    }
+
+    $scope.getForkRoomList();
+
+
+    $scope.getRoomForks = function(roomId) {
+        if (!$scope.showForks) {
+            forkFactory.getUserForks(roomId)
+                .then(function(forks) {
+                    $scope.roomForks = forks;
+                    $scope.showForks = true;
+                })
+        } else {
+            $scope.showForks = false;
+        }
+    }
+
+    $scope.getFork = function() {
+        $scope.forks.forEach(function(fork) {
+            if (fork._id === $stateParams.forkId) {
+                $scope.forkedText = fork;
+            }
+        })
+    }
+
+    if ($stateParams.forkId !== undefined) {$scope.getFork()};
+
 
     // $scope.credentials = {};
 
