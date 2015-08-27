@@ -1,4 +1,4 @@
-app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser) {
+app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser, $modal) {
   $scope.user = setUser;
   $scope.room = roomInfo;
   console.log('$scope.room', $scope.room)
@@ -25,6 +25,22 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
     $scope.room = newRoom;
     console.log('new room after join', $scope.room)
   })
+
+  // receive socket event of closed room => open a modal
+  // socketFactory.on('send the close modal', function (obj) {
+  //   console.log('obj in liveCtrl for modal', obj)
+  //   var obj = obj;
+  //   var modalInstance = $modal.open({
+  //         animation: $scope.animationsEnabled,
+  //         templateUrl: 'js/modes/closingWindowModal/modal.html',
+  //         controller: 'ModalInstanceCtrl',
+  //         resolve: {
+  //           roomId: function () {
+  //             return obj.room.toString()
+  //           }
+  //         }
+  //       });
+  // })
 
   var keystroke = false;
   var timerPromise;

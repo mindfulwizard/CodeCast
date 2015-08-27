@@ -1,4 +1,4 @@
-app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $stateParams, socketFactory, $state){
+app.controller('editorCtrl', function ($scope, evaluatorFactory, castFactory, $stateParams, socketFactory, $state){
     $scope.showEnd = true;
 	$scope.output;
     $scope.canEdit = false;
@@ -32,7 +32,10 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.deleteRoom = function () {
     $scope.currentlyRecording = false;
     castFactory.endLecture($stateParams.roomId)
-    .then(function () {
+    .then(function (room) {
+        console.log('room in editorCtrl', room)
+        // emit event socket to distribute modal to all students
+        castFactory.sendModal(room._id)
       $state.go('home')
     })
   }

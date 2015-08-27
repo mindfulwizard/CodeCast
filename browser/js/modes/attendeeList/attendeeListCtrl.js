@@ -1,6 +1,6 @@
 app.controller('attendeeListCtrl', function($scope, $stateParams, socketFactory){
 $scope.room;
-
+console.log('$scope.room in ATTENDEELISTCTRL', $scope.room)
 
 	$scope.select = function(student) {
 		if(($scope.selectedStudent) && $scope.selectedStudent._id === student._id){

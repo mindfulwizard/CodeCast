@@ -52,7 +52,11 @@ module.exports = function(server) {
 			})
 		})
 
-		// deepPopulate('commentHistory commentHistory.user')
+		// create a modal when closing room
+		socket.on('send a closing modal', function (obj) {
+			var roomToSendTo = obj.room.toString();
+			socket.broadcast.to(roomToSendTo).emit('send the close modal', obj);
+		})
 
 		socket.on('select one user', function(object){
 			console.log('useridee', object.userId)
@@ -60,7 +64,10 @@ module.exports = function(server) {
 			io.to(roomToSendTo).emit('toggling editing permission to student', {userId: object.userId})
 		})
 
+		var info;
+
 		socket.on('join', function(objReceived) {
+			info = objReceived;
 			console.log("USER HAS ARRIVED");
 			var newUser = objReceived.user;
 			socket.join(objReceived.room);
@@ -105,6 +112,7 @@ module.exports = function(server) {
 		});
 
 		socket.on('disconnect', function(obj) {
+			info
 			console.log('user disconnected', obj);
 
 		});
