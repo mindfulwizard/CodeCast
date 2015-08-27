@@ -14,6 +14,8 @@ module.exports = function(server) {
 
 	io.on('connection', function(socket) {
 
+		var info;
+
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
 			var snippet = obj;
@@ -52,8 +54,6 @@ module.exports = function(server) {
 			})
 		})
 
-		// deepPopulate('commentHistory commentHistory.user')
-
 		socket.on('select one user', function(object){
 			console.log('useridee', object.userId)
 			var roomToSendTo = object.roomId.toString();
@@ -61,6 +61,7 @@ module.exports = function(server) {
 		})
 
 		socket.on('join', function(objReceived) {
+			info = objReceived;
 			console.log("USER HAS ARRIVED");
 			var newUser = objReceived.user;
 			socket.join(objReceived.room);
@@ -104,12 +105,24 @@ module.exports = function(server) {
 			})
 		});
 
-		socket.on('disconnect', function(obj) {
-			console.log('user disconnected', obj);
-
+		socket.on('disconnect', function() {
+			console.log('user disconnected', info);
+			if (info.user) {
+				var user = info.user;
+				Room.findById(info.room).populate('students instructor commentHistory').exec()
+				.then(function (room) {
+					room.students.forEach(function (studentObj, index) {
+						if ((user._id).toString() === (studentObj._id).toString()) {
+							room.students.splice(room.students.indexOf(studentObj), 1)
+					}
+				})
+				room.save()
+				io.to(room._id).emit('delete from room.students', room);
+				return room;
+				});
+			}
 		});
 	});
-
 
 
 	return io;
