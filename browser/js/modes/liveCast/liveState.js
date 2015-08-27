@@ -3,6 +3,16 @@ app.config(function($stateProvider) {
 		url: '/live/:roomId',
 		templateUrl: 'js/modes/liveCast/live.html',
 		controller: 'liveCtrl',
+		onExit: function(socketFactory, $stateParams, AuthService) {
+			 AuthService.getLoggedInUser().then(function (user) {
+				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
+			})
+		},
+		onEnter: function(socketFactory, $stateParams, AuthService) {
+			 AuthService.getLoggedInUser().then(function (user) {
+				socketFactory.emit('join', {room: $stateParams.roomId, user: user});
+			})
+		},
 		resolve: {
 			//replaced joinsocket with http call
 			joinRoom: function($stateParams, socketFactory, AuthService) {
@@ -18,14 +28,10 @@ app.config(function($stateProvider) {
 			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
+				  	console.log('room.students in resolve', res.data.students)
 				  	return res.data;
 				  });
 			}
 		},
-		onExit: function(socketFactory, $stateParams, AuthService) {
-			 AuthService.getLoggedInUser().then(function (user) {
-				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
-			})
-		}
 	})
 })

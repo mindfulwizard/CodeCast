@@ -54,17 +54,24 @@ module.exports = function(server) {
 			})
 		})
 
+		// create a modal when closing room
+		socket.on('send a closing modal', function (obj) {
+			console.log('getting modal in io server')
+			var roomToSendTo = obj.room.toString();
+			socket.broadcast.to(roomToSendTo).emit('send the close modal', obj);
+		})
+
 		socket.on('select one user', function(object){
-			console.log('useridee', object.userId)
 			var roomToSendTo = object.roomId.toString();
 			io.to(roomToSendTo).emit('toggling editing permission to student', {userId: object.userId})
 		})
 
+		var info;
+
 		socket.on('join', function(objReceived) {
 			info = objReceived;
-			console.log("USER HAS ARRIVED");
+			console.log("USER HAS JOINED");
 			var newUser = objReceived.user;
-			socket.join(objReceived.room);
 			// update the list of students in room
 			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
@@ -81,7 +88,8 @@ module.exports = function(server) {
 					room.students.push(newUser)
 				}
 				room.save()
-				io.to(room._id).emit('add to room.students', room);
+				socket.join(objReceived.room);
+				io.in(room._id).emit('add to room.students', room);
 				return room;
 			})
 		})
@@ -101,13 +109,16 @@ module.exports = function(server) {
 				})
 				room.save()
 				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
 				return room;
 			})
 		});
 
 		socket.on('disconnect', function() {
-			console.log('user disconnected', info);
-			if (info.user) {
+			console.log('user disconnected');
+			if (info && info.user) {
+				socket.leave(info.room);
 				var user = info.user;
 				Room.findById(info.room).populate('students instructor commentHistory').exec()
 				.then(function (room) {
@@ -118,6 +129,8 @@ module.exports = function(server) {
 				})
 				room.save()
 				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
 				return room;
 				});
 			}

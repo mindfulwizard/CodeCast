@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('CodeCast', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ui.codemirror']);
+window.app = angular.module('CodeCast', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ui.codemirror', 'angularModalService']);
 
 app.config(function($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

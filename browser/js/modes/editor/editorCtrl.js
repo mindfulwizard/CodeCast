@@ -4,6 +4,7 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.canEdit = false;
     $scope.editor;
     $scope.instructor;
+    $scope.user;
 
     $scope.codemirrorLoaded = function(_editor) {
         $scope.editor = _editor;
@@ -27,13 +28,16 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
         }
     })
 
-    $scope.deleteRoom = function() {
-        $scope.currentlyRecording = false;
-        castFactory.endLecture($stateParams.roomId)
-            .then(function() {
-                $state.go('home')
-            })
-    }
+    $scope.deleteRoom = function () {
+    $scope.currentlyRecording = false;
+    castFactory.endLecture($stateParams.roomId)
+    .then(function (room) {
+        console.log('room in editorCtrl', room)
+        // emit event socket to distribute modal to all students
+        castFactory.sendModal(room._id)
+      $state.go('home')
+    })
+  }
 
     $scope.$on('console', function(event, data) {
         $scope.output = '\n' + data
