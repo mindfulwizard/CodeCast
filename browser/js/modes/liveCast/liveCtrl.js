@@ -26,9 +26,6 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
     $scope.room = newRoom;
   })
 
-    console.log('user in attendeeListCtrl', $scope.user)
-  console.log('room.students in attendeeListCtrl', $scope.room.students)
-
   var keystroke = false;
   var timerPromise;
   $scope.evals = evaluatorFactory.liveEvals;

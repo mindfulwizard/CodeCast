@@ -2,16 +2,6 @@ app.controller('attendeeListCtrl', function($scope, $stateParams, socketFactory)
 	$scope.room;
 	$scope.user;
 
-	 // socketFactory.on('add to room.students', function(newRoom) {
-	 //    $scope.room = newRoom;
-	 //    console.log('room.students after joined by user', $scope.room.students)
-	 //  })
-
-	 //  socketFactory.on('delete from room.students', function(newRoom) {
-	 //    $scope.room = newRoom;
-	 //  })
-
-
 	$scope.select = function(student) {
 		if (($scope.selectedStudent) && $scope.selectedStudent._id === student._id) {
 			socketFactory.emit('select one user', {
@@ -26,19 +16,28 @@ app.controller('attendeeListCtrl', function($scope, $stateParams, socketFactory)
 				roomId: $scope.room._id
 			})
 		}
-
-		// if(!$scope.selectedStudent.canType) {
-		// 	$scope.selectedStudent.canType = true;
-		// } else {
-		// 	$scope.selectedStudent.canType = false;
-		// }
-		// 	$scope.allowUser($scope.selectedStudent);
+console.log('selectedStudent', $scope.selectedStudent)
 	};
 
-	//for adding classes to user on click
-	// $scope.allowTyping = function(item) {
-	// 	return $scope.selected === item;
-	// }
-	//  ng-class="{canType: allowTyping(student)}"
+	socketFactory.on('selected user disconnected', function (room) {
+		var userStillThere = false;
+		console.log('selectedStudent before change', $scope.selectedStudent)
+		if ($scope.selectedStudent) {
+		console.log('selectedStudent in the IF', $scope.selectedStudent)
+		room.students.forEach(function (student) {
+				if (($scope.selectedStudent._id).toString() === (student._id).toString()) {
+					userStillThere = true;
+					console.log('still there or not inside ForEach', userStillThere)
+				}
+			})
+		console.log('userStillThere', userStillThere)
+		if (!userStillThere) {
+			$scope.selectedStudent = undefined;
+			}
+		}
+		console.log('scope.selected student should be undefined', $scope.selectedStudent)
+	})
+
+
 
 });

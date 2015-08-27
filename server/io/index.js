@@ -101,6 +101,8 @@ module.exports = function(server) {
 				})
 				room.save()
 				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
 				return room;
 			})
 		});
@@ -119,6 +121,8 @@ module.exports = function(server) {
 				})
 				room.save()
 				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
 				return room;
 				});
 			}
