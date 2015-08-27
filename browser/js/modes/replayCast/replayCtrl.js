@@ -1,4 +1,3 @@
-
 app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeout) {
     $scope.videoObj = {text: null, result: null};
     var sortedSlicesArr;
@@ -7,6 +6,7 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     var videoDownloaded = false;
     var videoOver = false;
     var paused = false;
+    var aud = document.getElementById("audioRec"); 
     $scope.roomId = $stateParams.roomId;
     $scope.isAudio = false;
 
@@ -31,7 +31,9 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             var currentSlice = sortedSlicesArr[replayCurrentIndex];
 
             //send currentSlice info to Angular to instantiate
+            //console.log('current index', replayCurrentIndex)
             $scope.videoObj.text = currentSlice.text;
+            //console.log('current audio time', aud.currentTime*1000)
             $scope.videoObj.result = currentSlice.result;
             $scope.currentTime = currentSlice.runningTotal;
 
@@ -60,16 +62,16 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
         renderFullCast(sortedSlicesArr, replayCurrentIndex);
     }
 
-    //   var restart = function() {
-    //     var wait = sortedSlicesArr[replayCurrentIndex].runningTotal - aud.currentTime*1000;
-    //     console.log('wait', wait)
-    //     aud.play();
-    //     console.log('audio restart time', aud.currentTime*1000)
-    //     console.log('slice restart time', sortedSlicesArr[replayCurrentIndex].runningTotal)
-    //     $timeout(function() {
-    //         renderFullCast(sortedSlicesArr, replayCurrentIndex)
-    //     }, wait);
-    // }
+      var restart = function() {
+        //console.log('hit restart')
+        var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
+        console.log('wait is', wait);
+        //console.log('replayCurrentIndex is', replayCurrentIndex);
+        $timeout(function() {
+            replayCurrentIndex = replayCurrentIndex +1;
+            renderFullCast(sortedSlicesArr, replayCurrentIndex)
+        }, wait);
+    }
 
     $scope.getFullCast = function() {
         //get array of all codeSlices associated with a specific room
@@ -82,8 +84,8 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 sortedSlicesArr = sortedArr;
                 sortedSlicesArr.forEach(function(slice) {
                     calculateRunningTotal(sortedSlicesArr[0], slice);
+                    //console.log('slice.runningTotal', slice.runningTotal)
                 });
-
                 $scope.replayLength = _.last(sortedSlicesArr).runningTotal;
                 if(!videoDownloaded){
                     $scope.isPlayBack();
@@ -92,8 +94,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 }    
             })
     }
-
-    var aud = document.getElementById("audioRec"); 
 
     $scope.pauser = function(){
         aud.pause();
@@ -109,10 +109,13 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             $scope.getFullCast();
         } else if(paused) {
             paused = false;
+            restart();
             aud.play();
-            renderFullCast(sortedSlicesArr, replayCurrentIndex);
+            //console.log('audio restarted, currentTime is', aud.currentTime)
+            //renderFullCast(sortedSlicesArr, replayCurrentIndex);
         } else if(!paused) {
             paused = true;
+            $timeout.cancel(timer)
             aud.pause();
         }
     }
@@ -128,7 +131,17 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
 
 });
 
-
+        // else if(paused) {
+        //     //restart();
+        //     var pausetime = aud.currentTime*1000;
+        //     console.log('pausetime', pausetime)
+        //     sortedSlicesArr.forEach(function(slice){
+        //         slice.runningTotal = slice.runningTotal - pausetime;
+        //     })
+        //     paused = false;
+        //     renderFullCast(sortedSlicesArr, replayCurrentIndex)
+        //     aud.play()
+        //     console.log('restarttime', aud.currentTime*1000)
 
 
 
