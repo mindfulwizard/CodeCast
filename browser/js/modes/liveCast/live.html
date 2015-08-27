@@ -10,9 +10,11 @@
         </div>
       </div>
       <div id='leftBlock' class="col-lg-8">
-        <div ng-keyup="startLecture();constantRecording()" class="editor">
+        <div ng-keyup="constantRecording()" class="editor">
             <div>
-              <editor instructor="room.instructor" user="user" name="live" replay-text="replayObj" output="replayObj.result"></editor>
+                <button ng-click="startLecture(); constantRecording(); startRec()">Start Rec</button>
+              <recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
+              <editor instructor="room.instructor" user="user" name="live" stop-rec="stopRec" replay-text="replayObj" output="replayObj.result"></editor>
             </div>
         </div>
       </div>
