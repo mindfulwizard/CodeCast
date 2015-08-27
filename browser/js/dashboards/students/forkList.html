@@ -1,0 +1,7 @@
+<h1>Fork List</h1>
+
+<div ng-repeat="fork in forks">
+	<a ng-click="getFork($fork._id)" ui-sref="studentDashboard.editorDash({forkId: fork._id})">{{fork.name}}</a>
+</div>
+
+<button ng-click="getForkRoomList()">TEST</button>

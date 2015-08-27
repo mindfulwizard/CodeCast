@@ -9,16 +9,16 @@ router.get('/', function(req, res){
 	})
 })
 
-router.get('/:replayId', function(req, res){
-	Fork.find({replayId: req.params.replayId})
+router.get('/:roomId', function(req, res){
+	Fork.find({roomId: req.params.roomId, user: req.user._id})
 	.then(function(fork){
 		res.json(fork);
 	})
 })
 
 
-router.post('/:replayId', function(req, res){
-	Fork.create({name: req.body.name, text: req.body.text, replayId: req.params.replayId})
+router.post('/:roomId', function(req, res){
+	Fork.create({name: req.body.name, user: req.user._id, text: req.body.text, roomId: req.params.roomId})
 	.then(function(fork){
 		res.json(fork);
 	})

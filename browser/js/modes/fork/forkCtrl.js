@@ -24,7 +24,7 @@ app.controller('forkCtrl', function($scope, forkFactory) {
 
     $scope.saveFork = function() {
         var name = window.prompt("What would you like to name your fork?", "My Fork")
-        forkFactory.saveUserFork(name, $scope.forkedText.text, $scope.forkedText.replayId);
+        forkFactory.saveUserFork(name, $scope.forkedText.text, $scope.roomId);
     }
 
     $scope.hideFork = function() {
@@ -32,7 +32,7 @@ app.controller('forkCtrl', function($scope, forkFactory) {
     }
 
     $scope.getForks = function() {
-        forkFactory.getUserForks($scope.forkedText.replayId)
+        forkFactory.getUserForks($scope.roomId)
             .then(function(forks) {
                 $scope.forked = false;
                 $scope.showForks = true;
