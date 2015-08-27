@@ -11,7 +11,7 @@ module.exports = function (app) {
     var publicPath = path.join(root, './public');
     var browserPath = path.join(root, './browser');
     var bowerComponents = path.join(root, './bower_components');
-    var lib = path.join(root, './lib');
+    var lib = path.join(root, './librec');
 
     app.use(favicon(app.getValue('faviconPath')));
     // app.use(express.static(uiBootstrapPath));
