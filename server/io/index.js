@@ -62,9 +62,8 @@ module.exports = function(server) {
 
 		socket.on('join', function(objReceived) {
 			info = objReceived;
-			console.log("USER HAS ARRIVED");
+			console.log("USER HAS JOINED");
 			var newUser = objReceived.user;
-			socket.join(objReceived.room);
 			// update the list of students in room
 			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
@@ -81,7 +80,8 @@ module.exports = function(server) {
 					room.students.push(newUser)
 				}
 				room.save()
-				io.to(room._id).emit('add to room.students', room);
+				socket.join(objReceived.room);
+				io.in(room._id).emit('add to room.students', room);
 				return room;
 			})
 		})
@@ -106,8 +106,9 @@ module.exports = function(server) {
 		});
 
 		socket.on('disconnect', function() {
-			console.log('user disconnected', info);
-			if (info.user) {
+			console.log('user disconnected');
+			if (info && info.user) {
+				socket.leave(info.room);
 				var user = info.user;
 				Room.findById(info.room).populate('students instructor commentHistory').exec()
 				.then(function (room) {

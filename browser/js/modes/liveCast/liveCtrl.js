@@ -19,11 +19,15 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   socketFactory.on('add to room.students', function(newRoom) {
     $scope.room = newRoom;
+    console.log('room.students after joined by user', $scope.room.students)
   })
 
   socketFactory.on('delete from room.students', function(newRoom) {
     $scope.room = newRoom;
   })
+
+    console.log('user in attendeeListCtrl', $scope.user)
+  console.log('room.students in attendeeListCtrl', $scope.room.students)
 
   var keystroke = false;
   var timerPromise;

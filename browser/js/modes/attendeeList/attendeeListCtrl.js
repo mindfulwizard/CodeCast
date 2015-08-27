@@ -1,5 +1,15 @@
 app.controller('attendeeListCtrl', function($scope, $stateParams, socketFactory) {
 	$scope.room;
+	$scope.user;
+
+	 // socketFactory.on('add to room.students', function(newRoom) {
+	 //    $scope.room = newRoom;
+	 //    console.log('room.students after joined by user', $scope.room.students)
+	 //  })
+
+	 //  socketFactory.on('delete from room.students', function(newRoom) {
+	 //    $scope.room = newRoom;
+	 //  })
 
 
 	$scope.select = function(student) {
