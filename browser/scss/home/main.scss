@@ -71,11 +71,11 @@ a {
     margin-top: 8px;
 }
 
-a:hover,
-a:focus {
+a:hover{
     text-decoration: none;
     color: #1d9b6c;
 }
+// a:focus
 
 .light {
     font-size: 40px;
@@ -240,12 +240,12 @@ a:focus {
     transition: background .3s ease-in-out;
 }
 
-.btn-circle:hover,
-.btn-circle:focus {
-    outline: 0;
-    color: #fff;
-    background: rgba(255, 255, 255, .1);
-}
+// .btn-circle:hover,
+// .btn-circle:focus {
+//     outline: 0;
+//     color: #fff;
+//     background: rgba(255, 255, 255, .1);
+// }
 
 .btn-circle i.animated {
     -webkit-transition-property: -webkit-transform;
@@ -348,13 +348,13 @@ a:focus {
     background-color: transparent;
 }
 
-.btn-default:hover,
-.btn-default:focus {
+.btn-default:hover{
     border: 1px solid #C1FF50;
     outline: 0;
     color: #C1FF50;
     background-color: #BFC3BA;
 }
+// .btn-default:focus
 
 ul.banner-social-buttons {
     margin-top: 0;
