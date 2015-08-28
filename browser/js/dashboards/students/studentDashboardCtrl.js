@@ -21,25 +21,15 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
             $scope.instructors = instructors;
         })
 
-
-
-        console.log('user in studentDashCtrl', $scope.user)
-
     // becoming instructor
     $scope.becomeInstructor = function () {
-        console.log('scope.user in studentDashCtrl', $scope.user)
         castFactory.becomeInstructor($scope.user)
         .then(function (user) {
             $scope.user.instructor = true
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            console.log('user.instructor in ctrl after upate', $scope.user.instructor)
             return user;
         })
     }
-
-
-
-
 
     $scope.getLecture = function(instructorId) {
         if (!$scope.showRooms) {

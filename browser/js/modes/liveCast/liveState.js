@@ -28,7 +28,6 @@ app.config(function($stateProvider) {
 			roomInfo: function($http, $stateParams) {
 				return $http.get('/api/rooms/' + $stateParams.roomId)
 				  .then(function(res) {
-				  	console.log('room.students in resolve', res.data.students)
 				  	return res.data;
 				  });
 			}

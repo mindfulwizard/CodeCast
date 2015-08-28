@@ -11,7 +11,6 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 
 		becomeInstructor: function (user) {
-			console.log('user in castFactory', user)
 			return $http.put('api/members/' + user._id, {instructor: true})
 			.then(function (res){
 				return res.data;
@@ -23,7 +22,6 @@ app.factory('castFactory', function($http, socketFactory){
 		},
 
 		sendModal: function (roomId) {
-			console.log('sendModal in castFactory')
 			socketFactory.emit('send a closing modal', {room: roomId})
 		},
 

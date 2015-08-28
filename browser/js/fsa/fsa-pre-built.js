@@ -52,8 +52,6 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
-            console.log(data)
-            console.log(data.id)
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
@@ -144,7 +142,6 @@
         // this.isAdmin
 
         this.create = function (sessionId, user) {
-            console.log("sessionId", sessionId, "user", user)
             this.id = sessionId;
             this.user = user
         };

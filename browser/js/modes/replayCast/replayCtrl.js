@@ -31,9 +31,7 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             var currentSlice = sortedSlicesArr[replayCurrentIndex];
 
             //send currentSlice info to Angular to instantiate
-            //console.log('current index', replayCurrentIndex)
             $scope.videoObj.text = currentSlice.text;
-            //console.log('current audio time', aud.currentTime*1000)
             $scope.videoObj.result = currentSlice.result;
             $scope.currentTime = currentSlice.runningTotal;
 
@@ -60,7 +58,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
 
       var restart = function() {
         var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
-        console.log('wait is', wait);
         $timeout(function() {
             replayCurrentIndex = replayCurrentIndex +1;
             renderFullCast(sortedSlicesArr, replayCurrentIndex)
@@ -105,7 +102,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             paused = false;
             restart();
             aud.play();
-            //console.log('audio restarted, currentTime is', aud.currentTime)
             //renderFullCast(sortedSlicesArr, replayCurrentIndex);
         } else if(!paused) {
             paused = true;

@@ -16,7 +16,6 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
         navigator.getUserMedia({
             audio: true
         }, startUserMedia, function(e) {
-            console.log('No live audio input: ' + e);
         });
 
 

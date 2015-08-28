@@ -3,7 +3,6 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   $scope.room = roomInfo;
   $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
-  console.log('user in liveCtrl', $scope.user)
 
   // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
   $scope.replayObj = {
@@ -29,7 +28,6 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
 
   // receive socket event of closed room => open a modal
   socketFactory.on('send the close modal', function (obj) {
-    console.log('obj in liveCtrl for modal', obj)
     var obj = obj;
     var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,

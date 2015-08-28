@@ -2,9 +2,6 @@ app.controller('attendeeListCtrl', function($scope, $stateParams, socketFactory)
 	$scope.room;
 	$scope.user;
 
-	console.log('instructor of room', $scope.room.instructor)
-	console.log('user._id changed', $scope.user._id)
-
 	$scope.select = function(student) {
 		if (($scope.selectedStudent) && $scope.selectedStudent._id === student._id) {
 			socketFactory.emit('select one user', {

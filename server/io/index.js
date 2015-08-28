@@ -56,7 +56,6 @@ module.exports = function(server) {
 
 		// create a modal when closing room
 		socket.on('send a closing modal', function (obj) {
-			console.log('getting modal in io server')
 			var roomToSendTo = obj.room.toString();
 			socket.broadcast.to(roomToSendTo).emit('send the close modal', obj);
 		})
