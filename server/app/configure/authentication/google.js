@@ -21,10 +21,8 @@ module.exports = function (app) {
             .then(function (user) {
 
                 if (user) {
-                    console.log('db has profile', profile)
                     return user;
                 } else {
-                    console.log('profile', profile)
                     return UserModel.create({
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,

@@ -14,7 +14,7 @@
             <div>
                 <button ng-click="startLecture(); constantRecording(); startRec()">Start Rec</button>
               <recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
-              <editor instructor="room.instructor" user="user" name="live" stop-rec="stopRec" replay-text="replayObj" output="replayObj.result"></editor>
+              <editor room="room" instructor="room.instructor" user="user" name="live" stop-rec="stopRec" replay-text="replayObj" output="replayObj.result"></editor>
             </div>
         </div>
       </div>

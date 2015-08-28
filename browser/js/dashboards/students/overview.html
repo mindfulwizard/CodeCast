@@ -1,1 +1,3 @@
 <h1>Welcome, {{user.firstName}}!</h1>
+<a ng-show="!user.instructor" ng-click="becomeInstructor()">Want to be an instructor too? Click here!</a>
+<h2 ng-show="user.instructor">You are now an instructor!</h2>

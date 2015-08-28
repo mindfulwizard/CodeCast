@@ -63,17 +63,17 @@
             return !!Session.user;
         };
 
-        // Uses the session factory to see if an
-        // authenticated user is instructor
-        this.isInstructor = function() {
-            return !!Session.isInstructor;
-        }
+        // // Uses the session factory to see if an
+        // // authenticated user is instructor
+        // this.isInstructor = function() {
+        //     return !!Session.isInstructor;
+        // }
 
-        // Uses the session factory to see if an
-        // authenticated user is admin
-        this.isAdmin = function() {
-            return !!Session.isAdmin;
-        }
+        // // Uses the session factory to see if an
+        // // authenticated user is admin
+        // this.isAdmin = function() {
+        //     return !!Session.isAdmin;
+        // }
 
         this.getLoggedInUser = function (fromServer) {
 
@@ -138,14 +138,12 @@
         this.id = null;
         this.user = null;
         // added isInstructor key
-        this.isInstructor = null;
-        this.isAdmin
+        // this.isInstructor = null;
+        // this.isAdmin
 
         this.create = function (sessionId, user) {
             this.id = sessionId;
-            this.user = user;
-            this.isInstructor = user.instructor;
-            this.isAdmin = user.admin
+            this.user = user
         };
 
         this.destroy = function () {

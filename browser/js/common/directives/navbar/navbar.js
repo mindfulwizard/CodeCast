@@ -26,7 +26,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 label: 'Student DashBoard',
                 state: 'studentDashboard.overview',
                 auth: true,
-                instructor: false
+                student: true
             }];
 
             scope.user = null;

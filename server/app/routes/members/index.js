@@ -16,6 +16,15 @@ router.get('/', function(req, res){
     })
 })
 
+router.put('/:userId', function (req,res) {
+    User.findById(req.params.userId).exec()
+    .then(function (user) {
+        user.instructor = true;
+        user.save()
+        res.json(user);
+    })
+})
+
 var ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
         next();
