@@ -26,7 +26,6 @@ router.get('/lectures', function(req, res) {
 router.get('/:id', function(req, res) {
 	Room.findById(req.params.id).deepPopulate('students instructor commentHistory commentHistory.user').exec()
 		.then(function(room) {
-			console.log('room populated', room)
 			res.json(room);
 		});
 });
@@ -55,8 +54,6 @@ router.put('/:id', function (req, res) {
 
 
 router.put('/audio/:id', upload.single('data'), function(req, res, next) {
-	console.log('we get past multer middleware')
-	console.log(req.file)
 	next()
 }, function(req, res,next) {
 	Room.findByIdAndUpdate(req.params.id, {audioFileLink: req.file.path}).exec()
@@ -82,13 +79,11 @@ router.use('/', Auth.isAuthenticated, function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
-	console.log('passed auth')
 	Room.create({
 		name: req.body.name,
 		instructor: req.body.instructor
 	})
 		.then(function(room) {
-			console.log('room created?', room)
 			res.send(room);
 		});
 });

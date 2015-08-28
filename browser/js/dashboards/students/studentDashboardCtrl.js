@@ -1,11 +1,15 @@
-app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory, castFactory, $stateParams) {
+app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory, castFactory, $stateParams, $rootScope, AuthService, AUTH_EVENTS) {
+    AuthService.getLoggedInUser()
+    .then(function (user) {
+        $scope.user = user;
+    })
+
     $scope.instructors;
     $scope.instructorRooms;
     $scope.showRooms = false;
     $scope.forks;
     $scope.liveLectures;
     $scope.replayLectures;
-    $scope.user;
     $scope.forkId = $stateParams.forkId;
     $scope.fork = "fork";
     $scope.forkedLectures = [];
@@ -15,7 +19,20 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
     userFactory.getInstructors()
         .then(function(instructors) {
             $scope.instructors = instructors;
-        })  
+
+
+        })
+
+    // becoming instructor
+    $scope.becomeInstructor = function () {
+        castFactory.becomeInstructor($scope.user)
+        .then(function (user) {
+            $scope.user.instructor = true
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            return user;
+        })
+    }
+
 
     $scope.getLecture = function(instructorId) {
         if (!$scope.showRooms) {
@@ -46,14 +63,16 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
     }
     $scope.getAllReplayCasts();
 
-    $scope.getCurrentUser = function() {
-        userFactory.getUser()
-            .then(function(user) {
-                $scope.user = user;
-            })
-    }
 
-    $scope.getCurrentUser();
+    // replaced by Auth
+    // $scope.getCurrentUser = function() {
+    //     userFactory.getUser()
+    //         .then(function(user) {
+    //             $scope.user = user;
+    //         })
+    // }
+
+    // $scope.getCurrentUser();
 
     $scope.getForkRoomList = function() {
         userFactory.getForks()

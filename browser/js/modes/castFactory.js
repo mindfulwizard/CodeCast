@@ -1,13 +1,28 @@
 app.factory('castFactory', function($http, socketFactory){
 	return {
 
+		defineRoomId: function(roomId) {
+			return roomId;
+		},
+
 		sendText: function (text, time, roomId, result) {
 				socketFactory.emit('updatedText', {text: text || null, time: time, room: roomId, result: result})
 
 		},
 
+		becomeInstructor: function (user) {
+			return $http.put('api/members/' + user._id, {instructor: true})
+			.then(function (res){
+				return res.data;
+			})
+		},
+
 		sendComment: function (text, userId, roomId) {
 			socketFactory.emit('send a comment', {text: text, user: userId, room: roomId, time: new Date() })
+		},
+
+		sendModal: function (roomId) {
+			socketFactory.emit('send a closing modal', {room: roomId})
 		},
 
 		endLecture: function (roomId) {

@@ -1,4 +1,4 @@
-app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser) {
+app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser, $modal) {
   $scope.user = setUser;
   $scope.room = roomInfo;
   $scope.roomId = $stateParams.roomId;
@@ -25,6 +25,24 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   socketFactory.on('delete from room.students', function(newRoom) {
     $scope.room = newRoom;
+  })
+
+  // receive socket event of closed room => open a modal
+  socketFactory.on('send the close modal', function (obj) {
+    var obj = obj;
+    var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'js/modes/closingWindowModal/modal.html',
+          controller: 'ModalInstanceCtrl',
+          resolve: {
+            roomId: function () {
+              return obj.room.toString()
+            },
+            userId: function () {
+              return $scope.user;
+            }
+          }
+        });
   })
 
   var keystroke = false;

@@ -14,6 +14,8 @@ module.exports = function(server) {
 
 	io.on('connection', function(socket) {
 
+		var info;
+
 		// on key press, create new snippet and update codeHistory
 		socket.on('updatedText', function(obj) {
 			var snippet = obj;
@@ -52,25 +54,30 @@ module.exports = function(server) {
 			})
 		})
 
-		// deepPopulate('commentHistory commentHistory.user')
+		// create a modal when closing room
+		socket.on('send a closing modal', function (obj) {
+			var roomToSendTo = obj.room.toString();
+			socket.broadcast.to(roomToSendTo).emit('send the close modal', obj);
+		})
 
 		socket.on('select one user', function(object){
-			console.log('useridee', object.userId)
 			var roomToSendTo = object.roomId.toString();
 			io.to(roomToSendTo).emit('toggling editing permission to student', {userId: object.userId})
 		})
 
+		var info;
+
 		socket.on('join', function(objReceived) {
-			console.log("USER HAS ARRIVED");
+			info = objReceived;
+			console.log("USER HAS JOINED");
 			var newUser = objReceived.user;
-			socket.join(objReceived.room);
 			// update the list of students in room
 			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
 				var push = true;
-				if (newUser.instructor === true) {
-					push = false;
-				}
+				// if (newUser.instructor === true) {
+				// 	push = false;
+				// }
 				room.students.forEach(function (studentObj) {
 						if ( ((studentObj._id).toString() === (newUser._id).toString())) {
 						push = false;
@@ -80,7 +87,8 @@ module.exports = function(server) {
 					room.students.push(newUser)
 				}
 				room.save()
-				io.to(room._id).emit('add to room.students', room);
+				socket.join(objReceived.room);
+				io.in(room._id).emit('add to room.students', room);
 				return room;
 			})
 		})
@@ -100,16 +108,33 @@ module.exports = function(server) {
 				})
 				room.save()
 				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
 				return room;
 			})
 		});
 
-		socket.on('disconnect', function(obj) {
-			console.log('user disconnected', obj);
-
+		socket.on('disconnect', function() {
+			console.log('user disconnected');
+			if (info && info.user) {
+				socket.leave(info.room);
+				var user = info.user;
+				Room.findById(info.room).populate('students instructor commentHistory').exec()
+				.then(function (room) {
+					room.students.forEach(function (studentObj, index) {
+						if ((user._id).toString() === (studentObj._id).toString()) {
+							room.students.splice(room.students.indexOf(studentObj), 1)
+					}
+				})
+				room.save()
+				io.to(room._id).emit('delete from room.students', room);
+				// to toggle permissions off when user disconnects
+				io.to(room._id).emit('selected user disconnected', room)
+				return room;
+				});
+			}
 		});
 	});
-
 
 
 	return io;
