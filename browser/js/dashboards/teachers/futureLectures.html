@@ -1,6 +1,10 @@
 <div id='rooms'>
 	<span class="textTeal">My Current Lectures:</span>
-	<ul>
-	<a ng-repeat='room in rooms' ng-click='joinRoom(room._id)'><li class="listItemText"> {{ room.name }}</li>  </a>
-	</ul>
+	<div ng-repeat='room in rooms' >
+	<div class="wrapper">
+	<a ng-click='joinRoom(room._id)'>
+	<h6>{{ room.name }} </h6>
+	</a>
+	</div>
+	</div>
 </div>

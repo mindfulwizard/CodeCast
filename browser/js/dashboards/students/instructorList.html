@@ -4,13 +4,13 @@
 <br/>
 <br/>
 
-<div class="listIt" ng-repeat="instructor in instructors | filter: instructorSearch">
+<div class="wrapper" ng-repeat="instructor in instructors | filter: instructorSearch">
 	<a ng-click="getLecture(instructor._id)">{{instructor.firstName}}</a>
 <br/>
 <br/>
 
 <div ng-if="showRooms && room.instructor === instructor._id" ng-repeat="room in instructorRooms">
-<ul>
+<ul style="list-style: none">
 <li class="listItemText"><a class="listItemText" ui-sref="liveState({roomId: room._id})">{{room.name}}</a> </li>
 </ul>
 </div>
