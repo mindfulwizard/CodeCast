@@ -107,7 +107,7 @@ module.exports = function(server) {
 
 		socket.on('disconnect', function() {
 			console.log('user disconnected', info);
-			if (info.user) {
+			if (info && info.user) {
 				var user = info.user;
 				Room.findById(info.room).populate('students instructor commentHistory').exec()
 				.then(function (room) {
