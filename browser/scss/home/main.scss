@@ -1,13 +1,29 @@
 #home {
     width: 100vw;
     height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+   font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
+    h4  {
+        margin-top: 0px;
+        color: #C1FF50;
+        padding-top: 35vh;
+        text-align: center;
+        font-weight: 400;
+        font-size: 35px;
+    }
+
+    button {
+        width: 10vw;
+        margin-left: 45vw;
+        margin-top: 5vh;
+    }
 }
+
 
 h1,
 h2,
@@ -16,8 +32,8 @@ h4,
 h5,
 h6 {
     // margin: 0 0 35px;
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
     letter-spacing: 1px;
 }
 
@@ -40,10 +56,14 @@ p {
 }
 
 a {
-    color: #42dca3;
+    color: #C1FF50;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+}
+
+.dashButton {
+    color: #fff;
 }
 
 #loginButton {
@@ -55,19 +75,19 @@ a:hover,
 a:focus {
     text-decoration: none;
     color: #1d9b6c;
-}
 
+}
 .light {
     font-size: 40px;
     font-family: 'Oswald', sans-serif;
-    color: #FFE3D5;
+    color: #fff;
 }
 
 #grad {
     nav {
         border-bottom: none;
         padding-bottom: 50px;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0), rgba(39, 20, 0, 1));
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
     }
     .min {
         transition: background 1s;
@@ -86,10 +106,11 @@ a:focus {
 }
 
 .navbar-custom {
+    height: 8vh;
     margin-bottom: 0px;
     border-bottom: 1px solid rgba(255, 255, 255, .3);
     text-transform: uppercase;
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 .navbar-custom .navbar-brand {
@@ -116,7 +137,7 @@ a:focus {
 }
 
 .navbar-custom .nav li a {
-    color: #FFE3D5;
+    color: #fff;
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
     transition: background .3s ease-in-out;
@@ -124,7 +145,7 @@ a:focus {
 
 .navbar-custom .nav li a:hover {
     outline: 0;
-    color: rgba(255, 255, 255, .8);
+    color: #BFC3BA;
     background-color: transparent;
 }
 
@@ -142,13 +163,13 @@ a:focus {
     background-color: rgba(255, 255, 255, .3);
 }
 
-.navbar-custom .nav li.active a:hover {
+.navbar-custom .    nav li.active a:hover {
     color: #fff;
 }
 
 @media(min-width:768px) {
     .navbar-custom {
-        padding: 20px 0;
+        //padding: 20px 0;
         border-bottom: 0;
         letter-spacing: 1px;
         background: 0 0;
@@ -313,7 +334,7 @@ a:focus {
 .btn {
     border-radius: 0;
     text-transform: uppercase;
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-weight: 400;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
@@ -321,18 +342,18 @@ a:focus {
 }
 
 .btn-default {
-    border: 1px solid #FFE3D5;
-    color: #FFE3D5;
+    border: 1px solid #C1FF50;
+    color: #fff;
     font-weight: 700;
     background-color: transparent;
 }
 
 .btn-default:hover,
 .btn-default:focus {
-    border: 1px solid #FFE3D5;
+    border: 1px solid #C1FF50;
     outline: 0;
-    color: #000;
-    background-color: #FFE3D5;
+    color: #C1FF50;
+    background-color: #BFC3BA;
 }
 
 ul.banner-social-buttons {

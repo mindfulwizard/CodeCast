@@ -19,6 +19,8 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
     userFactory.getInstructors()
         .then(function(instructors) {
             $scope.instructors = instructors;
+
+
         })
 
     // becoming instructor
@@ -30,6 +32,7 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
             return user;
         })
     }
+
 
     $scope.getLecture = function(instructorId) {
         if (!$scope.showRooms) {

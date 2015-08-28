@@ -1,8 +1,8 @@
 #about {
     width: 100vw;
     height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+    font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -15,10 +15,10 @@
         font-size: 22px;
         font-weight: 300;
         float: left;
-        color: #FFE3D5;
+        color: #BFC3BA;
     }
     li {
-        color: #FFE3D5;
+        color: #BFC3BA;
     }
     #features {
         width: 40vw;
@@ -26,7 +26,7 @@
     }
     h3 {
         text-align: center;
-        color: #42dca3;
+        color: #C1FF50;
     }
     img {
         width: 40vw;
