@@ -1,11 +1,15 @@
-app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory, castFactory, $stateParams) {
+app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory, castFactory, $stateParams, $rootScope, AuthService, AUTH_EVENTS) {
+    AuthService.getLoggedInUser()
+    .then(function (user) {
+        $scope.user = user;
+    })
+
     $scope.instructors;
     $scope.instructorRooms;
     $scope.showRooms = false;
     $scope.forks;
     $scope.liveLectures;
     $scope.replayLectures;
-    $scope.user;
     $scope.forkId = $stateParams.forkId;
     $scope.fork = "fork";
     $scope.forkedLectures = [];
@@ -16,6 +20,25 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
         .then(function(instructors) {
             $scope.instructors = instructors;
         })
+
+
+
+        console.log('user in studentDashCtrl', $scope.user)
+
+    // becoming instructor
+    $scope.becomeInstructor = function () {
+        console.log('scope.user in studentDashCtrl', $scope.user)
+        castFactory.becomeInstructor($scope.user)
+        .then(function (user) {
+            $scope.user.instructor = true
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            console.log('user.instructor in ctrl after upate', $scope.user.instructor)
+            return user;
+        })
+    }
+
+
+
 
 
     $scope.getLecture = function(instructorId) {
@@ -47,14 +70,16 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
     }
     $scope.getAllReplayCasts();
 
-    $scope.getCurrentUser = function() {
-        userFactory.getUser()
-            .then(function(user) {
-                $scope.user = user;
-            })
-    }
 
-    $scope.getCurrentUser();
+    // replaced by Auth
+    // $scope.getCurrentUser = function() {
+    //     userFactory.getUser()
+    //         .then(function(user) {
+    //             $scope.user = user;
+    //         })
+    // }
+
+    // $scope.getCurrentUser();
 
     $scope.getForkRoomList = function() {
         userFactory.getForks()

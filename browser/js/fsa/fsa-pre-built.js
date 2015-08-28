@@ -65,17 +65,17 @@
             return !!Session.user;
         };
 
-        // Uses the session factory to see if an
-        // authenticated user is instructor
-        this.isInstructor = function() {
-            return !!Session.isInstructor;
-        }
+        // // Uses the session factory to see if an
+        // // authenticated user is instructor
+        // this.isInstructor = function() {
+        //     return !!Session.isInstructor;
+        // }
 
-        // Uses the session factory to see if an
-        // authenticated user is admin
-        this.isAdmin = function() {
-            return !!Session.isAdmin;
-        }
+        // // Uses the session factory to see if an
+        // // authenticated user is admin
+        // this.isAdmin = function() {
+        //     return !!Session.isAdmin;
+        // }
 
         this.getLoggedInUser = function (fromServer) {
 
