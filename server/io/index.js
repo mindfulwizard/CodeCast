@@ -54,11 +54,19 @@ module.exports = function(server) {
 			})
 		})
 
+		// create a modal when closing room
+		socket.on('send a closing modal', function (obj) {
+			console.log('getting modal in io server')
+			var roomToSendTo = obj.room.toString();
+			socket.broadcast.to(roomToSendTo).emit('send the close modal', obj);
+		})
+
 		socket.on('select one user', function(object){
-			console.log('useridee', object.userId)
 			var roomToSendTo = object.roomId.toString();
 			io.to(roomToSendTo).emit('toggling editing permission to student', {userId: object.userId})
 		})
+
+		var info;
 
 		socket.on('join', function(objReceived) {
 			info = objReceived;

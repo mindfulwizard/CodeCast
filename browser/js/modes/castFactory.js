@@ -1,6 +1,10 @@
 app.factory('castFactory', function($http, socketFactory){
 	return {
 
+		defineRoomId: function(roomId) {
+			return roomId;
+		},
+
 		sendText: function (text, time, roomId, result) {
 				socketFactory.emit('updatedText', {text: text || null, time: time, room: roomId, result: result})
 
@@ -16,6 +20,11 @@ app.factory('castFactory', function($http, socketFactory){
 
 		sendComment: function (text, userId, roomId) {
 			socketFactory.emit('send a comment', {text: text, user: userId, room: roomId, time: new Date() })
+		},
+
+		sendModal: function (roomId) {
+			console.log('sendModal in castFactory')
+			socketFactory.emit('send a closing modal', {room: roomId})
 		},
 
 		endLecture: function (roomId) {
