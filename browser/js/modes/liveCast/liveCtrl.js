@@ -3,6 +3,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
   $scope.room = roomInfo;
   $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
+  $scope.started = false;
 
   // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
   $scope.replayObj = {
@@ -32,6 +33,7 @@ app.controller('liveCtrl', function($scope, $interval, castFactory, $q, $documen
 
   $scope.startLecture = function() {
       castFactory.startLecture($stateParams.roomId);
+      $scope.started = true;
   }
 
   $scope.constantRecording = function() {

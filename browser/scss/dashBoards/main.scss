@@ -17,8 +17,9 @@
 }
 
 a:hover {
-	color: #BFC3BA;
+	color: #fff;
 }
+
 
 .nav > li > a:hover {
 	background-color: transparent;
@@ -97,13 +98,21 @@ background-color: rgba(255, 255, 255, 0.40);
 }
 
 .createRoomInput{
+    border: 1px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    background-color: transparent;
 	display: inline;
 	float: left;
 	margin-top: 80px;
 	margin-left: 300px;
-	height: 41px;
-	background-color: #BFC3BA;
+	height: 50px;
+	padding-left: 2px;
 
+}
+
+.createRoomInput:focus {
+	outline: 0;
 }
 
 #createRoom{

@@ -4,6 +4,7 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.canEdit = false;
     $scope.editor;
     $scope.instructor;
+    $scope.started = false;
 
     $scope.codemirrorLoaded = function(_editor) {
         $scope.editor = _editor;
