@@ -4,6 +4,7 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
     $scope.canEdit = false;
     $scope.editor;
     $scope.instructor;
+    $scope.room
 
     $scope.codemirrorLoaded = function(_editor) {
         $scope.editor = _editor;
@@ -12,13 +13,13 @@ app.controller('editorCtrl', function($scope, evaluatorFactory, castFactory, $st
         }
 
         //if in replay mode set readOnly to true
-        else if ($scope.name === 'replay' || ($scope.user && !$scope.user.instructor) || !$scope.user) {
+        else if ($scope.name === 'replay' || ($scope.user && ($scope.user._id.toString() != $scope.room.instructor._id.toString())) || !$scope.user) {
             $scope.editor.setOption('readOnly', 'nocursor');
         }
     }
 
     socketFactory.on('toggling editing permission to student', function(object) {
-        if (($scope.editor && $scope.user._id === object.userId && !$scope.canEdit) || $scope.user.instructor) {
+        if (($scope.editor && $scope.user._id === object.userId && !$scope.canEdit) || ($scope.user._id.toString() === $scope.room.instructor._id.toString())) {
             $scope.canEdit = true;
             $scope.editor.setOption('readOnly', false);
         } else {

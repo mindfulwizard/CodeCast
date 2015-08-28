@@ -2,8 +2,16 @@ app.factory('castFactory', function($http, socketFactory){
 	return {
 
 		sendText: function (text, time, roomId, result) {
-				socketFactory.emit('updatedText', {text: text, time: time, room: roomId, result: result})
+				socketFactory.emit('updatedText', {text: text || null, time: time, room: roomId, result: result})
 
+		},
+
+		becomeInstructor: function (user) {
+			console.log('user in castFactory', user)
+			return $http.put('api/members/' + user._id, {instructor: true})
+			.then(function (res){
+				return res.data;
+			})
 		},
 
 		sendComment: function (text, userId, roomId) {

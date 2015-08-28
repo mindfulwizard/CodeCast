@@ -68,9 +68,9 @@ module.exports = function(server) {
 			Room.findById(objReceived.room).populate('students instructor commentHistory').exec()
 			.then(function (room) {
 				var push = true;
-				if (newUser.instructor === true) {
-					push = false;
-				}
+				// if (newUser.instructor === true) {
+				// 	push = false;
+				// }
 				room.students.forEach(function (studentObj) {
 						if ( ((studentObj._id).toString() === (newUser._id).toString())) {
 						push = false;

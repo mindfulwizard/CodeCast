@@ -19,6 +19,9 @@ var room = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
+	audioFileLink: {
+		type: String
+	},
 	textHistory: String,
 	resultHistory: String,
 	commentHistory: [{

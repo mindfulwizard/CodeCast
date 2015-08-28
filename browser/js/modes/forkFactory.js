@@ -1,18 +1,18 @@
 app.factory('forkFactory', function($http) {
     return {
 
-        saveUserFork: function(forkName, forkedText, replayId) {
-            return $http.post('/api/forks/' + replayId, {
+        saveUserFork: function(forkName, forkedText, roomId) {
+            return $http.post('/api/forks/' + roomId, {
                     name: forkName,
                     text: forkedText,
-                    replayId: replayId
+                    roomId: roomId
                 })
                 .then(function(res) {
                     return res.data;
                 })
         },
-        getUserForks: function(replayId) {
-            return $http.get('/api/forks/' + replayId)
+        getUserForks: function(roomId) {
+            return $http.get('/api/forks/' + roomId)
                 .then(function(res) {
                     return res.data
                 })
