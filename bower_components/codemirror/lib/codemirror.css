@@ -5,7 +5,10 @@
   font-family: monospace;
   height: 70vh;
   color: black;
-  border: 1px solid black;
+  border: 1px solid white;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 /* PADDING */
