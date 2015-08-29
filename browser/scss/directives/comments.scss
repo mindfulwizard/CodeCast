@@ -60,19 +60,21 @@
 	width: 15%
 }
 
+.description {
+	font-family: 'Oswald', sans-serif;
+	margin-left: 35%;
+}
+
 #chatQuest {
 	width: 210px;
 	border-radius: 0px;
 	align: center;
-	 border: 1px solid #fff;
+	border: 1px solid #fff;
     color: #fff;
     font-weight: 700;
     background-color: transparent;
 	display: inline;
-	float: left;
-	margin-left: 300px;
 	height: 41px;
-	padding-left: 2px;
 	font-family: 'Oswald', sans-serif;
 	text-size: 10px;
 }
