@@ -75,3 +75,27 @@ transition: all 0.5s ease-in-out;
 	text-align: center;
 }
 
+
+.largeModal {
+	width: 40%;
+	height:40%
+}
+
+#goToDashBoard {
+	float: left;
+	margin-left: 2%
+}
+
+#goToReplay {
+	float: right;
+	margin-right: 2%
+}
+
+#modalMessage {
+	text-align:center;
+}
+
+.modal-content {
+	background-color: #696969;
+}
+

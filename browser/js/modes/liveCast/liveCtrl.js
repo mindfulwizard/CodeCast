@@ -34,6 +34,7 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
           animation: $scope.animationsEnabled,
           templateUrl: 'js/modes/closingWindowModal/modal.html',
           controller: 'ModalInstanceCtrl',
+          windowClass: 'large-Modal',
           resolve: {
             roomId: function () {
               return obj.room.toString()
