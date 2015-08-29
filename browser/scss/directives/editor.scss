@@ -15,13 +15,14 @@ editor {
 
 #sandBoxResult {
 margin-top: 2vh;
+border: 1px solid white;
 color: #C1FF50;
 font-size: 200%;
 padding: 20px;
 border-radius: 5px;
 -moz-border-radius: 5px;
 -webkit-border-radius: 5px;
-width: 780px;
+width: 100%;
 float: left;
 background-color: rgba(255, 255, 255, 0.20);
 cursor: pointer;
@@ -41,16 +42,11 @@ transition: all 0.5s ease-in-out;
 }
 
 #getResult {
-	margin-right: 3%;
 	float: right;
 	display: block;
 	position: inherit;
+	margin-right: 2%;
 	margin-bottom: 2vh;
-}
-
-#sandBoxResult {
-	font-size: 200%;
-	border: 1px solid white;
 }
 
 #live {
