@@ -3,6 +3,7 @@
 #studentDash {
     width: 100vw;
     // height: 100vh;
+    min-height:100%;
     font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
     position: absolute;
@@ -57,6 +58,7 @@ background-color: rgba(255, 255, 255, 0.40);
 #teacherDash {
     width: 100vw;
     height: 100vh;
+    min-height:100%;
  	font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
