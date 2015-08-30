@@ -6,9 +6,12 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     var videoOver = true;
     var downloaded = false;
     var paused = false;
+    var duration;
+    var timelineWidth = 400;
     var aud = document.getElementById("audioRec"); 
+    aud.addEventListener("timeupdate", timeUpdate, false);
     $scope.roomId = $stateParams.roomId;
-    $scope.isAudio = false;
+    $scope.audio = aud;
 
     //custom sort to order codeSlices in array by timestamp
     var sortSlices = function(sliceList) {
@@ -45,24 +48,28 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
         }
     }
 
-    //if user moves slider to a specific time, find the index of that slice to rerender the array  from there
-    var userUpdatingTime = function() {
-        sortedSlicesArr.forEach(function(slice, index) {
-            if($scope.currentTime >= slice.runningTotal) {
-                replayCurrentIndex = index;
-            }
-        })
-        paused = false;
-        renderFullCast(sortedSlicesArr, replayCurrentIndex);
-    }
-
-      var restart = function() {
+    var restart = function() {
         var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
         $timeout(function() {
-            replayCurrentIndex = replayCurrentIndex +1;
-            renderFullCast(sortedSlicesArr, replayCurrentIndex)
+            replayCurrentIndex = replayCurrentIndex+1;
+            renderFullCast(sortedSlicesArr, replayCurrentIndex);
         }, wait);
     }
+
+    //if user moves slider to a specific time, find the index of that slice to rerender the array  from there
+    // var userUpdatingTime = function() {
+    //     console.log('updating video')
+    //     sortedSlicesArr.forEach(function(slice, index) {
+    //         if(aud.currentTime >= slice.runningTotal/1000) {
+    //             replayCurrentIndex = index;
+    //         }
+    //     })
+    //     paused = false;
+    //     restart();
+    // }
+    //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
+    //$scope.userUpdatingTime = _.debounce(userUpdatingTime, 250);
+
 
     $scope.getFullCast = function() {
         //get array of all codeSlices associated with a specific room
@@ -100,9 +107,10 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
             }
         } else if(paused) {
             paused = false;
-            restart();
             aud.play();
-            //renderFullCast(sortedSlicesArr, replayCurrentIndex);
+            if(replayCurrentIndex < sortedSlicesArr.length -1){
+                restart();
+            }
         } else if(!paused) {
             paused = true;
             $timeout.cancel(timer)
@@ -112,16 +120,74 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
 
     $scope.isPlayBack = function(){
         aud.play();
-        $scope.isAudio = true;
         $scope.playBack();
     }
-
-    //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
-    $scope.userUpdatingTime = _.debounce(userUpdatingTime, 250);
 
     aud.onended = function() {
         videoOver = true;
     };
+
+    function timeUpdate() {
+        var playPercent = 100 * (aud.currentTime / duration);
+        playhead.style.marginLeft = playPercent + "%";
+    }
+     
+    //Gets audio file duration
+    aud.addEventListener("canplaythrough", function () {
+        duration = aud.duration;
+    }, false);
+
+     
+    // returns click as decimal (.77) of the total timelineWidth
+    function clickPercent(e) {
+        return (e.pageX - timeline.offsetLeft) / timelineWidth;
+    }
+
+    $scope.updateVideo = function() {
+        paused = true;
+        $timeout.cancel(timer)
+        aud.pause();
+        moveplayhead(event);
+        aud.currentTime = aud.duration * clickPercent(event);
+         if(_.last(sortedSlicesArr).runningTotal < aud.currentTime*1000) {
+                paused = false;
+                $scope.videoObj.text = _.last(sortedSlicesArr).text;
+                $scope.videoObj.result = _.last(sortedSlicesArr).result;
+                aud.play();
+                return;
+        } 
+        sortedSlicesArr.forEach(function(slice, index) {
+            if(aud.currentTime*1000 > slice.runningTotal) {
+                replayCurrentIndex = index;
+            }
+        })
+        var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
+        paused = false;
+        $scope.videoObj.text = null;
+        $scope.videoObj.result = null;
+        $timeout(function() {
+            replayCurrentIndex = replayCurrentIndex+1;
+            renderFullCast(sortedSlicesArr, replayCurrentIndex);
+        }, wait);
+        aud.play();
+
+
+    }
+ 
+    function moveplayhead(e) {
+        var newMargLeft = e.pageX - timeline.offsetLeft; 
+        if (newMargLeft == 0 && newMargLeft == timelineWidth) {
+            playhead.style.marginLeft = newMargLeft + "px";
+        }
+        if (newMargLeft == 0) {
+            playhead.style.marginLeft = "0px";
+        }
+        if (newMargLeft == timelineWidth) {
+            playhead.style.marginLeft = timelineWidth + "px";
+        }
+    }
+
+
 });
 
 
