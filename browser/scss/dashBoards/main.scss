@@ -1,16 +1,28 @@
 
 
+// #studentDash {
+//     width: 100vw;
+//     min-height:100%;
+//     font-family: 'Oswald', sans-serif;
+//     background-image: url("../images/back.jpeg");
+//     background-attachment: fixed;
+//     background-repeat: no-repeat;
+//     // -webkit-background-size: cover;
+//     // -moz-background-size: cover;
+//     // -o-background-size: cover;
+//     // background-size: cover;
+// }
+
 #studentDash {
     width: 100vw;
     min-height:100%;
     font-family: 'Oswald', sans-serif;
-    background-image: url("../images/back.jpeg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    // -webkit-background-size: cover;
-    // -moz-background-size: cover;
-    // -o-background-size: cover;
-    // background-size: cover;
+    background: url("../images/back.jpeg") no-repeat center fixed;
+    position: absolute;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #sidebar-collapse{
