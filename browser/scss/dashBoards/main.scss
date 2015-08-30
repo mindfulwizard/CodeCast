@@ -3,6 +3,7 @@
 #studentDash {
     width: 100vw;
     // height: 100vh;
+    min-height:100%;
     font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
     position: absolute;
@@ -20,6 +21,12 @@ a:hover {
 	color: #fff;
 }
 
+p {
+	margin-top: 5vh;
+	float: left;
+	color: #C1FF50;
+    font-family: 'Oswald', sans-serif;
+}
 
 .nav > li > a:hover {
 	background-color: transparent;
@@ -51,6 +58,7 @@ background-color: rgba(255, 255, 255, 0.40);
 #teacherDash {
     width: 100vw;
     height: 100vh;
+    min-height:100%;
  	font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
@@ -106,7 +114,7 @@ background-color: rgba(255, 255, 255, 0.40);
 	float: left;
 	margin-top: 80px;
 	margin-left: 300px;
-	height: 50px;
+	height: 7vh;
 	padding-left: 2px;
 
 }
@@ -128,8 +136,8 @@ background-color: rgba(255, 255, 255, 0.40);
 .listItemText{
 	color: #C1FF50;
 }
-// #sidebar-collapse{
-// 	 font-family: 'Droid Sans Mono';
-//     color: #FFE3D5;
-//     font-size: 16px;
-// }
+
+#changeToInstruct {
+	font-family: 'Oswald', sans-serif;
+	margin-left: 40%;
+}
