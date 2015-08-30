@@ -44,6 +44,9 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    github: {
+        id: String
     }
 });
 

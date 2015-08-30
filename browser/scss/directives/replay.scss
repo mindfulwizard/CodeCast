@@ -1,0 +1,25 @@
+#pButton{
+	height:60px; 
+	width: 60px;
+	border: none;
+	background-size: 50% 50%;
+	background-position: center;
+	background-image: url('./play.png');
+}
+
+#timeline{
+	width: 400px;
+	height: 20px;
+	background: #F4F9ED;
+	margin-top: 20px;
+	float: left;
+	border-radius: 15px;
+}
+ 
+#playhead{
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	margin-top: 1px;
+	background: #C1FF50;
+}

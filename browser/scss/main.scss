@@ -15,10 +15,6 @@ body {
     }
 }
 
-btn btn-default {
-font-family: 'Oswald', sans-serif;
-
-}
 
 @import 'home/main';
 @import 'directives/main';
@@ -26,3 +22,4 @@ font-family: 'Oswald', sans-serif;
 @import 'tutorial/main';
 @import 'login/main';
 @import 'dashBoards/main';
+@import 'directives/replay';

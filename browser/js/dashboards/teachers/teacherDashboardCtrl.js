@@ -13,7 +13,6 @@ app.controller('teacherDashboardCtrl', function($scope, $rootScope, $state, sock
 		});
 
 	$scope.joinRoom = function(id) {
-		// socketFactory.emit('join', id)
 		$state.go('liveState', {
 			roomId: id
 		})
@@ -25,7 +24,6 @@ app.controller('teacherDashboardCtrl', function($scope, $rootScope, $state, sock
 		});
 
 	$scope.watchLecture = function(id) {
-		// socketFactory.emit('join', id)
 		$state.go('replayState', {
 			roomId: id
 		})
