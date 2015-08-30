@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var CodeSlice = mongoose.model('CodeSlice');
 
 router.post('/', function(req, res) {
-	// Todo: assume that req.body will include a room id
 	CodeSlice.create(req.body)
 		.then(function(snippet) {
 			res.json(snippet);

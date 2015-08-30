@@ -2,7 +2,6 @@
 
 #studentDash {
     width: 100vw;
-    // height: 100vh;
     min-height:100%;
     font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
@@ -139,5 +138,11 @@ background-color: rgba(255, 255, 255, 0.40);
 
 #changeToInstruct {
 	font-family: 'Oswald', sans-serif;
-	margin-left: 40%;
+	float: left;
+	color: #fff;
+}
+
+
+#changeToInstruct:hover {
+	color: #C1FF50;
 }

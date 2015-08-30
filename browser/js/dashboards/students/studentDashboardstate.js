@@ -38,9 +38,3 @@ app.config(function ($stateProvider) {
 
 });
 
-
-    //     resolve: {
-    //         getInstructors: function(userFactory){
-    //             return userFactory.getInstructors();
-    //     }
-    // }

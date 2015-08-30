@@ -118,17 +118,4 @@ app.controller('studentDashboardCtrl', function($scope, userFactory, forkFactory
 
     if ($stateParams.forkId !== undefined) {$scope.getFork()};
 
-
-    // $scope.credentials = {};
-
-    // $scope.sendLogin = function (signUpInfo) {
-
-    //     AuthService.signup(signUpInfo).then(function () {
-    //         $state.go('home');
-    //     }).catch(function () {
-    //         $scope.error = 'Invalid login credentials.';
-    //     });
-
-    // };
-
 });
