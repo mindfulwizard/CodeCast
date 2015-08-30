@@ -1,3 +1,6 @@
 <h1>Welcome, {{user.firstName}}!</h1>
-<a ng-show="!user.instructor" ng-click="becomeInstructor()">Want to be an instructor too? Click here!</a>
-<h2 ng-show="user.instructor">You are now an instructor!</h2>
+<a id="changeToInstruct" ng-show="!user.instructor" ng-click="becomeInstructor()">Are you actually an instructor? Click here!</a>
+
+<p class="loginText" ng-show="user.instructor">You are an instructor, which means that you have can create new lectures, view your current, planned lectures and review past lectures. Additonally, once in your live lecture, you can grant permission to your students, allowing them to type in the lecture editor. </p>
+
+<p class="loginText" ng-show="!user.instructor">You are a student, which means that you can attend current and past lectures. Once you attend a lecture, you can fork, or make a copy of, an ongoing lecture at any point and save it, and it will be here in your dashboard. </p>
