@@ -3,8 +3,15 @@
 <br/>
 <br/>
 <br/>
+
 <div ng-repeat="live in liveLectures | filter: liveSearch">
-<ul>
-	<li><a class="listItemText" ui-sref="liveState({roomId: live._id})">{{live.name}}</a></li>
-</ul>
+
+	<div class="wrapper"><a class="listItemText" ui-sref="liveState({roomId: live._id})">
+	<h6>
+		{{live.name}}
+	</h6>
+
+	</a></div>
+
+</div>
 </div>

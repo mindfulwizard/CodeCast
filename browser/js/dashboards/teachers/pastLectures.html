@@ -1,6 +1,10 @@
 <div id='recordedlectures'>
-	<span class="textTeal">My Past Lectures:</span>
-	<ul>
-	<a ng-repeat='lecture in lectures' ng-click='watchLecture(lecture._id)'><li class="listItemText">{{ lecture.name }}</li> </a>
-	</ul>
+	<span class="textTeal">My Past Lectures</span>
+	<div ng-repeat='lecture in lectures'>
+	<div class="wrapper">
+	<a ng-click='watchLecture(lecture._id)'>
+	<h6>{{ lecture.name }}</h6>
+	</a>
+	</div>
+</div>
 </div>

@@ -6,17 +6,28 @@
 }
 
 .commentsDirective {
-	border: 3px solid #FFE3D5;
+	//border: 3px solid #BFC3BA;
+	//padding: 20px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.20);
+	cursor: pointer;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
 }
 
-#rightBlock input {
-	width: 100%
-}
+
 
 .panel-footer {
-	background-color: black;
+	background-color: transparent;
 }
 
+#btn-chat {
+	margin-left: 6vw;
+}
 
 #commentsBlock {
 	height: 50vh;
@@ -24,18 +35,21 @@
 }
 
 .comment {
+	font-family: 'Oswald', sans-serif;
 	padding: 1vh;
 	display: inline-block;
 	width: 100%
 }
 
 #commenter {
-	color: #42dca3;
+	font-family: 'Oswald', sans-serif;
+	color: #C1FF50;
 	font-style: italic;
 }
 
 #message {
-	color: #FFE3D5;
+	font-family: 'Oswald', sans-serif;
+	color: #fff;
 }
 
 #input {
@@ -46,14 +60,28 @@
 	width: 15%
 }
 
-#chatQuest {
-	border-radius: 0px;
-	background-color: #FFE3D5;
-}
-#attendeeList{
-	background-color: #FFE3D5;
+.description {
+	font-family: 'Oswald', sans-serif;
+	margin-left: 35%;
 }
 
+#chatQuest {
+	width: 90%;
+	border-radius: 0px;
+	align: center;
+	border: 1px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    background-color: transparent;
+	display: inline;
+	height: 41px;
+	font-family: 'Oswald', sans-serif;
+	text-size: 10px;
+}
+
+#chatQuest:focus {
+	outline: 0;
+}
 
 ::-webkit-scrollbar {
     width: 1em;
@@ -64,6 +92,6 @@
 }
  
 ::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+  background-color: #BFC3BA;
+  outline: 1px solid #BFC3BA;
 }

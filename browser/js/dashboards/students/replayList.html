@@ -6,7 +6,9 @@
 <br/>
 
 <div ng-repeat="replay in replayLectures | filter: replaySearch">
-<ul>
-	<li><a class="listItemText" ui-sref="replayState({roomId: replay._id})">{{replay.name}}</a></li>
-</ul>
+<div class="wrapper">
+<a class="listItemText" ui-sref="replayState({roomId: replay._id})">
+<h6>{{replay.name}}</h6>
+</a>
+</div>
 </div> 

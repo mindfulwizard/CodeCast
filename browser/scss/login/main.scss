@@ -7,8 +7,8 @@
 #signupPage {
     width: 100vw;
     height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+    font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -18,8 +18,8 @@
 #loginPage {
     width: 100vw;
     height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+    font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -27,11 +27,11 @@
 }
 
 .loginText {
-    color: #42dca3;
+    color: #1B9AAA;
 }
 
 #toSignUp {
-    color: #42dca3;
+    color: #1B9AAA;
     margin-top: 10px;
     font-size: 15px;
 }

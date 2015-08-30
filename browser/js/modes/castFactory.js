@@ -10,12 +10,18 @@ app.factory('castFactory', function($http, socketFactory){
 
 		},
 
+		becomeInstructor: function (user) {
+			return $http.put('api/members/' + user._id, {instructor: true})
+			.then(function (res){
+				return res.data;
+			})
+		},
+
 		sendComment: function (text, userId, roomId) {
 			socketFactory.emit('send a comment', {text: text, user: userId, room: roomId, time: new Date() })
 		},
 
 		sendModal: function (roomId) {
-			console.log('sendModal in castFactory')
 			socketFactory.emit('send a closing modal', {room: roomId})
 		},
 

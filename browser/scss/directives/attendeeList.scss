@@ -1,6 +1,17 @@
 .attendeeListDirective {
-  border: 1px solid black;
+  height: 35vh;
+  overflow:auto;
+  // border: 1px solid #BFC3BA;
   margin-top: 10px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.20);
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 #attendeeBlock {
@@ -8,16 +19,27 @@
 }
 
 .selected {
-  color: red
+  color: #C1FF50;
+}
+
+.attendees {
+  padding: 1vh;
+  display: inline-block;
+  width: 100%
+}
+
+#mainTitle {
+  text-align: center;
 }
 
 .notSelected {
-  color: black
+  color: white;
 }
 
 .example-animate-container {
-  background:white;
-  border:1px solid black;
+  //background: transparent;
+  color: white;
+  //border:1px solid black;
   list-style:none;
   margin:0;
   padding:0 10px;
@@ -52,5 +74,6 @@
 
 #attendees{
   width: 30%;
+  
   float: right;
 }

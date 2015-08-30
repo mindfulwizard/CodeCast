@@ -5,8 +5,10 @@
   font-family: monospace;
   height: 70vh;
   color: black;
-  border: 1px solid black;
-  width: 780px;
+  border: 1px solid white;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 /* PADDING */
@@ -26,7 +28,7 @@
 
 .CodeMirror-gutters {
   border-right: 1px solid #ddd;
-  background-color: #fbede5;
+  background-color: #E7EDE1;
   white-space: nowrap;
 }
 .CodeMirror-linenumbers {}
@@ -150,7 +152,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 }
 
 .CodeMirror-scroll {
-  background-color: #fbf1ec;
+  background-color: #F4F9ED;
   overflow: scroll !important; /* Things will break if this is overridden */
   /* 30px is the magic margin used to hide the element's real scrollbars */
   /* See overflow: hidden in .CodeMirror */

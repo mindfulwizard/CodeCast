@@ -2,19 +2,57 @@
 
 #studentDash {
     width: 100vw;
-    height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+    // height: 100vh;
+    font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
+    position: absolute;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+
+#sidebar-collapse li{
+	font-family: 'Oswald', sans-serif;
+}
+
+a:hover {
+	color: #fff;
+}
+
+
+.nav > li > a:hover {
+	background-color: transparent;
+}
+
+
+.wrapper {
+padding: 20px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+width: 30%;
+float: left;
+margin: 10px;
+background-color: rgba(255, 255, 255, 0.20);
+cursor: pointer;
+-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;
+}
+
+.wrapper:hover {
+background-color: rgba(255, 255, 255, 0.40);
+}
+
+
+
 #teacherDash {
     width: 100vw;
     height: 100vh;
-    font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: url("../images/editor.jpeg") no-repeat center fixed;
+ 	font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -27,10 +65,9 @@
 
 
 #sidebar-collapse:hover{
- font-family: 'Droid Sans Mono';
-   color: #FFE3D5;
-
-    font-size: 16px;
+ font-family: 'Oswald', sans-serif;
+ color: #BFC3BA;
+ font-size: 16px;
 }
 
 .inputBoxRight {
@@ -39,7 +76,7 @@
 		margin-top: 30px;
 	margin-left: 500px;
 	height: 41px;
-	background-color: #FFE3D5;
+	background-color: #BFC3BA;
 
 }
 
@@ -52,7 +89,7 @@
 	h1{
 	width: 350px;
 	font-size: 32px;
-	color: #42dca3;
+	color: #fff;
 	display: inline;
 	float: left;
 		
@@ -61,13 +98,21 @@
 }
 
 .createRoomInput{
+    border: 1px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    background-color: transparent;
 	display: inline;
 	float: left;
 	margin-top: 80px;
 	margin-left: 300px;
-	height: 41px;
-	background-color: #FFE3D5;
+	height: 50px;
+	padding-left: 2px;
 
+}
+
+.createRoomInput:focus {
+	outline: 0;
 }
 
 #createRoom{
@@ -76,11 +121,12 @@
 }
 
 .textTeal{
-	color: #42dca3;
+	color: #C1FF50;
+	font-family: 'Oswald', sans-serif;
 }
 
 .listItemText{
-	color: #FFE3D5;
+	color: #C1FF50;
 }
 // #sidebar-collapse{
 // 	 font-family: 'Droid Sans Mono';

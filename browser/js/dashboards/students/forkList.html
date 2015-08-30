@@ -5,13 +5,14 @@
 <br/>
 
 
-<div ng-repeat="room in forkedLectures">
-	<a ng-click="getRoomForks(room._id)"> {{room.name}}</a>
-
+<div ng-repeat="room in forkedLectures" class="wrapper">
+	<a ng-click="getRoomForks(room._id)"> 
+	<h6>{{room.name}}</h6>
+	</a>
 
 <div ng-if="showForks && fork.roomId === room._id" ng-repeat="fork in roomForks">
-<ul>
-	<li><a class="listItemText" ui-sref="studentDashboard.editorDash({forkId: fork._id})">{{fork.name}}</a></li>
+<ul style="list-style: none">
+	<li><a class="listItemText"; ui-sref="studentDashboard.editorDash({forkId: fork._id})">{{fork.name}}</a></li>
 </ul>
 </div>
 </div>
