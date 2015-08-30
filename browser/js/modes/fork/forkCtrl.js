@@ -11,9 +11,9 @@ app.controller('forkCtrl', function($scope, forkFactory) {
 
 
     $scope.makeFork = function() {
-        if($scope.name !== "live") {
-            $scope.pauseContinue()
-        }
+        // if($scope.name !== "live") {
+        //     $scope.pauseContinue()
+        // }
         $scope.hasBeenForked = true;
         $scope.forked = true;
         $scope.forkedText.text = $scope.replayObj.text;
