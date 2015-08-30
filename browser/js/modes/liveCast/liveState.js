@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
 			})
 		},
-		onEnter: function(socketFactory, $stateParams, AuthService) {
+		onEnter: function(socketFactory, $stateParams, AuthService, audioFactory) {
 			 AuthService.getLoggedInUser().then(function (user) {
 				socketFactory.emit('join', {room: $stateParams.roomId, user: user});
 			})

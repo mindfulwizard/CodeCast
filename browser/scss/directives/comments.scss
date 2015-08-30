@@ -29,7 +29,8 @@
 
 #commentsBlock {
 	height: 50vh;
-	overflow:auto
+	overflow:auto;
+	word-break: break-all;
 }
 
 .comment {
