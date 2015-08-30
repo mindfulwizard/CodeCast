@@ -1,6 +1,6 @@
  <div class="container" id="repl">
     <div class="row"> 
-        <div id='leftBlock' class="col-lg-8">
+        <div id='leftBlock'>
            <button ng-click="makeFork()" style="font-family: 'Oswald', sans-serif;" class="btn btn-default navbar-btn" type="button">Fork</button>
            <button class="btn btn-default navbar-btn" style="font-family: 'Oswald', sans-serif;" ng-show="hasBeenForked" ng-click="getForks()">Show Forks</button>
              <editor fork="fork" replay-text="forkedText" ng-if="forked"></editor>

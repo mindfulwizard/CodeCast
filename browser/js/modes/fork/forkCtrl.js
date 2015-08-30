@@ -48,9 +48,3 @@ app.controller('forkCtrl', function($scope, forkFactory) {
     }
 
 })
-
-
-
-//replayObj -> replayObj
-//replayId
-//pause function

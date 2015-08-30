@@ -1,6 +1,7 @@
 <section id="live">
-   <div id="repl">
-  <div style="margin-left: 50px;">
+  <div class="container" id="repl">
+  <div class="row">
+  <div class="col-lg-11 col-md-11 col-sm-11">
     <editor name="replay" replay-text="videoObj" output="videoObj.result"></editor>
     <div id="audioplayer">
       <button id="pButton" ng-click="pauseContinue()"></button>
@@ -15,8 +16,11 @@
    <br/>
    <br/>
    <br/>
+   <div class="col-lg-11">
    <fork room-id="roomId" fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
+  </div>
+  </div> 
 </div>
 </div>
 </section>
-  
+          

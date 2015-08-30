@@ -5,7 +5,6 @@ app.controller('homeCtrl', function($scope, $rootScope, $state, socketFactory, r
 			$scope.rooms = rooms;
 		});
 	$scope.joinRoom = function(id) {
-		// socketFactory.emit('join', id)
 		$state.go('liveState', {
 			roomId: id
 		})
@@ -16,7 +15,6 @@ app.controller('homeCtrl', function($scope, $rootScope, $state, socketFactory, r
 		});
 
 	$scope.watchLecture = function(id) {
-		// socketFactory.emit('join', id)
 		$state.go('replayState', {
 			roomId: id
 		})

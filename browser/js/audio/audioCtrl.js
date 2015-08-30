@@ -1,7 +1,7 @@
 app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
-    var audio_context;
     var recorder;
     var startDate;
+    var audio_context;
 
         if ($scope.name !== "replay") {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -20,11 +20,10 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
         }
 
 
-    //initiateAudio();
-
     function startUserMedia(stream) {
         var input = audio_context.createMediaStreamSource(stream);
         recorder = new Recorder(input);
+        
     }
 
     $scope.startRecording = function() {
@@ -47,6 +46,4 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
         $scope.audioSrc = '/api/rooms/audio/' + $scope.roomId
     }
 })
-
-
 

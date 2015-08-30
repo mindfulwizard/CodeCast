@@ -5,7 +5,7 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   $scope.currentlyRecording = false;
   $scope.started = false;
 
-  // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
+
   $scope.replayObj = {
     text: roomInfo.textHistory,
     result: roomInfo.resultHistory,
@@ -34,6 +34,7 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
           animation: $scope.animationsEnabled,
           templateUrl: 'js/modes/closingWindowModal/modal.html',
           controller: 'ModalInstanceCtrl',
+          windowClass: 'large-Modal',
           resolve: {
             roomId: function () {
               return obj.room.toString()
