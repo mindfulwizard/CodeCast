@@ -2,6 +2,21 @@
     margin: 0 auto;
     padding-top: 120px;
     width: 60%;
+
+}
+
+.form-control {
+        border: 1px solid #fff;
+        border-radius: 0px;
+        color: #fff;
+        font-weight: 400;
+        font-family: 'Oswald', sans-serif;
+        background-color: transparent;
+        height: 7vh;
+ }
+
+.form-control:focus {
+    border-color: #fff;
 }
 
 #signupPage {
@@ -27,11 +42,24 @@
 }
 
 .loginText {
-    color: #1B9AAA;
+    color: #C1FF50;
+    font-family: 'Oswald', sans-serif;
+}
+
+#instruct {
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
 }
 
 #toSignUp {
-    color: #1B9AAA;
+    color: #fff;
     margin-top: 10px;
     font-size: 15px;
+    font-family: 'Oswald', sans-serif;
+}
+
+#credentials-instructor {
+    height: 2.5vh;
+    width: 2.5vh;
+    margin-left: 1vh;
 }
