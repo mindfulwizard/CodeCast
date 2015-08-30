@@ -32,7 +32,6 @@ h3,
 h4,
 h5,
 h6 {
-    // margin: 0 0 35px;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
     letter-spacing: 1px;
@@ -98,7 +97,6 @@ a:focus {
     .pad {
         transition: transform 1s;
         transform: translate(0, 7px);
-        /*margin-top: -5px;*/
     }
 }
 
@@ -170,7 +168,6 @@ a:focus {
 
 @media(min-width:768px) {
     .navbar-custom {
-        //padding: 20px 0;
         border-bottom: 0;
         letter-spacing: 1px;
         background: 0 0;
@@ -405,8 +402,3 @@ img::selection {
 img::-moz-selection {
     background: 0 0;
 }
-
-
-// body {
-//     webkit-tap-highlight-color: rgba(255,255,255,.2);
-// }

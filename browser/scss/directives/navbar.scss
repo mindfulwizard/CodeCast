@@ -70,7 +70,6 @@ navbar {
   border-bottom: none;
   padding-bottom: 50px;
   background: linear-gradient(to top, rgba(255,0,0,0), rgba(39,20,0,1));
-  /*///////////////*/
 }
   .min {
     transition: background 1s;
@@ -80,7 +79,6 @@ navbar {
   .pad {
     transition: transform 1s;
     transform: translate(0, 7px);
-    /*margin-top: -5px;*/
   }
 }
 
