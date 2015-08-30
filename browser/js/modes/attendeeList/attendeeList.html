@@ -1,12 +1,25 @@
-<!-- <div ng-if="user.instructor"> -->
-  <p ng-show="selectedStudent">Currently invited: {{selectedStudent.firstName}}</p>
-  <input type="search" ng-model="q" id="chatQuest" placeholder="Invite an attendee to edit..."/>
-  <span class="textTeal">Attendees:</span>
-  <ul id="attendeeList" class="example-animate-container" id="attendeeBlock">
-    	<li class="animate-repeat" ng-repeat="student in room.students | filter:q as results" ng-click="user.instructor && select(student)" ng-class="user.instructor&&(student._id==selectedStudent._id)? 'selected' : 'notSelected' ">
-      {{student.email}}
-    	</li>
-    	<li  class="animate-repeat" ng-if="results.length === 0">
-      	<strong> No results found...</strong>
-    	</li>
-  </ul>
+  <div id="mainTitle">
+    <span style="font-family: 'Oswald', sans-serif;" class="textTeal">Attendees</span>
+  </div>
+  <div id="mainTitle">
+    <input style="margin-top: 5px; height: 50px" type="search" ng-model="q" id="chatQuest" placeholder="Invite an attendee to edit..."/>
+  </div>
+  <div id="mainTitle">
+    <p ng-show="selectedStudent" class="textTeal">Currently invited: {{selectedStudent.firstName}}</p>
+  </div>
+  <div>
+
+    <div class="textTeal" id="attendeeList" class="example-animate-container" id="attendeeBlock">
+      <div class="comment" class="animate-repeat" ng-repeat="student in room.students | filter:q as results" ng-click="user.instructor && select(student)" ng-class="user.instructor&&(student._id==selectedStudent._id)? 'selected' : 'notSelected' ">
+          <span>
+        {{student.email}}
+          </span>
+      </div>
+      <div class="animate-repeat" class="textTeal" ng-if="results.length === 0">
+        	<strong> No results found...</strong>
+      </div>
+    </div>
+
+
+
+  </div>

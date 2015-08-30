@@ -9,7 +9,10 @@ app.directive('editor', function() {
 			user: '=',
 			instructor: '=',
 			fork: "=",
-			stopRec: "="
+			stopRec: "=",
+			started: "=",
+			room: "="
+
 		},
 		controller: 'editorCtrl'
 	}

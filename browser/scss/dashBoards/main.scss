@@ -2,7 +2,7 @@
 
 #studentDash {
     width: 100vw;
-    // height: 100%;
+    min-height:100%;
     font-family: 'Oswald', sans-serif;
     background-image: url("../images/back.jpeg");
     background-attachment: fixed;
@@ -30,7 +30,14 @@
 }
 
 a:hover {
-	color: #BFC3BA;
+	color: #fff;
+}
+
+p {
+	margin-top: 5vh;
+	float: left;
+	color: #C1FF50;
+    font-family: 'Oswald', sans-serif;
 }
 
 .nav > li > a:hover {
@@ -66,6 +73,7 @@ background-color: rgba(255, 255, 255, 0.40);
 #teacherDash {
     width: 100vw;
     height: 100vh;
+    min-height:100%;
  	font-family: 'Oswald', sans-serif;
     background: url("../images/back.jpeg") no-repeat center fixed;
     -webkit-background-size: cover;
@@ -114,13 +122,21 @@ background-color: rgba(255, 255, 255, 0.40);
 }
 
 .createRoomInput{
+    border: 1px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    background-color: transparent;
 	display: inline;
 	float: left;
 	margin-top: 80px;
 	margin-left: 300px;
-	height: 41px;
-	background-color: #BFC3BA;
+	height: 7vh;
+	padding-left: 2px;
 
+}
+
+.createRoomInput:focus {
+	outline: 0;
 }
 
 #createRoom{
@@ -130,13 +146,20 @@ background-color: rgba(255, 255, 255, 0.40);
 
 .textTeal{
 	color: #C1FF50;
+	font-family: 'Oswald', sans-serif;
 }
 
 .listItemText{
 	color: #C1FF50;
 }
-// #sidebar-collapse{
-// 	 font-family: 'Droid Sans Mono';
-//     color: #FFE3D5;
-//     font-size: 16px;
-// }
+
+#changeToInstruct {
+	font-family: 'Oswald', sans-serif;
+	float: left;
+	color: #fff;
+}
+
+
+#changeToInstruct:hover {
+	color: #C1FF50;
+}

@@ -30,7 +30,7 @@ var room = new mongoose.Schema({
 	}]
 });
 
-//allows deep population //see github docs for usage
+//allows deep population
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 room.plugin(deepPopulate, {});
 

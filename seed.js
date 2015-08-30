@@ -33,12 +33,18 @@ var seedUsers = function() {
             password: '123',
             instructor: true,
         }, {
-            // user
+            // user 1
             firstName: 'Barack',
             lastName: 'Obama',
             email: 'obama@gmail.com',
             password: '123'
-        }, {
+        },{
+            // user 2
+            firstName: 'John',
+            lastName: 'Smith',
+            email: 'smith@gmail.com',
+            password: '123'
+        },{
             // admin
             firstName: 'adminFirstNameSample',
             lastName: 'adminLastNameSample',

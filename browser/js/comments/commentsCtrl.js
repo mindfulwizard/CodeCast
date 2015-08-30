@@ -9,7 +9,7 @@ app.controller('commentsCtrl', function($scope, forkFactory, $stateParams, socke
     castFactory.sendComment(commentText, $scope.user._id, $stateParams.roomId)
   }
 
-  // update comments everytime one user writes on
+  // update comments everytime one user writes
   socketFactory.on('receive comment', function(room) {
     $scope.commentsArr = room.commentHistory;
   })

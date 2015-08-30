@@ -1,12 +1,12 @@
-
 app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeout) {
     $scope.videoObj = {text: null, result: null};
     var sortedSlicesArr;
     var replayCurrentIndex;
     var timer;
-    var videoDownloaded = false;
-    var videoOver = false;
+    var videoOver = true;
+    var downloaded = false;
     var paused = false;
+    var aud = document.getElementById("audioRec"); 
     $scope.roomId = $stateParams.roomId;
     $scope.isAudio = false;
 
@@ -41,9 +41,6 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 timer = $timeout(function(){
                     renderFullCast(sortedSlicesArr, replayCurrentIndex+1)
                 }, next.runningTotal - currentSlice.runningTotal)
-            } else{
-                replayCurrentIndex = 0;
-                videoOver = true;
             }
         }
     }
@@ -55,21 +52,17 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 replayCurrentIndex = index;
             }
         })
-        //console.log('rerendering')
         paused = false;
         renderFullCast(sortedSlicesArr, replayCurrentIndex);
     }
 
-    //   var restart = function() {
-    //     var wait = sortedSlicesArr[replayCurrentIndex].runningTotal - aud.currentTime*1000;
-    //     console.log('wait', wait)
-    //     aud.play();
-    //     console.log('audio restart time', aud.currentTime*1000)
-    //     console.log('slice restart time', sortedSlicesArr[replayCurrentIndex].runningTotal)
-    //     $timeout(function() {
-    //         renderFullCast(sortedSlicesArr, replayCurrentIndex)
-    //     }, wait);
-    // }
+      var restart = function() {
+        var wait = sortedSlicesArr[replayCurrentIndex+1].runningTotal - aud.currentTime*1000;
+        $timeout(function() {
+            replayCurrentIndex = replayCurrentIndex +1;
+            renderFullCast(sortedSlicesArr, replayCurrentIndex)
+        }, wait);
+    }
 
     $scope.getFullCast = function() {
         //get array of all codeSlices associated with a specific room
@@ -83,17 +76,13 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
                 sortedSlicesArr.forEach(function(slice) {
                     calculateRunningTotal(sortedSlicesArr[0], slice);
                 });
-
                 $scope.replayLength = _.last(sortedSlicesArr).runningTotal;
-                if(!videoDownloaded){
-                    $scope.isPlayBack();
-                    renderFullCast(sortedSlicesArr, 0);
-                    videoDownloaded = true;
-                }    
+                videoOver = false;
+                downloaded = true;
+                $scope.isPlayBack();
+                renderFullCast(sortedSlicesArr, 0);
             })
     }
-
-    var aud = document.getElementById("audioRec"); 
 
     $scope.pauser = function(){
         aud.pause();
@@ -101,35 +90,39 @@ app.controller('replayCtrl', function($scope, castFactory, $stateParams, $timeou
     }
 
     $scope.pauseContinue = function() {
-         if(videoOver){
-            videoOver = false;
-            aud.play();
-            renderFullCast(sortedSlicesArr, 0);
-        } else if(!videoDownloaded){
-            $scope.getFullCast();
+        if(videoOver){
+            if(downloaded) {
+                videoOver = false;
+                renderFullCast(sortedSlicesArr, 0);
+                aud.play();
+            } else {
+                $scope.getFullCast();
+            }
         } else if(paused) {
             paused = false;
+            restart();
             aud.play();
-            renderFullCast(sortedSlicesArr, replayCurrentIndex);
+            //renderFullCast(sortedSlicesArr, replayCurrentIndex);
         } else if(!paused) {
             paused = true;
+            $timeout.cancel(timer)
             aud.pause();
         }
     }
 
     $scope.isPlayBack = function(){
+        aud.play();
         $scope.isAudio = true;
-         $scope.playBack();
+        $scope.playBack();
     }
 
     //since ng-change event continuously happens as long as user moves slider, debounce the function dependent on it
     $scope.userUpdatingTime = _.debounce(userUpdatingTime, 250);
 
-
+    aud.onended = function() {
+        videoOver = true;
+    };
 });
-
-
-
 
 
 
