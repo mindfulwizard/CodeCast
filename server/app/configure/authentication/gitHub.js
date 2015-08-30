@@ -18,9 +18,11 @@ module.exports = function (app) {
                 if (user) {
                     return user;
                 } else {
+                    var mail;
+                    (profile.emails[0].value === null) ? (mail = profile.displayName) : (mail = profile.emails[0].value)
                     return UserModel.create({
-                        name: profile.displayName,
-                        email: profile.emails[0].value,
+                        firstName: profile.displayName,
+                        email: mail,
                         github: {
                             id: profile.id
                         }

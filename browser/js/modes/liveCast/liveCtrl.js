@@ -5,7 +5,7 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   $scope.currentlyRecording = false;
   $scope.started = false;
 
-  // socketFactory.emit('join', {room: $stateParams.roomId, user: $scope.user})
+
   $scope.replayObj = {
     text: roomInfo.textHistory,
     result: roomInfo.resultHistory,
