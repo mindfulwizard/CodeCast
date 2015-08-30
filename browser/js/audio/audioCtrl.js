@@ -1,26 +1,27 @@
-app.controller('audioCtrl', function($scope, audioFactory, $timeout) {
+app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
     var audio_context;
     var recorder;
     var startDate;
 
-    if ($scope.name !== "replay") {
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-        window.URL = window.URL || window.webkitURL;
+        if ($scope.name !== "replay") {
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+            window.URL = window.URL || window.webkitURL;
+
+            audio_context = new AudioContext;
+
+            navigator.getUserMedia({
+                audio: true
+            }, startUserMedia, function(e) {
+                console.log('No live audio input: ' + e);
+                //$route.reload();
+                $window.location.reload();
+            });
+        }
 
 
-        audio_context = new AudioContext;
+    //initiateAudio();
 
-
-
-        navigator.getUserMedia({
-            audio: true
-        }, startUserMedia, function(e) {
-            console.log('No live audio input: ' + e);
-        });
-
-
-    }
 
     function startUserMedia(stream) {
         var input = audio_context.createMediaStreamSource(stream);
