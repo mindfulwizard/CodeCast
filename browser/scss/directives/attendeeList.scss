@@ -1,4 +1,6 @@
 .attendeeListDirective {
+  height: 35vh;
+  overflow:auto;
   // border: 1px solid #BFC3BA;
   margin-top: 10px;
   border-radius: 5px;
@@ -17,9 +19,18 @@
 }
 
 .selected {
-  color: red
+  color: #C1FF50;
 }
 
+.attendees {
+  padding: 1vh;
+  display: inline-block;
+  width: 100%
+}
+
+#mainTitle {
+  text-align: center;
+}
 
 .notSelected {
   color: white;
