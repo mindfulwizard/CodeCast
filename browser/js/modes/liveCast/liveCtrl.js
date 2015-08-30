@@ -56,6 +56,8 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   }
 
   $scope.constantRecording = function() {
-      castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
+      if($scope.started) {
+        castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
+      }
   }
 });
