@@ -3,32 +3,33 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
     var startDate;
     var audio_context;
 
-        if ($scope.name !== "replay") {
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-            window.URL = window.URL || window.webkitURL;
+    //     if ($scope.name !== "replay") {
+    //         window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    //         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+    //         window.URL = window.URL || window.webkitURL;
 
-            audio_context = new AudioContext;
+    //         audio_context = new AudioContext;
 
-            navigator.getUserMedia({
-                audio: true
-            }, startUserMedia, function(e) {
-                //$route.reload();
-                $window.location.reload();
-            });
-        }
+    //         navigator.getUserMedia({
+    //             audio: true
+    //         }, startUserMedia, function(e) {
+    //             console.log('not recording!')
+    //             //$route.reload();
+    //             //$window.location.reload();
+    //         });
+    //     }
 
 
-    function startUserMedia(stream) {
-        var input = audio_context.createMediaStreamSource(stream);
-        recorder = new Recorder(input);
+    // function startUserMedia(stream) {
+    //     var input = audio_context.createMediaStreamSource(stream);
+    //     recorder = new Recorder(input);
         
-    }
+    // }
 
-    $scope.startRecording = function() {
-        startDate = new Date();
-        recorder.record();
-    }
+    // $scope.startRecording = function() {
+    //     startDate = new Date();
+    //     recorder.record();
+    // }
 
 
     $scope.stopRecording = function() {

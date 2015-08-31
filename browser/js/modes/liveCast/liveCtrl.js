@@ -1,10 +1,13 @@
-app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser, $modal) {
+app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $document, $rootScope, socketFactory, $stateParams, evaluatorFactory, $state, roomInfo, setUser, $modal, audioFactory) {
   $scope.user = setUser;
   $scope.room = roomInfo;
   $scope.roomId = $stateParams.roomId;
   $scope.currentlyRecording = false;
   $scope.started = false;
-
+    // var recorder;
+    // var startDate;
+    // var audio_context
+    var recorder = audioFactory.setUpAudio();
 
   $scope.replayObj = {
     text: roomInfo.textHistory,
@@ -50,7 +53,11 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   var timerPromise;
   $scope.evals = evaluatorFactory.liveEvals;
 
+  //$scope.setUpAudio = audioFactory.setUpAudio();
+
   $scope.startLecture = function() {
+          var startDate = new Date();
+          recorder.record();
       castFactory.startLecture($stateParams.roomId);
       $scope.started = true;
       $scope.constantRecording();

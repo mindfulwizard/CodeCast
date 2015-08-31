@@ -3,7 +3,7 @@ app.config(function($stateProvider) {
 		url: '/live/:roomId',
 		templateUrl: 'js/modes/liveCast/live.html',
 		controller: 'liveCtrl',
-		onExit: function(socketFactory, $stateParams, AuthService) {
+		onExit: function(socketFactory, $stateParams, AuthService, audioFactory) {
 			 AuthService.getLoggedInUser().then(function (user) {
 				socketFactory.emit('leave', {room: $stateParams.roomId, user: user});
 			})
@@ -12,6 +12,9 @@ app.config(function($stateProvider) {
 			 AuthService.getLoggedInUser().then(function (user) {
 				socketFactory.emit('join', {room: $stateParams.roomId, user: user});
 			})
+			// .then(function(){
+			// 	audioFactory.setUpAudio();
+			// })
 		},
 		resolve: {
 			//replaced joinsocket with http call

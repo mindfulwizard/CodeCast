@@ -4,7 +4,7 @@
       <div  class="col-lg-8 col-md-8 col-sm-11">
         <div ng-keyup="constantRecording()" class="editor">
             <div>
-                <button ng-hide="started || room.instructor._id.toString() != user._id.toString()" style="margin-bottom: -11%" class="btn btn-default" ng-click="startLecture(); startRec()">Start Lecture</button>
+                <button ng-hide="started || room.instructor._id.toString() != user._id.toString()" style="margin-bottom: -11%" class="btn btn-default" ng-click="startLecture()">Start Lecture</button>
               <recorder start-recording="startRec" stop-recording="stopRec" room-id="roomId"></recorder>
               <editor room="room" started="started" instructor="room.instructor" user="user" name="live" stop-rec="stopRec" replay-text="replayObj" output="replayObj.result"></editor>
             </div>
