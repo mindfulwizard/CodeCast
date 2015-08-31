@@ -8,7 +8,7 @@ People learn programming best when they are able to manipulate and run code them
 CodeCast is an interactive screencasting application for programming instructors and students.
 Teachers can initiate coding sessions to livestream a working REPL, and users can play back any previous session at their convenience. At any point during a live or recorded lecture, students can fork the displayed text, allowing them to modify, run, and save their own variations on the instructor's code, without interfering with the main code.
 
-* Features:
+Features:
 
 * Functional JavaScript interpreter
 * Real-time updating and broadcasting of code editor, outputted results, and comments
@@ -19,7 +19,7 @@ Teachers can initiate coding sessions to livestream a working REPL, and users ca
 * Dashboards list all available sessions, recordings, and saved forks
 * Google and Github Authentication
 
-* Contributors:
+Contributors:
 
 * Nirmohi Devasthale: https://github.com/nirmohi0605
 * Xavier Durand-Smet: https://github.com/xavierdurandsmet
