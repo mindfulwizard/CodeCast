@@ -9,8 +9,9 @@
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-            <ul ng-class="{pad: boolChangeClass}" class="nav navbar-nav" ng-class="{pad:boolChangeClass}">
+  <!--       <div class="collapse navbar-collapse navbar-right navbar-main-collapse"> -->
+        <div class="navbar-right navbar-collapse">    
+            <ul ng-class="{pad: boolChangeClass}" class="nav navbar-nav navData" ng-class="{pad:boolChangeClass}">
             <li class="fontChange" ng-repeat="item in items" ng-show="((!item.auth || isLoggedIn()) && !item.instructor)
             || ( item.auth && item.student && isLoggedIn() && !user.instructor)
             || ( item.auth && item.instructor && isLoggedIn() && user.instructor )

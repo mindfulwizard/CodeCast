@@ -183,6 +183,18 @@ a:hover{
     }
 }
 
+// @media screen and (max-width:1500px){
+//     .nav{
+//         background-color: red;
+//     }
+// }
+@media (max-width: 896px){
+.navbar-custom {
+    display: none;
+}
+
+}
+
 .intro {
     display: table;
     width: 100%;
