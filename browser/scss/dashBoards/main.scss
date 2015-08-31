@@ -1,5 +1,18 @@
 
 
+// #studentDash {
+//     width: 100vw;
+//     min-height:100%;
+//     font-family: 'Oswald', sans-serif;
+//     background-image: url("../images/back.jpeg");
+//     background-attachment: fixed;
+//     background-repeat: no-repeat;
+//     // -webkit-background-size: cover;
+//     // -moz-background-size: cover;
+//     // -o-background-size: cover;
+//     // background-size: cover;
+// }
+
 #studentDash {
     width: 100vw;
     min-height:100%;
@@ -12,7 +25,31 @@
     background-size: cover;
 }
 
+.sidebar-collapse{
+	position: relative;
+	width: 10%;
+	margin-right: 10px;
+	height: 100%;
+	
+	background-color: rgba(0, 0, 0, 0.4);
+	
+}
+
+#studentSidebar{
+padding-top: 125px;
+	//background-color: red;
+	margin-top: 61px;
+
+}
+
+#instructorSidebar{
+padding-top: 125px;
+	//background-color: red;
+	margin-top: 61px;
+}
+
 #sidebar-collapse li{
+	// background-color: rgba(255, 255, 255, 0.2);
 	font-family: 'Oswald', sans-serif;
 }
 
@@ -28,8 +65,11 @@ p {
 }
 
 .nav > li > a:hover {
-	background-color: transparent;
+	background-color: rgba(255, 255, 255, 0.4);
 }
+ .nav > li > a:focus{
+ 	background-color: rgba(255, 255, 255, 0.2);
+ }
 
 
 .wrapper {
@@ -54,27 +94,16 @@ background-color: rgba(255, 255, 255, 0.40);
 
 
 
-#teacherDash {
-    width: 100vw;
-    height: 100vh;
-    min-height:100%;
- 	font-family: 'Oswald', sans-serif;
-    background: url("../images/back.jpeg") no-repeat center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
 #studentDiv {
+	height: 100vh;
     margin: 0 auto;
-    padding-top: 140px;
 }
 
 
 #sidebar-collapse:hover{
  font-family: 'Oswald', sans-serif;
- color: #BFC3BA;
- font-size: 16px;
+ color: #C1FF50;
+ 
 }
 
 .inputBoxRight {
@@ -85,6 +114,16 @@ background-color: rgba(255, 255, 255, 0.40);
 	height: 41px;
 	background-color: #BFC3BA;
 
+}
+#teacherDash {
+    width: 100vw;
+    min-height:100%;
+ 	font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .listIt {
@@ -101,6 +140,7 @@ background-color: rgba(255, 255, 255, 0.40);
 	float: left;
 		
 	}
+	padding-top: 140px;
 	margin-top: 20px;
 }
 
@@ -124,7 +164,7 @@ background-color: rgba(255, 255, 255, 0.40);
 
 #createRoom{
 	margin-left: -130px;
-	margin-top: 80px;
+	margin-top: 12vh;
 }
 
 .textTeal{

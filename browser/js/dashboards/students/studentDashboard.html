@@ -1,34 +1,32 @@
 <section id='studentDash'>
     <div id="studentDiv">
-    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar" style="margin-top: 25px">
-        <br>
-        <ul class="nav menu dashboard row">
-        	<li ui-sref-active="active">
-                <a class='dashButton' ui-sref="studentDashboard.overview">
-                    <span class="glyphicon glyphicon-user"></span> Overview</a>
-            </li>
-            <li ui-sref-active="active">
-                <a class='dashButton' ui-sref="studentDashboard.instructorList">
-                    <span class="glyphicon glyphicon-education"></span> Instructor List</a>
-            </li>
-            <li ui-sref-active="active">
-                <a class='dashButton' ui-sref="studentDashboard.liveList">
-                    <span class="glyphicon glyphicon-facetime-video"></span> Live Lectures</a>
-            </li>
-            <li ui-sref-active="active">
-                <a class='dashButton' ui-sref="studentDashboard.replayList">
-                    <span class="glyphicon glyphicon-play-circle"></span> Recorded Lectures</a>
-            </li>
-             <li ui-sref-active="active">
-                <a class='dashButton' ui-sref="studentDashboard.forkList">
-                    <span class="glyphicon glyphicon-menu-right"></span> Forks</a>
-            </li>
-        </ul>
+        <div id="studentSidebar" class="col-sm-3 col-lg-2 sidebar sidebar-collapse">
+            <br>
+            <ul class="nav menu dashboard row">
+                <li ui-sref-active="active">
+                    <a class='dashButton' ui-sref="studentDashboard.overview">
+                        <span class="glyphicon glyphicon-user"></span> Overview</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a class='dashButton' ui-sref="studentDashboard.instructorList">
+                        <span class="glyphicon glyphicon-education"></span> Instructor List</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a class='dashButton' ui-sref="studentDashboard.liveList">
+                        <span class="glyphicon glyphicon-facetime-video"></span> Live Lectures</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a class='dashButton' ui-sref="studentDashboard.replayList">
+                        <span class="glyphicon glyphicon-play-circle"></span> Recorded Lectures</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a class='dashButton' ui-sref="studentDashboard.forkList">
+                        <span class="glyphicon glyphicon-menu-right"></span> Forks</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div id="studentContent" ui-view class='col-lg-10 col-sm-9'></div>
+        </div>
     </div>
-    <div>
-        <div id="studentContent"ui-view class='col-lg-10 col-sm-9'></div>
-    </div>
-</div>
 </section>
-
-
