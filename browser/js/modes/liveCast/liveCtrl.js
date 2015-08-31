@@ -57,7 +57,7 @@ app.controller('liveCtrl', function ($scope, $interval, castFactory, $q, $docume
   }
 
   $scope.constantRecording = function() {
-      if($scope.started) {
+      if($scope.started || $scope.room.instructor._id.toString() != $scope.user._id.toString()) {
         castFactory.sendText($scope.replayObj.text, new Date(), $stateParams.roomId, $scope.replayObj.result);
       }
   }
