@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-    "DATABASE_URI": process.env.MONGOLAB_URI,
+    "DATABASE_URI": "mongodb://xavierdurandsmet:codecast@ds035693.mongolab.com:35693/codecastdb",
     "SESSION_SECRET": process.env.SESSION_SECRET,
     "TWITTER": {
         "consumerKey": process.env.TWITTER_CONSUMER_KEY,

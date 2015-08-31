@@ -1,5 +1,6 @@
 module.exports = {
-  "DATABASE_URI": "mongodb://localhost:27017/codeCast",
+  // "DATABASE_URI": "mongodb://localhost:27017/codeCast",
+  "DATABASE_URI": "mongodb://xavierdurandsmet:codecast@ds035693.mongolab.com:35693/codecastdb",
   "SESSION_SECRET": "Optimus Prime is my real dad",
   "TWITTER": {
     "consumerKey": "INSERT_TWITTER_CONSUMER_KEY_HERE",
