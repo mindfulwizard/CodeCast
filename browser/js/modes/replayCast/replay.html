@@ -1,26 +1,26 @@
 <section id="live">
-  <div class="container" id="repl">
-  <div class="row">
-  <div class="col-lg-11 col-md-11 col-sm-11">
-    <editor name="replay" replay-text="videoObj" output="videoObj.result"></editor>
-    <div id="audioplayer">
-      <button id="pButton" ng-click="pauseContinue()"></button>
-      <div id="timeline" ng-click="updateVideo()">
-        <div id="playhead">
-          <audio id="audioRec" ng-src="{{audioSrc}}" autoplay></audio>
-          <recorder room-id="roomId" play-buffer="playBack" audio-src="audioSrc" name="replay"></recorder>
-        </div>
+   <div class="container" id="repl">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <editor name="replay" replay-text="videoObj" output="videoObj.result"></editor>
+          <div id="audioplayer">
+            <button style="margin-left:5%" class="btn btn-default navbar-btn" ng-click="pauseContinue()">Play/Pause</button>
+              <div id="timeline" ng-click="updateVideo()">
+                <div id="playhead">
+                  <audio id="audioRec" ng-src="{{audioSrc}}" autoplay></audio>
+                   <recorder room-id="roomId" play-buffer="playBack" audio-src="audioSrc" name="replay"></recorder>
+                </div>
+              </div>
+          </div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+       <div class="col-lg-12 col-md-12 col-sm-12">
+        <fork room-id="roomId" fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
       </div>
-    </div>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <div class="col-lg-11">
-   <fork room-id="roomId" fork="fork" name="replay" pause-continue="pauseContinue" replay-obj="videoObj"></fork>
+    </div> 
   </div>
-  </div> 
-</div>
 </div>
 </section>
           
