@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-    "DATABASE_URI": "mongodb://xavierdurandsmet:codecast@ds035693.mongolab.com:35693/codecastdb",
+    "DATABASE_URI": process.env.MONGOLAB_URI,
     "SESSION_SECRET": process.env.SESSION_SECRET,
     "TWITTER": {
         "consumerKey": process.env.TWITTER_CONSUMER_KEY,
@@ -22,6 +22,11 @@ module.exports = {
     "GOOGLE": {
         "clientID": process.env.GOOGLE_CLIENT_ID,
         "clientSecret": process.env.GOOGLE_CLIENT_SECRET,
-        "callbackURL": process.env.CALLBACK_URL
+        "callbackURL": process.env.GOOGLE_CALLBACK_URL
+    },
+    "GITHUB": {
+        "clientID": process.env.GITHUB_CLIENT_ID,
+        "clientSecret": process.env.GITHUB_CLIENT_SECRET,
+        "callbackURL": process.env.GITHUB_CALLBACK_URL
     }
 };
