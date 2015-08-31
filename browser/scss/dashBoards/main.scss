@@ -94,16 +94,6 @@ background-color: rgba(255, 255, 255, 0.40);
 
 
 
-#teacherDash {
-    width: 100vw;
-    min-height:100%;
- 	font-family: 'Oswald', sans-serif;
-    background: url("../images/back.jpeg") no-repeat center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
 #studentDiv {
 	height: 100vh;
     margin: 0 auto;
@@ -124,6 +114,16 @@ background-color: rgba(255, 255, 255, 0.40);
 	height: 41px;
 	background-color: #BFC3BA;
 
+}
+#teacherDash {
+    width: 100vw;
+    min-height:100%;
+ 	font-family: 'Oswald', sans-serif;
+    background: url("../images/back.jpeg") no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .listIt {
@@ -164,7 +164,7 @@ background-color: rgba(255, 255, 255, 0.40);
 
 #createRoom{
 	margin-left: -130px;
-	margin-top: 80px;
+	margin-top: 12vh;
 }
 
 .textTeal{
