@@ -14,7 +14,7 @@ app.controller('audioCtrl', function($scope, audioFactory, $timeout, $window) {
                 audio: true
             }, startUserMedia, function(e) {
                 //$route.reload();
-                $window.location.reload();
+                // $window.location.reload();
             });
         }
 
