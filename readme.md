@@ -30,4 +30,4 @@ http://codecast.space
 
 Product Presentation Video :
 
-[linkname](https://www.youtube.com/watch?v=9A6Wp0nWl08)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/9A6Wp0nWl08/0.jpg)](http://www.youtube.com/watch?v=9A6Wp0nWl08)
